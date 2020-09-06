@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>567</x>
+      <y>308</y>
+      <w>175</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>                                     1
+Utente
+--
+-idUtente: int
+-email: String
+-password: String
+-stato: String
+-documenti: List&lt;Documento&gt;
+-committenti: List&lt;Committente&gt;
+--
+/+getIdUtente()/
+/+getEmail()/
+/+setEmail()/
+/+getPassword()/
+/+setPassword()/
+/+getStato()/
+/+setStato()/
+/+getDocumenti()/
+/+setDocumenti()/
+/+getCommittente()/
+/+setCommittente()/
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>595</x>
+      <y>91</y>
+      <w>161</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>Recapito
+--
+-idRecapito: int
+-telefono: String
+-email: String
+-committente: Committente
+
+--
+/+getIdRecapito()/
+/+getTelefono()/
+/+setTelefono()/
+/+getEmail()/
+/+setEmail()/
+/+getCommittente()/
+/+setCommittente()/
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>336</x>
+      <y>84</y>
+      <w>161</w>
+      <h>266</h>
+    </coordinates>
+    <panel_attributes>Committente
+--
+-idCommittente: int
+-nome: String
+-cognome: String
+-cf: String
+-utente: Utente
+-documenti: List&lt;Documento&gt;
+-recapiti: List&lt;Recapito&gt;
+--
+/+getIdCommittente()/
+/+setIdCommittente()/
+/+getNome()/
+/+setNome()/
+/+getCognome()/
+/+setCognome()/
+/+getCf()/
+/+setCf()/
+/+getUtente()/
+/+setUtente()/
+/+getDocumenti()/
+/+setDocumenti()/
+/+getRecapiti()/
+/+setRecapiti()/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>112</x>
+      <y>14</y>
+      <w>161</w>
+      <h>539</h>
+    </coordinates>
+    <panel_attributes>Documento
+--
+-idDocumento: int
+-nome: String
+-descrizione: String
+-percorso: String
+-dimensione: String
+-data: String
+-ora: String
+-categoria: String
+-tipo: String
+-sottocategoria: String
+-sottotipo: String
+-sottocategoria1: String
+-sottotipo1: String
+-utente: Utente
+-committente: Committente
+--
+/+getIdDocumento()/
+/+setIdDocumento()/
+/+getNome()/
+/+setNome()/
+/+getDescrizione()/
+/+setDescrizione()/
+/+getPercorso()/
+/+setPercorso()/
+/+getDimensione()/
+/+setDimensione()/
+/+getData()/
+/+setData()/
+/+getOra()/
+/+setOra()/
+/+getCategoria()/
+/+setCategoria()/
+/+getTipo()/
+/+setTipo()/
+/+getSottocategoria()/
+/+setSottocategoria()/
+/+getSottotipo()/
+/+setSottotipo()/
+/+getSottocategoria1()/
+/+setSottocategoria1()/
+/+getSottotipo1()/
+/+setSottotipo1()/
+/+getUtente()/
+/+setUtente()/
+/+getCommittente()/
+/+setCommittente()/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>266</x>
+      <y>476</y>
+      <w>315</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0...*
+m2=1
+&lt; gestisce </panel_attributes>
+    <additional_attributes>10.0;20.0;430.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>266</x>
+      <y>245</y>
+      <w>84</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1...*
+m2=1
+&lt; richiede</panel_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>98</y>
+      <w>119</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..2
+possiede &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>322</y>
+      <w>91</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0...*
+m2=1
+&lt; lavora per</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+</diagram>

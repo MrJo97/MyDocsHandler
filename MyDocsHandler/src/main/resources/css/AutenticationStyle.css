@@ -1,0 +1,54 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	/*oppure:   background-color: rgba(205, 102, 0, 0.85);*/
+	/*sito dove ho trovato lo sfondo:
+	http://agora.ij-bretagne.com/
+	https://it.freepik.com/vettori-premium/vettore-di-sfondo-arancione-onda_2076065.htm*/
+	background-image: url('background.jpg');
+	background-repeat:no-repeat;
+	background-size:cover;
+	overflow: auto;
+}
+
+
+form {
+	position: static;
+	background-color: rgba(255, 222, 173, 0.7);
+	width:25%;
+	height:103px;
+	margin:auto;
+	margin-top:5%;
+	overflow: auto;
+}
+
+table {position: relative;
+		margin: auto;
+		margin-top: 5%;
+}
+p	{ position: relative;
+	 margin:auto;
+	 color: #800000;
+	 width:25%;
+	 height:15px;
+	 }
+#message
+{
+	position: static;
+	
+
+}
+#message1
+{
+	position: relative;
+	 margin:auto;
+	 width:25%;
+	 height:15px;
+}
+#result,#result1
+ {position: relative;
+	 margin:auto;
+	 width:25%;
+	 height:15px;
+	}
+
