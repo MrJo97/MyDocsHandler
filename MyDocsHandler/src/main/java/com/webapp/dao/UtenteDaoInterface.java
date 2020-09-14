@@ -24,5 +24,6 @@ public interface UtenteDaoInterface {
 	    public void saveUser(Utente user);
 	     
 	    public void deleteUser(Utente user);
+	    
 	}
 

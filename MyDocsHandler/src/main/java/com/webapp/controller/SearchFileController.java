@@ -37,6 +37,7 @@ public class SearchFileController
 			ModelAndView model = new ModelAndView("HomePage");
 			HttpSession appSession = request.getSession();
 			Utente user = (Utente) appSession.getAttribute("user");
+			String gg = request.getParameter("j");
 			Documento searchedDocument = (Documento) context.getBean("documento");
 			List<Documento> documents = new ArrayList<Documento>();
 			documents.addAll((List<Documento>) appSession.getAttribute("documents"));
