@@ -33,11 +33,11 @@ public class SearchFileController
 		@RequestMapping("/search")
 		public ModelAndView search(HttpServletRequest request) throws IOException, SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
 		{
-			
+			//gge
 			ModelAndView model = new ModelAndView("HomePage");
 			HttpSession appSession = request.getSession();
 			Utente user = (Utente) appSession.getAttribute("user");
-			String gg = request.getParameter("j");
+			String gge = request.getParameter("j");
 			Documento searchedDocument = (Documento) context.getBean("documento");
 			List<Documento> documents = new ArrayList<Documento>();
 			documents.addAll((List<Documento>) appSession.getAttribute("documents"));
