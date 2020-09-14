@@ -2,7 +2,6 @@ package com.webapp.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,19 +11,14 @@ import javax.transaction.HeuristicRollbackException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.webapp.dao.UtenteDao;
-import com.webapp.model.committente.Committente;
+
 import com.webapp.model.documento.Documento;
 import com.webapp.model.utente.Utente;
 
@@ -173,7 +167,6 @@ public class SearchFileController
 			System.out.println("FILTRI");
 			//List<Documento> newList = new ArrayList<Documento>();
 			//filtro la lista per tipo di documento:
-			int size = documents.size();
 			for(int i = documents.size()-1; i > -1; i--)
 			{
 				System.out.println(i);
@@ -239,6 +232,7 @@ public class SearchFileController
 			System.out.println("dimensione finale della lista " + documents.size());
 			user.setDocumenti(documents);
 			model.addObject("document",searchedDocument);
+			model.addObject("user",user);
 			return model;
 
 		}

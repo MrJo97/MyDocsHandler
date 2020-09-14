@@ -22,17 +22,13 @@
 <div id="cssStyle">	
 <table>
 <tr><td colspan="2" style="color:red">Dati Committente</td></tr>
-<tr><td>Nome: </td><td><% out.print(customer.getNome()); %></td></tr>
-<tr><td>Cognome: </td><td><% out.print(customer.getCognome()); %></td></tr>
-<tr><td>CF: </td><td><% out.print(customer.getCf()); %></td></tr>
-<tr><td>Telefono(1): </td><td><% out.print(customer.getRecapiti().get(0).getTelefono()); %></td></tr>
-<% if(customer.getRecapiti().get(1).getTelefono() != "")
-	{out.print("<tr><td>Telefono(2): </td><td>" + customer.getRecapiti().get(1).getTelefono() + "</td></tr>");}
-%>
-<tr><td>Email(1): </td><td><% out.print(customer.getRecapiti().get(0).getEmail()); %></td></tr>
-<% if(customer.getRecapiti().get(1).getEmail() != "")
-	{out.print("<tr><td>Email(2): </td><td>" + customer.getRecapiti().get(1).getEmail() + "</td></tr>");}
-%>
+<tr><td>Nome: </td><td>${doc.committente.nome}</td></tr>
+<tr><td>Cognome: </td><td>${doc.committente.cognome}</td></tr>
+<tr><td>CF: </td><td>${doc.committente.cf}</td></tr>
+<tr><td>Telefono(1): </td><td>${doc.committente.recapiti.get(0).telefono}</td></tr>
+<tr><td>Telefono(2): </td><td>${doc.committente.recapiti.get(1).telefono}</td></tr>
+<tr><td>Email(1): </td><td>${doc.committente.recapiti.get(0).email}</td></tr>
+<tr><td>Email(2): </td><td>${doc.committente.recapiti.get(1).email}</td></tr>
 </table>
 
 <br />
@@ -40,14 +36,16 @@
 
 <table>
 <tr><td colspan="2" style="color:red">Dati Documento</td></tr>
-<tr><td>Nome: </td><td><% out.print(document1.getNome()); %></td></tr>
-<tr><td>Descrizione: </td><td><% out.print(document1.getDescrizione()); %></td></tr>
-<tr><td>Dimensione: </td><td><% out.print(document1.getDimensione()); %> byte</td></tr>
+<tr><td>Nome: </td><td>${doc.nome}</td></tr>
+<tr><td>Descrizione: </td><td>${doc.descrizione}</td></tr>
+<tr><td>Dimensione: </td><td>${doc.dimensione} byte</td></tr>
 </table>
 
 <div>
 <p style="font-size: 125%;"><b>Articoli descrittivi del document1o (DPR del 5 ottobre 2010, n.207) </b></p>
 <ul>
+
+
 <% 
 if(document1.getCategoria().equals("Progetto preliminare"))
 	{

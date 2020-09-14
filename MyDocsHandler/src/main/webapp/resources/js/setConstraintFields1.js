@@ -52,7 +52,7 @@ $(document).ready(function()
 			
 	//form validation dei campi dati del documento
 		//nome file 
-		$("#nf").on('load','change', function()
+		$("#nf").on('change', function()
 		{
 			if($("#nf").val().length < 1 || $("#nf").val().length > 100)
 			{
@@ -162,7 +162,7 @@ $(document).ready(function()
 			
 			
 			
-		$(document.body).on('load', 'change', function()
+		$(document.body).on('change', function()
 		{
 			//nel caso in cui si selezioni un committente già registrato
 			//è necesario disabilitare i campi dati dell'utente
@@ -255,7 +255,7 @@ $(document).ready(function()
 			console.log("è selezionato un committente registrato: " + $("#sru").val()); 
 		//abilitazione del bottone "salva modifiche"
 			if(isTheDocSelected && ((isTheCustomerNameTyped && isTheCustomerSurnameTyped && isTheCustomerTelTyped 
-				&& isTheCustomerEmailTyped) || $("#sru").value != "selectCustomer"))
+				&& isTheCustomerEmailTyped) || $("#sru").val() != "selectCustomer"))
 			{
 				document.getElementById('SM').disabled=false;
 			}

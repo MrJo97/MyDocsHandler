@@ -114,6 +114,7 @@ public class EditFileController {
 			System.out.println(recs.get(i));
 		}
 		appSession.setAttribute("doc", doc);
+		model.addObject("doc", doc);
 		return model;
 		
 	}

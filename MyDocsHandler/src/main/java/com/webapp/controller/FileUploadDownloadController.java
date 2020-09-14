@@ -318,7 +318,9 @@ public class FileUploadDownloadController {
 		else
 		{System.out.println("è stato selezionato un committente registrato?: " + !(request.getParameter("selectRegisteredCustomer").equals("selectCustomer")));
 			if((request.getParameter("selectRegisteredCustomer").equals("selectCustomer")))
-			{customers.add(customer);
+			{
+				session.clear();
+				customers.add(customer);
 		//salvataggio dati del committente nel database
 			CommittenteDao.setSession(session);
 			CommittenteDao.saveCustomer(customer);
