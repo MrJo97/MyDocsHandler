@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+<context:component-scan base-package="webapp.model"></context:component-scan> 
+
+<!--  NB: questa parte xml non serve aggiungerla in quanto 
+	  con il precedete tag (context:component-scan) viene 
+	  fatta la scansione del base pckage e vengono analizzati 
+	  tutte e sole le classi contraddistinte dall'annotazione 
+	  @Component
+	<bean id="user" class="com.webapp.model.user.Utente">
+	</bean>
+	
+	<bean id="customer" class="com.webapp.model.customer.Committente">
+	</bean>
+	<bean id="private" class="com.webapp.model.customer.Privato">
+	</bean>
+	<bean id="company" class="com.webapp.model.customer.Azienda">
+	</bean>
+	<bean id="publicAdministration" class="com.webapp.model.customer.PubblicaAmministrazione">
+	</bean>
+	
+	<bean id="register" class="com.webapp.model.register.Registro">
+	</bean>
+	
+	<bean id="document" class="com.webapp.model.document.Documento">
+	</bean>
+	<bean id="preliminary" class="com.webapp.model.document.ProgettoPreliminare">
+	</bean>
+	<bean id="definitive" class="com.webapp.model.document.ProgettoDefinitivo">
+	</bean>
+	<bean id="executive" class="com.webapp.model.document.ProgettoEsecutivo">
+	</bean>
+	-->
+</beans>

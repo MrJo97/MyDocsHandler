@@ -1,0 +1,13 @@
+#cssStyle
+	{	
+		background-color: rgba(0,255,0,0.3);
+		float:left;
+		width: 74.4%; 
+		margin-left:0.3%;
+		margin-top:0.3%;
+		height:63.4vh;
+		overflow: auto;
+		border: 2px solid red;
+		border-radius: 20px;
+		
+	}
