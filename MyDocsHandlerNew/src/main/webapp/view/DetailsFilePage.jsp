@@ -32,14 +32,14 @@
 
 <table>
 <tr><td colspan="2" style="color:red">Dati Documento</td></tr>
-<tr><td>Nome: </td><td>${doc.nome}</td></tr>
+<tr><td>Nome: </td><td>${doc.nomefile}</td></tr>
 <tr><td>Descrizione: </td><td>${doc.descrizione}</td></tr>
 <tr><td>Dimensione: </td><td>${doc.dimensione} byte</td></tr>
 </table>
 
 
 <div>
-<p style="font-size: 125%;"><b>Articoli descrittivi del document1o (DPR del 5 ottobre 2010, n.207) </b></p>
+<p style="font-size: 125%;"><b>Articoli descrittivi del documento (DPR del 5 ottobre 2010, n.207) </b></p>
 <ul>
 
 		<c:choose>

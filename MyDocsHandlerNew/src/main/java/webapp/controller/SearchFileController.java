@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import webapp.dao.UtenteDao;
 import webapp.model.committente.Committente;
 import webapp.model.documento.Documento;
+import webapp.model.recapito.Recapito;
 import webapp.model.utente.Utente;
 
 @Controller
@@ -37,16 +39,87 @@ public class SearchFileController
 		//private SessionFactory sf;
 		
 		@RequestMapping("/search")
-		public ModelAndView search(HttpServletRequest request) throws IOException, SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
+		public ModelAndView search(@ModelAttribute("documento") Documento searchedDocument, HttpServletRequest request) throws IOException, SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
 		{
 			
 			ModelAndView model = new ModelAndView("HomePage");
 			HttpSession appSession = request.getSession();
 			Utente user = (Utente) appSession.getAttribute("user");
-			Documento searchedDocument = (Documento) context.getBean("documento");
 			List<Documento> documents = new ArrayList<Documento>();
 			documents.addAll((List<Documento>) appSession.getAttribute("documents"));
-		//	Support.printAll(user1);
+			for(int i = documents.size()-1; i > -1; i--)
+			{
+				System.out.println(documents.get(i));
+			}
+			System.out.println(searchedDocument);
+			
+			for(int i = documents.size()-1; i > -1; i--)
+			{
+				System.out.println(i);
+				Documento doc = documents.get(i);
+				System.out.println("filtro nome file: " + (request.getParameter("namefile") != "") + i );
+				
+				//filtro per nome 
+				/*if(request.getParameter("nomefile") != "")
+				{*/
+					if(!(Support.checkChars(doc.getNomefile(), searchedDocument.getNomefile())))
+					{
+						documents.remove(i);
+					}
+				//}
+				System.out.println("filtro 2.1: " + (searchedDocument.getTipo()!= null && searchedDocument.getCategoria()!= null) + i );
+				//filtro per tipologia di documento
+				if(searchedDocument.getTipo()!= null && searchedDocument.getCategoria()!= null)	
+					{
+					if(!(doc.getTipo().equals(searchedDocument.getTipo()) && 
+					 	 doc.getCategoria().equals(searchedDocument.getCategoria())))
+						{
+							documents.remove(doc);
+						}
+					}
+				System.out.println("filtro 2.2: " + (searchedDocument.getSottotipo()!= null && searchedDocument.getSottocategoria()!= null) + i );
+				if(searchedDocument.getSottotipo()!= null && searchedDocument.getSottocategoria()!= null
+						&& doc.getSottotipo()!= null && doc.getSottocategoria()!= null)  
+					{
+					if(!(doc.getSottotipo().equals(searchedDocument.getSottotipo()) &&
+						doc.getSottocategoria().equals(searchedDocument.getSottocategoria())))
+						{
+							documents.remove(doc);
+						}
+					}
+				System.out.println("filtro 2.3: " + (searchedDocument.getSottotipo1()!= null && searchedDocument.getSottocategoria1()!= null) + i );
+				if(searchedDocument.getSottotipo1()!= null && searchedDocument.getSottocategoria1()!= null
+						&& doc.getSottotipo1()!= null && doc.getSottocategoria1()!= null)  
+				{
+					if(!(doc.getSottotipo1().equals(searchedDocument.getSottotipo1()) &&
+						doc.getSottocategoria1().equals(searchedDocument.getSottocategoria1())))
+						{
+							documents.remove(doc);
+						}
+				}
+				System.out.println("filtro 3: " + !(request.getParameter("selectRegisteredCustomer").equals("selectCustomer")) + i );
+				System.out.println(doc.getCommittente().getIdCommittente());
+				
+				
+				
+				//filtro per committente associato
+				
+				System.out.println("Id  del committente iterato " + doc.getCommittente().getIdCommittente());
+				//System.out.println("Id del committente selezionato " + (Integer.parseInt(request.getParameter("selectRegisteredCustomer"))));
+				if(!(request.getParameter("selectRegisteredCustomer").equals("selectCustomer")))
+				{System.out.println("Gli id sono diversi? " + (doc.getCommittente().getIdCommittente() != Integer.parseInt(request.getParameter("selectRegisteredCustomer"))));
+				   if(doc.getCommittente().getIdCommittente() != Integer.parseInt(request.getParameter("selectRegisteredCustomer")))
+					{  
+					   documents.remove(doc);
+					}
+						
+				}
+				
+			}
+			
+			/**Documento searchedDocument = (Documento) context.getBean("documento");
+			List<Documento> documents = new ArrayList<Documento>();
+			documents.addAll((List<Documento>) appSession.getAttribute("documents"));
 			System.out.println(documents.size());
 			
 			//progetto preliminare
@@ -173,7 +246,6 @@ public class SearchFileController
 			System.out.println("FILTRI");
 			//List<Documento> newList = new ArrayList<Documento>();
 			//filtro la lista per tipo di documento:
-			int size = documents.size();
 			for(int i = documents.size()-1; i > -1; i--)
 			{
 				System.out.println(i);
@@ -185,7 +257,7 @@ public class SearchFileController
 				{
 					//Support.checkChars() restituisce true se il primo argomento
 					//è un prefisso del secondo
-					if(!(Support.checkChars(doc.getNome(), request.getParameter("namefile"))))
+					if(!(Support.checkChars(doc.getNomefile(), request.getParameter("namefile"))))
 					{
 						documents.remove(i);
 					}
@@ -237,10 +309,11 @@ public class SearchFileController
 				
 			}
 			System.out.println("dimensione finale della lista " + documents.size());
+			**/
 			user.setDocumenti(documents);
-			model.addObject("document",searchedDocument);
+			model.addObject("document", searchedDocument);
 			model.addObject("user",user);
+			model.addObject("idCust", request.getParameter("selectRegisteredCustomer"));
 			return model;
-
 		}
 	}

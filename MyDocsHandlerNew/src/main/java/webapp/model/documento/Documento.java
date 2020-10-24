@@ -1,6 +1,7 @@
 package webapp.model.documento;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -25,7 +26,7 @@ public class Documento {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idDocumento;
 	private String percorso;
-	private String nome;
+	private String nomefile;
 	private String descrizione;
 	private String dimensione;
 	private String data;
@@ -43,6 +44,12 @@ public class Documento {
 	private Committente committente;
 	
 	
+	public String getNomefile() {
+		return nomefile;
+	}
+	public void setNomefile(String nomefile) {
+		this.nomefile = nomefile;
+	}
 	public int getIdDocumento() {
 		return idDocumento;
 	}
@@ -55,12 +62,7 @@ public class Documento {
 	public void setPercorso(String percorso) {
 		this.percorso = percorso;
 	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	
 	public String getDescrizione() {
 		return descrizione;
 	}
@@ -133,12 +135,14 @@ public class Documento {
 	public void setOra(String ora) {
 		this.ora = ora;
 	}
+	
 	@Override
 	public String toString() {
-		return "Documento [percorso=" + percorso + ", nome=" + nome + ", descrizione=" + descrizione + ", dimensione="
-				+ dimensione + ", data=" + data + ", ora=" + ora + ", categoria=" + categoria + ", tipo=" + tipo
-				+ ", sottocategoria=" + sottocategoria + ", sottotipo=" + sottotipo + ", sottocategoria1="
-				+ sottocategoria1 + ", sottotipo1=" + sottotipo1 + "]";
+		return "Documento [idDocumento=" + idDocumento + ", percorso=" + percorso + ", nomefile=" + nomefile
+				+ ", descrizione=" + descrizione + ", dimensione=" + dimensione + ", data=" + data + ", ora=" + ora
+				+ ", categoria=" + categoria + ", tipo=" + tipo + ", sottocategoria=" + sottocategoria + ", sottotipo="
+				+ sottotipo + ", sottocategoria1=" + sottocategoria1 + ", sottotipo1=" + sottotipo1 + ", utente="
+				+ utente + ", committente=" + committente + "]";
 	}
 	
 	

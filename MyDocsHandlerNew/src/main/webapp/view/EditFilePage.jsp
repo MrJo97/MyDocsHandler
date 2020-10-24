@@ -30,17 +30,17 @@
 <%@ include file="HomePage.jsp"%>
 
 <div id="cssStyle">
-
+		
 
 		<form <c:choose>
-			<c:when test="${operation eq 'editing'}">action="/MyDocsHandlerNew/editFile/edit${document.idDocumento}"</c:when>
-			<c:otherwise >action="/MyDocsHandlerNew/fileupload/upload"</c:otherwise>
+			<c:when test="${operation eq 'editing'}">action="/MyDocsHandlerNew/editFile/edit${idDoc}"</c:when>
+			<c:otherwise>action="/MyDocsHandlerNew/fileupload/upload"</c:otherwise>
 		</c:choose>  method="post" enctype="multipart/form-data">
 			
 			<table id="tabella3">
 			<tr><td style="color:red;">Dati documento</td></tr>
-			<tr><td>Nome file: </td><td><input type="text" name="name" id="nf" value="${document.nome}"/></td><td><div style="color:red;" id="warning"></div></td></tr>
-			<tr><td>Descrizione:</td><td><textarea name="description" id="description" rows="5" cols="50">${document.descrizione}</textarea></td><td><div style="color:red;" id="warning1"></div></td></tr>
+			<tr><td>Nome file: </td><td><input type="text" name="nomefile" id="nf" value="${document.nomefile}"/></td><td><div style="color:red;" id="warning"></div></td></tr>
+			<tr><td>Descrizione:</td><td><textarea name="descrizione" id="description" rows="5" cols="50">${document.descrizione}</textarea></td><td><div style="color:red;" id="warning1"></div></td></tr>
 			<tr><td colspan="2" style="color:#800000;">			
 			</td></tr>
 			<tr><td></td></tr>
@@ -52,9 +52,9 @@
  			<table  id="pp">
  			
  			<tr>			   
-			<td><input type="radio" value="preliminary" id="preliminary" name="type"
+			<td><input type="radio" value="Progetto preliminare" id="preliminary" name="categoria"
 			 <c:if test="${document.categoria eq 'Progetto preliminare'}">checked</c:if>></input>Preliminare</td>
-				<td><select name="ppElaborate" id="ppElaborate" <c:if test="${!(document.categoria eq 'Progetto preliminare')}">disabled</c:if>>		   
+				<td><select name="tipo" id="ppElaborate" <c:if test="${!(document.categoria eq 'Progetto preliminare')}">disabled</c:if>>		   
 			    <c:forTokens items="a,b,c,d,e,f,g,h,i" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.categoria eq 'Progetto preliminare') && (document.tipo eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -63,8 +63,8 @@
 			
 		
 			<tr id="pw" hidden="true"><td></td>
-			<td><input type="radio" id="pwElab" name="type1" id="pwElab" <c:if test="${document.sottocategoria eq 'Opere e lavori puntuali'}">checked</c:if>></input>Opere e lavori puntuali</td>
-			<td><select name="pwElaborate" id="pwElaborate" <c:if test="${!(document.sottocategoria eq 'Opere e lavori puntuali')}">disabled</c:if>>
+			<td><input type="radio" id="pwElab" name="sottocategoria" value="Opere e lavori puntuali" id="pwElab" <c:if test="${document.sottocategoria eq 'Opere e lavori puntuali'}">checked</c:if>></input>Opere e lavori puntuali</td>
+			<td><select name="sottotipo" id="pwElaborate" <c:if test="${!(document.sottocategoria eq 'Opere e lavori puntuali')}">disabled</c:if>>
 			    <c:forTokens items="1,2,3,4" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Opere e lavori puntuali') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>			   
@@ -74,8 +74,8 @@
 			
 			
 			<tr id="nw" hidden="true"><td></td>
-			<td><input type="radio" id="nwElab" name="type1" value="nwElab" <c:if test="${document.sottocategoria eq 'Opere e lavori a rete'}">checked</c:if>></input>Opere e lavori a rete</td>
-			<td><select name="nwElaborate" id="nwElaborate" <c:if test="${!(document.sottocategoria eq 'Opere e lavori a rete')}">disabled</c:if>>
+			<td><input type="radio" id="nwElab" name="sottocategoria" value="Opere e lavori a rete" <c:if test="${document.sottocategoria eq 'Opere e lavori a rete'}">checked</c:if>></input>Opere e lavori a rete</td>
+			<td><select name="sottotipo" id="nwElaborate" <c:if test="${!(document.sottocategoria eq 'Opere e lavori a rete')}">disabled</c:if>>
 			    <c:forTokens items="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Opere e lavori a rete') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -89,8 +89,8 @@
  						
 			<!-- progetto definitivo -->
  			<table>
- 			<tr><td><input type="radio" value="definitive" id="definitive" name="type" <c:if test="${document.categoria eq 'Progetto definitivo'}">checked</c:if>></input>Definitivo</td>
- 			<td><select name="dpElaborate" id="dpElaborate" <c:if test="${!(document.categoria eq 'Progetto definitivo')}">disabled</c:if>>
+ 			<tr><td><input type="radio" value="Progetto definitivo" id="definitive" name="categoria" <c:if test="${document.categoria eq 'Progetto definitivo'}">checked</c:if>></input>Definitivo</td>
+ 			<td><select name="tipo" id="dpElaborate" <c:if test="${!(document.categoria eq 'Progetto definitivo')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l,m,n,o" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.categoria eq 'Progetto definitivo') && (document.tipo eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -99,8 +99,8 @@
 			</tr>
 			
 			<tr id="tr" hidden="true"><td></td>
-			<td><input type="radio" id="techRep" name="type1" value="techRep" <c:if test="${document.sottocategoria eq 'Relazioni tecniche'}">checked</c:if>></input>Relazioni tecniche</td>
-			<td><select name="technicalReport" id="technicalReport" <c:if test="${!(document.sottocategoria eq 'Relazioni tecniche')}">disabled</c:if>>
+			<td><input type="radio" id="techRep" name="sottocategoria" value="Relazioni tecniche" <c:if test="${document.sottocategoria eq 'Relazioni tecniche'}">checked</c:if>></input>Relazioni tecniche</td>
+			<td><select name="sottotipo" id="technicalReport" <c:if test="${!(document.sottocategoria eq 'Relazioni tecniche')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Relazioni tecniche') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -108,8 +108,8 @@
 			</tr>
 			
 			<tr id="dpg" hidden="true"><td></td>
-			<td><input type="radio" id="dpgElab" name="type1" value="dpgElab" <c:if test="${document.sottocategoria eq 'Elaborati grafici'}">checked</c:if>></input>Elaborati grafici</td>
-			<td><select name="dpgElaborate" id="dpgElaborate" <c:if test="${!(document.sottocategoria eq 'Elaborati grafici')}">disabled</c:if>>
+			<td><input type="radio" id="dpgElab" name="sottocategoria" value="Elaborati grafici" <c:if test="${document.sottocategoria eq 'Elaborati grafici'}">checked</c:if>></input>Elaborati grafici</td>
+			<td><select name="sottotipo" id="dpgElaborate" <c:if test="${!(document.sottocategoria eq 'Elaborati grafici')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Elaborati grafici') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -119,8 +119,8 @@
 			<tr id="si" hidden="true">
 			<td></td>
 			<td></td>
-			<td><input type="radio" id="siElab" name="type2" value="siElab" <c:if test="${document.sottocategoria1 eq 'Studi e indagini'}">checked</c:if>></input>Studi e indagini</td>
- 			<td><select name="siElaborate" id="siElaborate" <c:if test="${!(document.sottocategoria1 eq 'Studi e indagini')}">disabled</c:if>>
+			<td><input type="radio" id="siElab" name="sottocategoria1" value="Studi e indagini" <c:if test="${document.sottocategoria1 eq 'Studi e indagini'}">checked</c:if>></input>Studi e indagini</td>
+ 			<td><select name="sottotipo1" id="siElaborate" <c:if test="${!(document.sottocategoria1 eq 'Studi e indagini')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l,m,n,o,p,q,r" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria1 eq 'Studi e indagini') && (document.sottotipo1 eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -132,8 +132,8 @@
 			 <tr id="artwork" hidden="true">
 			<td></td>
 			<td></td>
-			    <td><input type="radio" id="artworkElab" name="type2" value="artworkElab" <c:if test="${document.sottocategoria1 eq 'Opere d&#39;arte'}">checked</c:if>></input>Opere d'arte</td>
- 				<td><select name="artworkElaborate" id="artworkElaborate" <c:if test="${!(document.sottocategoria1 eq 'Opere d&#39;arte')}">disabled</c:if>>
+			    <td><input type="radio" id="artworkElab" name="sottocategoria1" value="Opere d&#39;arte" <c:if test="${document.sottocategoria1 eq 'Opere d&#39;arte'}">checked</c:if>></input>Opere d'arte</td>
+ 				<td><select name="sottotipo1" id="artworkElaborate" <c:if test="${!(document.sottocategoria1 eq 'Opere d&#39;arte')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c,d" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria1 eq 'Opere d&#39;arte') && (document.sottotipo1 eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -144,8 +144,8 @@
 			<tr id="lei" hidden="true">
 			<td></td>
 			<td></td>
-				<td><input type="radio" id="leiElab" name="type2" value="leiElab" <c:if test="${document.sottocategoria1 eq 'Inserimenti paesaggistici ed ambientali'}">checked</c:if>></input>Inserimenti paesaggistici ed ambientali</td>
- 				<td><select name="leiElaborate" id="leiElaborate" <c:if test="${!(document.sottocategoria1 eq 'Inserimenti paesaggistici ed ambientali')}">disabled</c:if>>
+				<td><input type="radio" id="leiElab" name="sottocategoria1" value="Inserimenti paesaggistici ed ambientali" <c:if test="${document.sottocategoria1 eq 'Inserimenti paesaggistici ed ambientali'}">checked</c:if>></input>Inserimenti paesaggistici ed ambientali</td>
+ 				<td><select name="sottotipo1" id="leiElaborate" <c:if test="${!(document.sottocategoria1 eq 'Inserimenti paesaggistici ed ambientali')}">disabled</c:if>>
 			    <c:forTokens items="a,b" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria1 eq 'Inserimenti paesaggistici ed ambientali') && (document.sottotipo1 eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -157,8 +157,8 @@
 			 <tr id="implant" hidden="true">
 			<td></td>
 			<td></td>
-			    <td><input type="radio" id="implantElab" name="type2" value="implantElab" <c:if test="${document.sottocategoria1 eq 'Impianti'}">checked</c:if>></input>Impianti</td>
- 				<td><select name="implantElaborate" id="implantElaborate" <c:if test="${!(document.sottocategoria1 eq 'Impianti')}">disabled</c:if>>
+			    <td><input type="radio" id="implantElab" name="sottocategoria1" value="Impianti" <c:if test="${document.sottocategoria1 eq 'Impianti'}">checked</c:if>></input>Impianti</td>
+ 				<td><select name="sottotipo1" id="implantElaborate" <c:if test="${!(document.sottocategoria1 eq 'Impianti')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria1 eq 'Impianti') && (document.sottotipo1 eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -170,8 +170,8 @@
 			 <tr id="qss" hidden="true">
 			<td></td>
 			<td></td>
-			    <td><input type="radio" id="qssElab" name="type2" <c:if test="${document.sottocategoria1 eq 'Siti di cava e deposito'}">checked</c:if>></input>Siti di cava e deposito</td>
- 				<td><select name="qssElaborate" id="qssElaborate" <c:if test="${!(document.sottocategoria1 eq 'Siti di cava e deposito')}">disabled</c:if>>
+			    <td><input type="radio" id="qssElab" name="sottocategoria1" value="Siti di cava e deposito" <c:if test="${document.sottocategoria1 eq 'Siti di cava e deposito'}">checked</c:if>></input>Siti di cava e deposito</td>
+ 				<td><select name="sottotipo1" id="qssElaborate" <c:if test="${!(document.sottocategoria1 eq 'Siti di cava e deposito')}">disabled</c:if>>
 			    <c:forTokens items="a,b" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria1 eq 'Siti di cava e deposito') && (document.sottotipo1 eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -186,7 +186,7 @@
  						
 			<!-- progetto esecutivo -->
  			<table>
- 			<tr><td><input type="radio" value="executive" id="executive" name="type" <c:if test="${document.categoria eq 'Progetto esecutivo'}">checked</c:if>></input>Esecutivo</td>
+ 			<tr><td><input type="radio" value="Progetto esecutivo" id="executive" name="categoria" <c:if test="${document.categoria eq 'Progetto esecutivo'}">checked</c:if>></input>Esecutivo</td>
  			<td><select name="epElaborate" id="epElaborate" <c:if test="${!(document.categoria eq 'Progetto esecutivo')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l,m" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.categoria eq 'Progetto esecutivo') && (document.tipo eq character) }">selected</c:if>>${character}</option>
@@ -195,8 +195,8 @@
 			</td>
 			</tr>
 			<tr id="epg" hidden="true"><td></td>
-			<td><input type="radio" id="epgElab" name="type1" value="epgElab" <c:if test="${document.sottocategoria eq 'Elaborati grafici'}">checked</c:if>></input>Elaborati grafici</td>
-			<td><select name="epgElaborate" id="epgElaborate" <c:if test="${!(document.sottocategoria eq 'Elaborati grafici')}">disabled</c:if>>
+			<td><input type="radio" id="epgElab" name="sottocategoria" value="Elaborati grafici" <c:if test="${document.sottocategoria eq 'Elaborati grafici'}">checked</c:if>></input>Elaborati grafici</td>
+			<td><select name="sottotipo" id="epgElaborate" <c:if test="${!(document.sottocategoria eq 'Elaborati grafici')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c,d,e,f,g,h" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Elaborati grafici') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -204,8 +204,8 @@
 			</tr>
 			
 			<tr id="sep" hidden="true"><td></td>
-			<td><input type="radio" id="sepElab" name="type1" value="sepElab" <c:if test="${document.sottocategoria eq 'Progetto esecutivo delle strutture'}">checked</c:if>></input>Progetto esecutivo delle strutture</td>
-			<td><select name="sepElaborate"  id="sepElaborate" <c:if test="${!(document.sottocategoria eq 'Progetto esecutivo delle strutture')}">disabled</c:if>>
+			<td><input type="radio" id="sepElab" name="sottocategoria" value="Progetto esecutivo delle strutture" <c:if test="${document.sottocategoria eq 'Progetto esecutivo delle strutture'}">checked</c:if>></input>Progetto esecutivo delle strutture</td>
+			<td><select name="sottotipo"  id="sepElaborate" <c:if test="${!(document.sottocategoria eq 'Progetto esecutivo delle strutture')}">disabled</c:if>>
 			    <c:forTokens items="a,b" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Progetto esecutivo delle strutture') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -213,8 +213,8 @@
 			</tr>
 			
 			<tr id="iep" hidden="true"><td></td>
-			<td><input type="radio" id="iepElab" name="type1" value="iepElab" <c:if test="${document.sottocategoria eq 'Progetto esecutivo degli impianti'}">checked</c:if>></input>Progetto esecutivo degli impianti</td>
-			<td><select name="iepElaborate" id="iepElaborate" <c:if test="${!(document.sottocategoria eq 'Progetto esecutivo degli impianti')}">disabled</c:if>>
+			<td><input type="radio" id="iepElab" name="sottocategoria" value="Progetto esecutivo degli impianti" <c:if test="${document.sottocategoria eq 'Progetto esecutivo degli impianti'}">checked</c:if>></input>Progetto esecutivo degli impianti</td>
+			<td><select name="sottotipo" id="iepElaborate" <c:if test="${!(document.sottocategoria eq 'Progetto esecutivo degli impianti')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Progetto esecutivo degli impianti') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -222,8 +222,8 @@
 			</tr>
 			
 			<tr id="mp" hidden="true"><td></td>
-			<td><input type="radio" id="mpElab" name="type1" value="mpElab" <c:if test="${document.sottocategoria eq 'Piano di manutenzione'}">checked</c:if>></input>Piano di manutenzione</td>
-			<td><select name="mpElaborate" id="mpElaborate" <c:if test="${!(document.sottocategoria eq 'Piano di manutenzione')}">disabled</c:if>>
+			<td><input type="radio" id="mpElab" name="sottocategoria" value="Piano di manutenzione" <c:if test="${document.sottocategoria eq 'Piano di manutenzione'}">checked</c:if>></input>Piano di manutenzione</td>
+			<td><select name="sottotipo" id="mpElaborate" <c:if test="${!(document.sottocategoria eq 'Piano di manutenzione')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Piano di manutenzione') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
 			    </c:forTokens>
@@ -231,7 +231,7 @@
 			</tr>
  			</table>
 
-
+			
 			<!-- lista committenti registrati -->
 			<table>
 			<tr><td>Committente</td></tr>
@@ -247,21 +247,22 @@
 			<tr><td style="border-top: 1px dashed black; color:red;">Nuovo committente</td></tr>
 			</table>
 			
+			
 			<!-- campi dati committente -->
 			<table>
-			<tr><td>Nome </td><td><input value="${newCustomer.nome}" type="text" name="nameCust" id="nC" /></td><td><div style="color:red;" id="warning2"></div></td></tr>
-			<tr><td>Cognome </td><td><input value="${newCustomer.cognome}" type="text" name="surname" id="sC" /></td><td><div style="color:red;" id="warning3"></div></td></tr>
-			<tr><td>CF </td><td><input value="${newCustomer.cf}" type="text" name="CF" id="cf" /></td><td></td></tr>
-			<tr><td>Telefono (1)</td><td><input value="${newCustomer.recapiti.get(0).telefono}" type="text" name="tel1" id="tel1" /></td><td><div style="color:red;" id="warning4"></div></td></tr>
-			<tr><td>Telefono (2)</td><td><input value="${newCustomer.recapiti.get(1).telefono}" type="text" name="tel2" id="tel2" /></td><td></td></tr>
-			<tr><td>Email (1)</td><td><input value="${newCustomer.recapiti.get(0).email}" type="text" name="email1" id="email1" /></td><td><div style="color:red;" id="warning5"></div></td></tr>
-			<tr><td>Email (2)</td><td><input value="${newCustomer.recapiti.get(1).email}" type="text" name="email2" id="email2" /></td><td></td></tr>
+			<tr><td>Nome </td><td><input value="${newCustomer.nome}" type="text" name="nome" id="nC" /></td><td><div style="color:red;" id="warning2"></div></td></tr>
+			<tr><td>Cognome </td><td><input value="${newCustomer.cognome}" type="text" name="cognome" id="sC" /></td><td><div style="color:red;" id="warning3"></div></td></tr>
+			<tr><td>CF </td><td><input value="${newCustomer.cf}" type="text" name="cf" id="cf" /></td><td></td></tr>
+			<tr><td>Telefono (1)</td><td><input value="${newCustomer.recapiti.get(0).telefono}" type="text" name="telefono" id="tel1" /></td><td><div style="color:red;" id="warning4"></div></td></tr>
+			<tr><td>Telefono (2)</td><td><input value="${newCustomer.recapiti.get(1).telefono}" type="text" name="telefono1" id="tel2" /></td><td></td></tr>
+			<tr><td>Email (1)</td><td><input value="${newCustomer.recapiti.get(0).email}" type="text" name="email" id="email1" /></td><td><div style="color:red;" id="warning5"></div></td></tr>
+			<tr><td>Email (2)</td><td><input value="${newCustomer.recapiti.get(1).email}" type="text" name="email1" id="email2" /></td><td></td></tr>
 			
 			
 			
 			<tr>
 			<td><input type="reset" value="Reset" id="reset"/></td>
-			<td><input type="submit" value="Salva Modifiche" name="save" id="SM" disabled/></td>
+			<td><input type="submit" value="Salva Modifiche" name="save" id="SM" /></td><!-- disabled -->
 			</tr>
 			</table>
 		</form>

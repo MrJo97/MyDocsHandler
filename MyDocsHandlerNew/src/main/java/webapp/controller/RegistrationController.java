@@ -35,16 +35,19 @@ import org.springframework.web.servlet.ModelAndView;
 import webapp.dao.UtenteDao;
 import webapp.model.documento.Documento;
 import webapp.model.utente.Utente;
+import webapp.service.UserOperationsImpl;
 
 @Controller
 public class RegistrationController {
 	
-	@Autowired
-	private JavaMailSender mailSender;
-	@Autowired
-	private SessionFactory sf;
+
+	private UserOperationsImpl userOperationsImpl;	
 	
-	private ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", "daos.xml");
+	//setter methods for setter injection
+	public void setUserOperationsImpl(UserOperationsImpl userOperationsImpl) {
+		this.userOperationsImpl = userOperationsImpl;
+	}
+
 	
 	
 	@RequestMapping("/goToRegistrationForm.html")
@@ -54,46 +57,16 @@ public class RegistrationController {
 	}
 
 	@RequestMapping("/RegistrationForm.html")
-		public ModelAndView checkCredentials(@ModelAttribute("utente") Utente user, BindingResult result) throws SecurityException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException, SystemException {
-		
-		ModelAndView model = new ModelAndView("HomePage");
-		/*if(result.hasErrors())
-		{	model.setViewName("Registration");
-			return model;
-		}*/
-		// creazione dell'istanza di ApplicationContext per la DI
-		// ApplicationContext context = new ClassPathXmlApplicationContext(new String[]
-		// { "services.xml", "daos.xml" });
-
-		//ilseguente oggetto non lo uso. è solo per fa capire che la DI funziona
-		//anche se in questo esempio specifico non ha molto senso, in quanto se modifico il 
-		//nome della classe User sono costratto a modificare il tipo di questo oggetto.
-		//per questo motivo sarebbe opportuno usare, come tipo, una interfaccia
-		//che viene opportunamente estesa da User. 
-		System.out.println("Assegnazione corretta");
-		
-		// creazione dell'istanza
-		//Configuration con = new Configuration();
-		//con.configure("hibernate.cfg.xml");
-		//con.addAnnotatedClass(User.class);
-		//SessionFactory sf = con.buildSessionFactory();
-		Session session = sf.openSession();
-
-		// appSession.setAttribute("context", context);
-		Transaction tx = session.beginTransaction();
-		UtenteDao.setSession(session);
-
-		List<Utente> users = UtenteDao.getAllUsers();
-
-		//test
+		public ModelAndView checkCredentials(@ModelAttribute("utente") Utente user, BindingResult result) 
+	{	
 		System.out.println(user);
-
-		if (Support.isHere(users, user)) {// utente già registrato
+		ModelAndView model = new ModelAndView("HomePage"); 
+		System.out.println(userOperationsImpl.checkUser(user));
+		if (userOperationsImpl.checkUser(user) != null) 
+		{// utente già registrato
 			model.setViewName("Registration");
-			user = Support.getUserByEmail(users, user.getEmail());
 			model.addObject("user", user);
-			if (user.getStato().equals("pendingRegistration"))
+			if (userOperationsImpl.checkUser(user).getStato().equals("pendingRegistration"))
 				model.addObject("msg", "Utente in attesa di registrazione");
 			else
 			{
@@ -102,104 +75,43 @@ public class RegistrationController {
 				
 			return model;
 		}
-
-		// invio della mail all'indirizzo inserito
-		int idUser = Support.nextIdUser(users);// id dell'utente da registrare
-		String email = user.getEmail();
-		String subject = "Registrazione Account - invio email automatica";
-		String text = "Per registrare il tuo account clicca sul seguente link: "
-				+ "http://localhost:8080/MyDocsHandlerNew/RegisterUser" + idUser;
-
-
-		SimpleMailMessage simpleMessage = new SimpleMailMessage();
-		simpleMessage.setTo(user.getEmail());
-		simpleMessage.setSubject(subject);
-		simpleMessage.setText(text);
-		try {
-			mailSender.send(simpleMessage);
-		} catch (MailSendException me) {
-			Support.detectInvalidAddress(me, model);
+		else
+		{
+			try 
+			{
+				userOperationsImpl.setUserStatusAndSendEmail(user);
+			} 
+			catch (MailSendException me) 
+			{
+				Support.detectInvalidAddress(me, model);
+				return model;
+			}
+		
+			model.setViewName("EmailDeliveryWarningPage");
+			model.addObject("email", user.getEmail());
 			return model;
 		}
-		
-		user.setStato("pendingRegistration");
-		//salvataggio nella base di dati
-		UtenteDao.saveUser(user);
-		tx.commit();
-
-		
-		model.setViewName("EmailDeliveryWarningPage");
-		model.addObject("email", user.getEmail());
-		
-		//sf.close();
-		return model;
 	}
 
 	@RequestMapping("/RegisterUser{idUser}")
 	public ModelAndView registerUser(@PathVariable int idUser, HttpServletRequest request) throws SecurityException,
 			RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
-		// nb: idUser è l'id dell'utente che dovrà essere registrato
-
-		// creazione dell'istanza
-		//Configuration con = new Configuration();
-		//con.configure("hibernate.cfg.xml");
-		//con.addAnnotatedClass(User.class);
-		//SessionFactory sf = con.buildSessionFactory();
-		Session session = sf.openSession();
-
+		
 		ModelAndView model = new ModelAndView("CorrectRegistrationWarningPage");
-		// memorizzo all'interno dell'oggetto HttpSession tutti i dati utili durante la
-		// sessione per la DI e la gestione delle transazioni con hibernate
 		HttpSession appSession = request.getSession();
-		appSession.setAttribute("session", session);
-		// Se arrivo qui vuol dire che l'utente ha cliccato sul link che gli
-		// è arrivato. A questo punto cancello il record in WaitinUser
-		// e lo salvo in RegisteredUser
-
-		// vediamo se l'oggetto di tipo SessionFactory è ancora disponibile
-		// nell'oggetto session
-		Transaction tx = session.beginTransaction();
-		UtenteDao.setSession(session);
-		Utente user = UtenteDao.getUser(idUser);
-		
-		//test
-		System.out.println("isUtente: " + idUser);
-		System.out.println(user.toString());
-		
-		if (user.getStato().equals("pendingRegistration")) {
-			user.setStato("Registered");
-			UtenteDao.saveUser(user);
-			tx.commit();
-		} else {
+		Utente user = userOperationsImpl.registerUser(idUser);
+		if(user== null)
+		{
 			model.setViewName("AlreadyRegisteredUserWarningPage");
-		}
-		
-	//creazione della cartella di archiviazione
-		String curDir = System.getProperty("user.dir");
-        System.out.println("\nIn questo momento ti trovi nella directory:" + " - " + curDir);
-        
-        
-		String generalFolderPath = "Storage/User-";
-		String thisFolderPath = generalFolderPath + user.getIdUtente();
-		File storageFolder = new File(thisFolderPath);
-	    storageFolder.mkdir();
-		System.out.println("Cartelle generate");
-	    
+			return model;
+		}	    
 		List<Documento> documents = new ArrayList<Documento>();
+		System.out.println(user.getCommittenti());
 		documents.addAll(user.getDocumenti());
 		appSession.setAttribute("documents", documents);
 		appSession.setAttribute("user", user);
 		model.addObject("destination", "homepage");
 		model.addObject("user", user);
 		return model;
-	}
-
-	
-
-	
-	
-	
-	
-	
-	
+	}	
 }

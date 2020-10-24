@@ -1,4 +1,4 @@
-package com.webapp.dao;
+package webapp.dao;
 
 import java.util.List;
 
@@ -11,19 +11,33 @@ import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.webapp.model.utente.Utente;
+import webapp.model.utente.Utente;
 
-public interface UtenteDaoInterface {		
+public interface UtenteDaoInterface {	
+	
+	
+		public void getTransaction();
+		
+		public void closeTransaction();
+	
+		public void getSession();
+		
+		public void closeSession();
+		
+		public void getSessionAndTransaction();
+		
+		public void closeSessionAndTransaction();
 
-		public  Utente getUserById(int idUser);
+		public Utente getUserById(int idUser);
 	     
-	    public  List<Utente> getAllUsers();
+	    public List<Utente> getAllUsers();
 	    
 	    public void updateUser(Utente user);
 	    
 	    public void saveUser(Utente user);
 	     
 	    public void deleteUser(Utente user);
+	    
 	    
 	}
 

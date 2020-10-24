@@ -10,6 +10,7 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 
 import org.springframework.mail.MailSendException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import webapp.dao.UtenteDao;
@@ -18,6 +19,23 @@ import webapp.model.documento.Documento;
 import webapp.model.utente.Utente;
 
 public class Support {
+	
+	public static String changeNameFileWithSameExtension(String namefile, String initName)
+	{
+		String newName;
+		int indexDot = initName.lastIndexOf(".");
+		String extension;
+		if(indexDot != -1)
+		{
+			extension = initName.substring(indexDot);
+		}
+		else
+		{
+			extension = "";
+		}
+		newName = namefile + extension;
+		return newName;
+	}
 	
 	public static Documento getDocumentById(List<Documento> docs, int idDocument)
 	{Documento doc = null;
@@ -68,7 +86,7 @@ public class Support {
 	{boolean isHere = false;
 		for(int i = 0; i<docs.size() ; i++)
 		{
-			if((docs.get(i).getNome()).equals(namefile))
+			if((docs.get(i).getNomefile()).equals(namefile))
 				isHere = true;
 		}
 	return isHere;
@@ -89,11 +107,11 @@ public class Support {
 		return user1;
 	}
 	 
-	public static boolean isTheCustomerAlreadyHere(List<Committente> customers, String surname, String name)
+	public static boolean isTheCustomerAlreadyHere(List<Committente> customers, String cf)
 	{boolean isHere = false;
 	for(int i = 0; i<customers.size() ; i++)
 	{
-		if((customers.get(i).getNome()).equals(name) && (customers.get(i).getCognome()).equals(surname))
+		if((customers.get(i).getCf()).equals(cf))
 				isHere = true;
 	}
 	return isHere;
@@ -109,7 +127,7 @@ public class Support {
 	{
 		for(int i = 0;i < users.size();i++)
 		{
-			if(users.get(i).getEmail().equals(user.getEmail()) && users.get(i).getPassword().equals(user.getPassword()) )
+			if(users.get(i).getEmail().equals(user.getEmail()))
 			{user1 = users.get(i);
 			}
 		}

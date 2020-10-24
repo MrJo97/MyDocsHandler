@@ -52,11 +52,11 @@
 					documenti caricati</td>
 			</tr>
 			<c:forEach items="${user.documenti}" var="doc">
-				<tr class='ddld'><td><input type='radio' name='doc' value='${doc.nome}' onchange='enable(this)'></input></td>
-				<td style='width:40%;'><a href='/MyDocsHandlerNew/fileupload/download${doc.idDocumento}'>${doc.nome}</a></td>
+				<tr class='ddld'><td><input type='radio' name='doc' value='${doc.nomefile}' onchange='enable(this)'></input></td>
+				<td style='width:40%;'><a href='/MyDocsHandlerNew/fileupload/download${doc.idDocumento}'>${doc.nomefile}</a></td>
 				<td style='width:25%;'>${doc.data}</td>
 				<td style='width:25%;'>${doc.ora}</td>
-				<td><select style='width:65%' name='operations' id='${doc.nome}' onchange='redirect(this, ${doc.committente.documenti.size() eq 1})' disabled>
+				<td><select style='width:65%' name='operations' id='${doc.nomefile}' onchange='redirect(this, ${doc.committente.documenti.size() eq 1})' disabled>
 				<option value=''></option>
 				<option value='/MyDocsHandlerNew/editFile/delete${doc.idDocumento}'>Elimina</option>
 				<option value='/MyDocsHandlerNew/editFile/showDetails${doc.idDocumento}'>Mostra Dettagli</option>
@@ -76,7 +76,7 @@
 			<c:forEach items="${user.committenti}" var="cust">
 			<tr class='ddld' ><td><input type='radio' name='customer' value="${cust.idCommittente}" onchange='enable(this)'></input></td>
 			<td style='width:80%'>${cust.cognome} ${cust.nome}</td>
-			<td><select style='width:40%' name='operations' id="${cust.idCommittente}" onchange='redirect(this)' disabled>
+			<td><select style='width:40%' name='operations' id="${cust.idCommittente}" onchange='redirect(this, true)' disabled>
 			<option value=''></option>
 			<option value="/MyDocsHandlerNew/editCustomer/showDetailsCustomer${cust.idCommittente}">Mostra dettagli</option>
 			<option value="/MyDocsHandlerNew/editCustomer/catchIdCustomer${cust.idCommittente}">Modifica</option>

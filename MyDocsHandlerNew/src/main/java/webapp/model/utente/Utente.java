@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,14 +11,19 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 
 import webapp.model.committente.*;
 import webapp.model.documento.*;
 
+
 @Component
-@Scope("session")
+@Scope("session")  
+//@SessionScope
 @Entity
 public class Utente {
 
@@ -28,13 +34,26 @@ public class Utente {
 	private String password;
 	private String stato;
 	
-	
 	@OneToMany(mappedBy="utente")
 	private List<Documento> documenti = new ArrayList<Documento>();
 	@OneToMany(mappedBy="utente")
 	private List<Committente> committenti = new ArrayList<Committente>();
+	 
 	
-	
+	public void setIdUtente(int idUtente) {
+		this.idUtente = idUtente;
+	}
+	public Utente copyUser()
+	{
+		Utente user = new Utente();
+		user.setIdUtente(idUtente);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setStato(stato);
+		user.setDocumenti(documenti);
+		user.setCommittenti(committenti);
+		return user;
+	}
 	public int getIdUtente() {
 		return idUtente;
 	}
@@ -69,9 +88,11 @@ public class Utente {
 	public void setCommittenti(List<Committente> committenti) {
 		this.committenti = committenti;
 	}
+	
 	@Override
 	public String toString() {
-		return "Utente [email=" + email + ", password=" + password + ", stato=" + stato + "]";
+		return "Utente [idUtente=" + idUtente + ", email=" + email + ", password=" + password + ", stato=" + stato
+				+ "]";
 	}
 	
 	

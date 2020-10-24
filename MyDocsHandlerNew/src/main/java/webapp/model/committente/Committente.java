@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class Committente {
 	private Utente utente;
 	@OneToMany(mappedBy="committente")
 	private List<Documento> documenti = new ArrayList<Documento>();
-	@OneToMany(mappedBy="committente")
+	@OneToMany(mappedBy="committente"/*, fetch = FetchType.EAGER*/)
 	private List<Recapito> recapiti = new ArrayList<Recapito>();
 	
 	
@@ -83,9 +84,11 @@ public class Committente {
 	public void setRecapiti(List<Recapito> recapiti) {
 		this.recapiti = recapiti;
 	}
+	
 	@Override
 	public String toString() {
-		return "Committente [cf=" + cf + ", nome=" + nome + ", cognome=" + cognome + "]";
+		return "Committente [idCommittente=" + idCommittente + ", cf=" + cf + ", nome=" + nome + ", cognome=" + cognome + "]";
+				
 	}
 
 	

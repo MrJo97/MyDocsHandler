@@ -25,13 +25,13 @@
 <div id="cssStyle">
 <form action="/MyDocsHandlerNew/editCustomer/edit${customer.idCommittente}" method="POST">
 <table>
-			<tr><td>Nome </td><td><input value="${customer.nome}" type="text" name="nameCust" id="nC" /></td><td><div style="color:red;" id="warning2"></div></td></tr>
-			<tr><td>Cognome </td><td><input value="${customer.cognome}" type="text" name="surname" id="sC" /></td><td><div style="color:red;" id="warning3"></div></td></tr>
-			<tr><td>CF </td><td><input value="${customer.cf}" type="text" name="CF" id="cf" /></td><td></td></tr>
-			<tr><td>Telefono (1)</td><td><input value="${contact.telefono}" type="text" name="tel1" id="tel1" /></td><td><div style="color:red;" id="warning4"></div></td></tr>
-			<tr><td>Telefono (2)</td><td><input value="${contact1.telefono}" type="text" name="tel2" id="tel2" /></td><td></td></tr>
-			<tr><td>Email (1)</td><td><input value="${contact.email}" type="text" name="email1" id="email1" /></td><td><div style="color:red;" id="warning5"></div></td></tr>
-			<tr><td>Email (2)</td><td><input value="${contact1.email}" type="text" name="email2" id="email2" /></td><td></td></tr>
+			<tr><td>Nome </td><td><input value="${customer.nome}" type="text" name="nome" id="nC" /></td><td><div style="color:red;" id="warning2"></div></td></tr>
+			<tr><td>Cognome </td><td><input value="${customer.cognome}" type="text" name="cognome" id="sC" /></td><td><div style="color:red;" id="warning3"></div></td></tr>
+			<tr><td>CF </td><td><input value="${customer.cf}" type="text" name="cf" id="cf" /></td><td></td></tr>
+			<tr><td>Telefono (1)</td><td><input value="${contact.telefono}" type="text" name="telefono" id="tel1" /></td><td><div style="color:red;" id="warning4"></div></td></tr>
+			<tr><td>Telefono (2)</td><td><input value="${contact1.telefono}" type="text" name="telefono1" id="tel2" /></td><td></td></tr>
+			<tr><td>Email (1)</td><td><input value="${contact.email}" type="text" name="email" id="email1" /></td><td><div style="color:red;" id="warning5"></div></td></tr>
+			<tr><td>Email (2)</td><td><input value="${contact1.email}" type="text" name="email1" id="email2" /></td><td></td></tr>
 			
 			
 			
