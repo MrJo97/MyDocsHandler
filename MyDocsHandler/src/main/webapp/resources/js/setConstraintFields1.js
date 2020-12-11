@@ -1,46 +1,34 @@
 function disableAll(){
-	document.getElementById("nC").disabled = true;
+	/*document.getElementById("nC").disabled = true;
 	document.getElementById("sC").disabled = true;
-	document.getElementById("cf").disabled = true;
 	document.getElementById("tel1").disabled = true;
 	document.getElementById("email1").disabled = true;
 	document.getElementById("tel2").disabled = true;
-	document.getElementById("email2").disabled = true;
+	document.getElementById("email2").disabled = true;*/
+	document.getElementById("cf").disabled = true;
 
 }
 function enableAll(){
-	document.getElementById("nC").disabled = false;
-	document.getElementById("sC").disabled = false;
-	document.getElementById("cf").disabled = false;
-	document.getElementById("tel1").disabled = false;
+	//document.getElementById("nC").disabled = false;
+	//document.getElementById("sC").disabled = false;
+	/*document.getElementById("tel1").disabled = false;
 	document.getElementById("email1").disabled = false;
 	document.getElementById("tel2").disabled = false;
-	document.getElementById("email2").disabled = false;
-
+	document.getElementById("email2").disabled = false;*/
+	document.getElementById("cf").disabled = false;
 }
-/*function checkForChars(string)
-{
-	var isThereAtLeastAChar=false;
-	for(var i = 0; i < string.length; i++)
-		{
-			if(typeof string.substring(i,i+1) == "string")
-				isThereAtLeastAChar = true;
-		}
-	return isThereAtLeastAChar;
-}*/
 
-//window.onload=function()
-//{
 
 $(document).ready(function()
 {
 	var isTheDocSelected=false; //=true se il tipo di documento è stato scelto
 	var isTheNameTyped=false; //=true se il nome del documento è stato inserito
 	var isTheDescriptionTyped=true;
-	var isTheCustomerNameTyped=false;
+	var isTheCustomerCfTyped = false;
+	/*var isTheCustomerNameTyped=false;
 	var isTheCustomerSurnameTyped=false;
 	var isTheCustomerTelTyped=false;
-	var isTheCustomerEmailTyped=false;
+	var isTheCustomerEmailTyped=false;*/
 
 	
 		//nel caso di reset è necessario disabilitare il bottone di 
@@ -91,25 +79,25 @@ $(document).ready(function()
 			
 			//nome committente
 			//console.log("lunghezza del nome del committente: " + $("#nC").val().length)
-			$("#nC").on('change', function()
+			$("#cf").on('change', function()
 			{
-				if($("#nC").val().length > 50 || $("#nC").val().length < 1)
+				if($("#cf").val().length != 16)
 				{
 					//console.log("lunghezza nome eccessiva o eccessivamente corta!!")
-					$("#warning2").text("Il nome deve essere minore di 50 caratteri e non vuoto");
+					$("#warning2").text("Il cf deve essere esattamente di 16 caratteri");
 					document.getElementById('SM').disabled=true;
-					isTheCustomerNameTyped = false;
+					isTheCustomerCfTyped = false;
 				}
 				else 
 				{
 					$("#warning2").text("");
-					isTheCustomerNameTyped = true;
+					isTheCustomerCfTyped = true;
 				}
 			});
 			
 			
 			//cognome committente
-			$("#sC").on('change', function()
+			/*$("#sC").on('change', function()
 			{
 				if($("#sC").val().length > 50 || $("#sC").val().length < 1)
 				{
@@ -122,12 +110,12 @@ $(document).ready(function()
 					$("#warning3").text("");
 					isTheCustomerSurnameTyped = true;
 				}
-			});
+			});*/
 			
 			
 			//console.log("lunghezza del numero di telefono del committente: " + $("#tel1").val().length)
 			//numero di telefono
-			$("#tel1").on('change', function()
+			/*$("#tel1").on('change', function()
 			{
 				if($("#tel1").val().length > 11 || $("#tel1").val().length < 9)
 				{
@@ -140,12 +128,12 @@ $(document).ready(function()
 					$("#warning4").text("");
 					isTheCustomerTelTyped = true;
 				}
-			});
+			});*/
 		
 			
 			
 			//email
-			$("#email1").on('change', function()
+			/*$("#email1").on('change', function()
 			{
 				if($("#email1").val().length > 254 || $("#email1").val().length < 3)
 				{
@@ -158,7 +146,7 @@ $(document).ready(function()
 					$("#warning5").text("");
 					isTheCustomerEmailTyped = true;
 				}
-			});
+			});*/
 			
 			
 			
@@ -191,13 +179,12 @@ $(document).ready(function()
 						document.getElementById("mpElaborate").selected*/
 						
 			var type2 = document.getElementById("techRep").checked || 
-						document.getElementById("dpgElab").checked
-						
-			var type21 = document.getElementById("siElab").checked		|| 
-						 document.getElementById("artworkElab").checked 	|| 
-						 document.getElementById("leiElab").checked 		|| 
-						 document.getElementById("implantElab").checked	||
-						 document.getElementById("qssElab").checked
+						document.getElementById("dpgElab").checked		||				
+	   /*var type21 =*/ document.getElementById("siElab").checked		|| 
+						document.getElementById("artworkElab").checked 	|| 
+						document.getElementById("leiElab").checked 		|| 
+						document.getElementById("implantElab").checked	||
+						document.getElementById("qssElab").checked
 			
 						//selezione del tipo di documento
 			var case1 = (document.getElementById("preliminary").checked && (
@@ -208,8 +195,9 @@ $(document).ready(function()
 			var case2 = (document.getElementById("definitive").checked && 
 							((document.getElementById("dpElaborate").value !="d" 
 													||
-									(document.getElementById("dpgElab").checked)) && 
-									((document.getElementById("dpgElaborate").value !="h") || type21))	
+													type2))
+									/*(document.getElementById("dpgElab").checked)) && 
+									((document.getElementById("dpgElaborate").value !="h") || type21))	*/
 												&&
 							(document.getElementById("dpElaborate").value !="b" ||
 						    document.getElementById("techRep").checked));
@@ -233,8 +221,8 @@ $(document).ready(function()
 			console.log("-------------------");
 			console.log("-------------------");
 			
-			
-			
+			/*console.log("isTheNameTyped  " + isTheNameTyped);
+			console.log("isTheDescriptionTyped  " + isTheDescriptionTyped);*/
 
 			if((case1 || case2 || case3) && isTheDescriptionTyped && isTheNameTyped)
 				{
@@ -253,9 +241,17 @@ $(document).ready(function()
 			
 			
 			console.log("è selezionato un committente registrato: " + $("#sru").val()); 
+			console.log("isTheDocSelected  " + isTheDocSelected);
+			console.log("isTheCustomerCfTyped  " + isTheCustomerCfTyped);
+			/*console.log("isTheCustomerSurnameTyped  " + isTheCustomerSurnameTyped);
+			console.log("isTheCustomerTelTyped  " + isTheCustomerTelTyped);
+			console.log("isTheCustomerEmailTyped  " + isTheCustomerEmailTyped);*/
+			console.log("non ho selezionato nessun committente registrato  " + ($("#sru").val() != "selectCustomer"));
+			
+			console.log("abilito il salvataggio: "+ (isTheDocSelected && (isTheCustomerCfTyped || $("#sru").value != "selectCustomer")));
+			
 		//abilitazione del bottone "salva modifiche"
-			if(isTheDocSelected && ((isTheCustomerNameTyped && isTheCustomerSurnameTyped && isTheCustomerTelTyped 
-				&& isTheCustomerEmailTyped) || $("#sru").val() != "selectCustomer"))
+			if(isTheDocSelected && (isTheCustomerCfTyped || $("#sru").val() != "selectCustomer"))
 			{
 				document.getElementById('SM').disabled=false;
 			}

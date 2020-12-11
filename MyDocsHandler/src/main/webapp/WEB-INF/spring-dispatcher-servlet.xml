@@ -6,18 +6,25 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop = "http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/mvc
 http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd">
 
-<context:component-scan base-package="com.webapp" />
+<context:component-scan base-package="webapp" />
 
 <mvc:resources mapping="/resources/**"  location="/resources/"  cache-period="10000" />
 
 <mvc:annotation-driven />
+
 
 <bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
  <property name="prefix">
@@ -28,7 +35,8 @@ http://www.springframework.org/schema/context/spring-context.xsd">
   </property>
 </bean>
 
-  
+
+
 
   <!-- defining beans -->
   
@@ -48,21 +56,24 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 </property>
 </bean>
 
-<bean id="sessionFactory"  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+<bean id="sessionFactory"  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" scope="singleton">
     <property name="dataSource" ref="dataSource" />
     <property name="packagesToScan" value="org.baeldung.spring.persistence.model" />
     <property name="hibernateProperties">
         <props>
             <prop key="hibernate.hbm2ddl.auto">update</prop>
             <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+            <prop key="hibernate.show_sql">true</prop>
+       		<prop key="hibernate.current_session_context_class">thread</prop>
+            <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
         </props>
     </property>
       <property name="annotatedClasses">
     <list>
-      <value>com.webapp.model.utente.Utente</value>
-      <value>com.webapp.model.recapito.Recapito</value>
-      <value>com.webapp.model.documento.Documento</value>
-      <value>com.webapp.model.committente.Committente</value>
+      <value>webapp.model.Utente</value>
+      <value>webapp.model.Documento</value>
+      <value>webapp.model.Committente</value>
+      <value>webapp.model.AggiornamentoCommittente</value>
     </list>
     </property>
 </bean>
@@ -70,12 +81,89 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 <bean id="dataSource" 
   class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://localhost:3306/mydb1?serverTimezone=UTC" />
+    <property name="url" value="jdbc:mysql://localhost:3306/MDHdb?serverTimezone=UTC" />
     <property name="username" value="root" />
     <property name="password" value="" />
 </bean>
 
+<!-- <bean id="transactionManager"
+    class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+</bean>-->
 
+<tx:annotation-driven transaction-manager="transactionManager"/>
+
+<!-- DAOs -->
+
+<bean id="utenteDao" class="webapp.dao.UtenteDaoImpl">
+	<property name="sf" ref="sessionFactory" /><!-- setter injection nel campo di esemplare di Utentedao -->
+</bean>
+
+<bean id="committenteDao" class="webapp.dao.CommittenteDaoImpl">
+	<property name="sf" ref="sessionFactory" />
+</bean>
+<bean id="aggiornamentoCommittenteDao" class="webapp.dao.AggiornamentoCommittenteDaoImpl">
+	<property name="sf" ref="sessionFactory" />
+</bean>
+
+<bean id="documentoDao" class="webapp.dao.DocumentoDaoImpl">
+	<property name="sf" ref="sessionFactory" />
+</bean>
+
+
+<!-- Services -->
+
+<bean id="userOperationsImpl" class="webapp.service.UserOperationsImpl">
+	<property name="mailSender" ref="mailSender" />
+	<property name="utenteDao" ref="utenteDao" /><!-- setter injection nel campo di esemplare di Utentedao -->
+	<property name="committenteDao" ref="committenteDao" />
+	<property name="documentoDao" ref="documentoDao" />
+</bean>
+
+<bean id="customerOperationsImpl" class="webapp.service.CustomerOperationsImpl">
+	<property name="mailSender" ref="mailSender" />
+	<property name="utenteDao" ref="utenteDao" /><!-- setter injection nel campo di esemplare di Utentedao -->
+	<property name="committenteDao" ref="committenteDao" />
+	<property name="documentoDao" ref="documentoDao" />
+	<property name="aggiornamentoCommittenteDao" ref="aggiornamentoCommittenteDao" />
+</bean>
+<!-- Controllers -->
+
+<bean id="loginController" class="webapp.controller.LoginController">
+	<property name="userOperationsImpl" ref="userOperationsImpl" />
+</bean>
+
+<bean id="registrationController" class="webapp.controller.RegistrationController">
+	<property name="userOperationsImpl" ref="userOperationsImpl" />
+</bean>
+
+<bean id="fileUploadDownloadController" class="webapp.controller.FileUploadDownloadController">
+	<property name="userOperationsImpl" ref="userOperationsImpl" />
+	<property name="customerOperationsImpl" ref="customerOperationsImpl" />
+</bean>
+
+<bean id="editFileController" class="webapp.controller.EditFileController">
+	<property name="userOperationsImpl" ref="userOperationsImpl" />
+	<property name="customerOperationsImpl" ref="customerOperationsImpl" />
+</bean>
+
+<bean id="editCustomerController" class="webapp.controller.EditCustomerController">
+	<property name="customerOperationsImpl" ref="customerOperationsImpl" />
+</bean>
+
+<bean id="creationProfileController" class="webapp.controller.CreationProfileController">
+	<property name="customerOperationsImpl" ref="customerOperationsImpl" />
+</bean>
+
+<bean id="loginProfileController" class="webapp.controller.LoginProfileController">
+	<property name="customerOperationsImpl" ref="customerOperationsImpl" />
+</bean>
+
+
+<!-- models -->
+<!-- <bean id="utente" class="webapp.model.utente.Utente" scope="session">
+<aop:scoped-proxy/>
+</bean>-->
 
 <!-- NB: CommonsMultipartResolver è una classe che implementa l'interfaccia MultipartResolver -->
 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

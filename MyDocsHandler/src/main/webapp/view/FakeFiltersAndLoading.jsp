@@ -77,7 +77,7 @@
 <br/>
 <br/>
 
-		<form action="/MyDocsHandler/fileupload/checkFile" method="post" enctype="multipart/form-data">
+		<form action="/MyDocsHandlerNew/fileupload/checkFile" method="post" enctype="multipart/form-data">
 			<table id="tabella1">
 				<tr>
 					<td align="center" colspan="2" id="titolo1">Caricamento file</td>
@@ -85,7 +85,7 @@
 				<tr><td><br/></td></tr>
 				<tr>
 					<td id="fields">Percorso file:</td>
-					<td><input id="fields" type="" id=""
+					<td><input id="fields" type="text" id=""
 						name="file" placeholder="Inserisci il percorso" disabled></input></td>
 				</tr>
 				<tr>
@@ -100,7 +100,7 @@
 		<br/>
 		
 	<div id="logout">
-	<form action="/MyDocsHandler/Logout"
+	<form action="/MyDocsHandlerNew/Logout"
 			method="post">
 	  <table>
        <tr>

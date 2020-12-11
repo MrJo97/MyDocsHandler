@@ -49,12 +49,12 @@
 
 <div id="container1">
 <div id="container2">
-<p>Se sei già registrato clicca <a href="/MyDocsHandler/goToLoginForm.html">qui</a>.</p>
-<form action="/MyDocsHandler/RegistrationForm.html" method="post">
+<p>Se sei già registrato clicca <a href="/MyDocsHandlerNew/goToLoginForm.html">qui</a>.</p>
+<form action="/MyDocsHandler/checkCredentials" method="post">
 <table id="table">
 <tr><td>Email: </td><td><input type="text" name="email" id="myInput1" value="${user.email}"/></td></tr>
 <tr><td>Password: </td><td><input type="password" id="myInput" name="password" value="${user.password}" onkeypress="return checkChars(event);"/></td></tr>
-<tr><td colspan="2"><input type="submit" id="cmd1" value="Registrati" disabled="true" /></td></tr>
+<tr><td colspan="2"><input type="submit" id="cmd1" value="Registrati" disabled/></td></tr>
 </table>
 <p style="color:red;">${msg}</p>
 </form>

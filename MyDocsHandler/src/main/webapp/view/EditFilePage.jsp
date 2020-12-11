@@ -3,19 +3,19 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.webapp.controller.Support,com.webapp.controller.JSPSupport,com.webapp.model.recapito.*,com.webapp.model.utente.*,com.webapp.model.documento.*,com.webapp.model.committente.*,java.util.List" %>
+<%@ page import="webapp.model.*,java.util.List" %>
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
-<spring:url value="/resources/js/setConstraintFields1.js" var="scf" />
+<!--<spring:url value="/resources/js/setConstraintFields1.js" var="scf" />-->
 <spring:url value="/resources/js/loadingFileScript.js" var="lfs" />
 <spring:url value="/resources/js/jquery-3.5.0.min.js" var="jquery" />
 <spring:url value="/resources/css3/DetailsAndEditPagesStyle.css" var="css" />
 
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.0.min.js'/>"></script> 
-<script src="${scf}" ></script>
+<!-- <script src="${scf}" ></script>-->
 <script src="${lfs}" ></script>
 <script src="${jquery}" ></script>
 <link href="${css}" rel="stylesheet" />
@@ -30,22 +30,17 @@
 <%@ include file="HomePage.jsp"%>
 
 <div id="cssStyle">
+		
 
-<%Utente user1 = (Utente) session.getAttribute("user");
-/*List<Document> documents = user.getDocuments();
-Document document = Support.getDocumentById(documents, Integer.valueOf(String.valueOf(request.getAttribute("idDoc"))));*/
-Documento document = (Documento)request.getAttribute("doc");
-Committente customer = (Committente)request.getAttribute("customer");%>
-	 <!--  include file="FiltersAndLoading.jsp" -->
-	<% 
-		System.out.println(JSPSupport.getActionPath((String)request.getAttribute("operation"), document));
-	%>
-		<form action="<%=JSPSupport.getActionPath((String)request.getAttribute("operation"), document)%>"  method="post" enctype="multipart/form-data">
+		<form <c:choose>
+			<c:when test="${operation eq 'editing'}">action="/MyDocsHandler/editFile/edit${idDoc}"</c:when>
+			<c:otherwise>action="/MyDocsHandler/fileupload/upload"</c:otherwise>
+		</c:choose>  method="post" enctype="multipart/form-data">
 			
 			<table id="tabella3">
 			<tr><td style="color:red;">Dati documento</td></tr>
-			<tr><td>Nome file: </td><td><input type="text" name="name" id="nf" value="<%=document.getNome()%>"/></td><td><div style="color:red;" id="warning"></div></td></tr>
-			<tr><td>Descrizione:</td><td><textarea name="description" id="description" rows="5" cols="50"><%=document.getDescrizione()%></textarea></td><td><div style="color:red;" id="warning1"></div></td></tr>
+			<tr><td>Nome file: </td><td><input type="text" name="nome" id="nf" value="${document.nome}"/></td><td><div style="color:red;" id="warning"></div></td></tr>
+			<tr><td>Descrizione:</td><td><textarea name="descrizione" id="description" rows="5" cols="50">${document.descrizione}</textarea></td><td><div style="color:red;" id="warning1"></div></td></tr>
 			<tr><td colspan="2" style="color:#800000;">			
 			</td></tr>
 			<tr><td></td></tr>
@@ -56,53 +51,34 @@ Committente customer = (Committente)request.getAttribute("customer");%>
  			<!-- progetto preliminare -->
  			<table  id="pp">
  			
- 			<tr><td><input type="radio" value="preliminary" id="preliminary" name="type" <%=JSPSupport.checkCategory(document, "Progetto preliminare", "radio")%>></input>Preliminare</td>
- 			<td><select name="ppElaborate" id="ppElaborate" <%=JSPSupport.checkCategory(document, "Progetto preliminare", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkType(document, "Progetto preliminare", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkType(document, "Progetto preliminare", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkType(document, "Progetto preliminare", "c")%>> c</option>
-			    <option  value="d" <%=JSPSupport.checkType(document, "Progetto preliminare", "d")%>> d</option>
-			    <option  value="e" <%=JSPSupport.checkType(document, "Progetto preliminare", "e")%>> e</option>
-			    <option  value="f" <%=JSPSupport.checkType(document, "Progetto preliminare", "f")%>> f</option>
-			    <option  value="g" <%=JSPSupport.checkType(document, "Progetto preliminare", "g")%>> g</option>
-			    <option  value="h" <%=JSPSupport.checkType(document, "Progetto preliminare", "h")%>> h</option>
-			    <option  value="i" <%=JSPSupport.checkType(document, "Progetto preliminare", "i")%>> i</option>
-			    </select>
-			</td>
+ 			<tr>			   
+			<td><input type="radio" value="Progetto preliminare" id="preliminary" name="categoria"
+			 <c:if test="${document.categoria eq 'Progetto preliminare'}">checked</c:if>></input>Preliminare</td>
+				<td><select name="tipo" id="ppElaborate" <c:if test="${!(document.categoria eq 'Progetto preliminare')}">disabled</c:if>>		   
+			    <c:forTokens items="a,b,c,d,e,f,g,h,i" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.categoria eq 'Progetto preliminare') && (document.tipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
+			    </select></td>
 			</tr>
 			
 		
 			<tr id="pw" hidden="true"><td></td>
-			<td><input type="radio" id="pwElab" name="type1" id="pwElab" <%=JSPSupport.checkSubCategory(document, "Opere e lavori puntuali", "radio")%>></input>Opere e lavori puntuali</td>
-			<td><select name="pwElaborate" id="pwElaborate" <%=JSPSupport.checkSubCategory(document, "Opere e lavori puntuali", "select")%>>
-			    <option  value="1" <%=JSPSupport.checkSubType(document, "Opere e lavori puntuali", "1")%>> 1</option>
-			    <option  value="2" <%=JSPSupport.checkSubType(document, "Opere e lavori puntuali", "2")%>> 2</option>
-			    <option  value="3" <%=JSPSupport.checkSubType(document, "Opere e lavori puntuali", "3")%>> 3</option>
-			    <option  value="4" <%=JSPSupport.checkSubType(document, "Opere e lavori puntuali", "4")%>> 4</option>
-			    </select></td>
-			    
+			<td><input type="radio" id="pwElab" name="sottocategoria" value="Opere e lavori puntuali" id="pwElab" <c:if test="${document.sottocategoria eq 'Opere e lavori puntuali'}">checked</c:if>></input>Opere e lavori puntuali</td>
+			<td><select name="sottotipo" id="pwElaborate" <c:if test="${!(document.sottocategoria eq 'Opere e lavori puntuali')}">disabled</c:if>>
+			    <c:forTokens items="1,2,3,4" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Opere e lavori puntuali') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>			   
+			    </select>
+			</td>
 			</tr>
 			
 			
 			<tr id="nw" hidden="true"><td></td>
-			<td><input type="radio" id="nwElab" name="type1" value="nwElab" <%=JSPSupport.checkSubCategory(document, "Opere e lavori a rete", "radio")%>></input>Opere e lavori a rete</td>
-			<td><select name="nwElaborate" id="nwElaborate" <%=JSPSupport.checkSubCategory(document, "Opere e lavori a rete", "select")%>>
-			    <option  value="1" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "1")%>> 1</option>
-			    <option  value="2" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "2")%>> 2</option>
-			    <option  value="3" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "3")%>> 3</option>
-			    <option  value="4" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "4")%>> 4</option>
-			    <option  value="5" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "5")%>> 5</option>
-			    <option  value="6" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "6")%>> 6</option>
-			    <option  value="7" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "7")%>> 7</option>
-			    <option  value="8" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "8")%>> 8</option>
-			    <option  value="9" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "9")%>> 9</option>
-			    <option  value="10" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "10")%>> 10</option>
-			    <option  value="11" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "11")%>> 11</option>
-			    <option  value="12" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "12")%>> 12</option>
-			    <option  value="13" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "13")%>> 13</option>
-			    <option  value="14" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "14")%>> 14</option>
-			    <option  value="15" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "15")%>> 15</option>
-			    <option  value="16" <%=JSPSupport.checkSubType(document, "Opere e lavori a rete", "16")%>> 16</option>
+			<td><input type="radio" id="nwElab" name="sottocategoria" value="Opere e lavori a rete" <c:if test="${document.sottocategoria eq 'Opere e lavori a rete'}">checked</c:if>></input>Opere e lavori a rete</td>
+			<td><select name="sottotipo" id="nwElaborate" <c:if test="${!(document.sottocategoria eq 'Opere e lavori a rete')}">disabled</c:if>>
+			    <c:forTokens items="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Opere e lavori a rete') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select>
 			    </td>
 			</tr>
@@ -110,264 +86,180 @@ Committente customer = (Committente)request.getAttribute("customer");%>
  			
  						
  						
+ 						
 			<!-- progetto definitivo -->
  			<table>
- 			<tr><td><input type="radio" value="definitive" id="definitive" name="type" <%=JSPSupport.checkCategory(document, "Progetto definitivo", "radio")%>></input>Definitivo</td>
- 			<td><select name="dpElaborate" id="dpElaborate" <%=JSPSupport.checkCategory(document, "Progetto definitivo", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkType(document, "Progetto definitivo", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkType(document, "Progetto definitivo", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkType(document, "Progetto definitivo", "c")%>> c</option>
-			    <option  value="d" <%=JSPSupport.checkType(document, "Progetto definitivo", "d")%>> d</option>
-			    <option  value="e" <%=JSPSupport.checkType(document, "Progetto definitivo", "e")%>> e</option>
-			    <option  value="f" <%=JSPSupport.checkType(document, "Progetto definitivo", "f")%>> f</option>
-			    <option  value="g" <%=JSPSupport.checkType(document, "Progetto definitivo", "g")%>> g</option>
-			    <option  value="h" <%=JSPSupport.checkType(document, "Progetto definitivo", "h")%>> h</option>
-			    <option  value="i" <%=JSPSupport.checkType(document, "Progetto definitivo", "i")%>> i</option>
-			    <option  value="l" <%=JSPSupport.checkType(document, "Progetto definitivo", "l")%>> l</option>
-			    <option  value="m" <%=JSPSupport.checkType(document, "Progetto definitivo", "m")%>> m</option>
-			    <option  value="n" <%=JSPSupport.checkType(document, "Progetto definitivo", "n")%>> n</option>
-			    <option  value="o" <%=JSPSupport.checkType(document, "Progetto definitivo", "o")%>> o</option>
+ 			<tr><td><input type="radio" value="Progetto definitivo" id="definitive" name="categoria" <c:if test="${document.categoria eq 'Progetto definitivo'}">checked</c:if>></input>Definitivo</td>
+ 			<td><select name="tipo" id="dpElaborate" <c:if test="${!(document.categoria eq 'Progetto definitivo')}">disabled</c:if>>
+			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l,m,n,o" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.categoria eq 'Progetto definitivo') && (document.tipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select>
 			</td>
 			</tr>
+			
 			<tr id="tr" hidden="true"><td></td>
-			<td><input type="radio" id="techRep" name="type1" value="techRep" <%=JSPSupport.checkSubCategory(document, "Relazioni tecniche", "radio")%>></input>Relazioni tecniche</td>
-			<td><select name="technicalReport" id="technicalReport" <%=JSPSupport.checkSubCategory(document, "Relazioni tecniche", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType(document, "Relazioni tecniche", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType(document, "Relazioni tecniche", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkSubType(document, "Relazioni tecniche", "c")%>> c</option>
-			    <option  value="d" <%=JSPSupport.checkSubType(document, "Relazioni tecniche", "d")%>> d</option>
-			    <option  value="e" <%=JSPSupport.checkSubType(document, "Relazioni tecniche", "e")%>> e</option>
-			    <option  value="f" <%=JSPSupport.checkSubType(document, "Relazioni tecniche", "f")%>> f</option>
-			    <option  value="g" <%=JSPSupport.checkSubType(document, "Relazioni tecniche", "g")%>> g</option>
-			    <option  value="h" <%=JSPSupport.checkSubType(document, "Relazioni tecniche", "h")%>> h</option>
-			    <option  value="i" <%=JSPSupport.checkSubType(document, "Relazioni tecniche", "i")%>> i</option>
-			    <option  value="l" <%=JSPSupport.checkSubType(document, "Relazioni tecniche", "l")%>> l</option></select></td>
+			<td><input type="radio" id="techRep" name="sottocategoria" value="Relazioni tecniche" <c:if test="${document.sottocategoria eq 'Relazioni tecniche'}">checked</c:if>></input>Relazioni tecniche</td>
+			<td><select name="sottotipo" id="technicalReport" <c:if test="${!(document.sottocategoria eq 'Relazioni tecniche')}">disabled</c:if>>
+			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Relazioni tecniche') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
+			    </select></td>
 			</tr>
 			
 			<tr id="dpg" hidden="true"><td></td>
-			<td><input type="radio" id="dpgElab" name="type1" value="dpgElab" <%=JSPSupport.checkSubCategory(document, "Elaborati grafici", "radio")%>></input>Elaborati grafici</td>
-			<td><select name="dpgElaborate" id="dpgElaborate" <%=JSPSupport.checkSubCategory(document, "Elaborati grafici", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "c")%>> c</option>
-			    <option  value="d" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "d")%>> d</option>
-			    <option  value="e" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "e")%>> e</option>
-			    <option  value="f" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "f")%>> f</option>
-			    <option  value="g" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "g")%>> g</option>
-			    <option  value="h" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "h")%>> h</option>
-			    <option  value="i" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "i")%>> i</option>
-			    <option  value="l" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "l")%>> l</option>
+			<td><input type="radio" id="dpgElab" name="sottocategoria" value="Elaborati grafici" <c:if test="${document.sottocategoria eq 'Elaborati grafici'}">checked</c:if>></input>Elaborati grafici</td>
+			<td><select name="sottotipo" id="dpgElaborate" <c:if test="${!(document.sottocategoria eq 'Elaborati grafici')}">disabled</c:if>>
+			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Elaborati grafici') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select>
 			    </td>
 			</tr>
-			<tr id="si" hidden="true">
-			<td></td>
-			<td></td>
-			<td><input type="radio" id="siElab" name="type2" value="siElab" <%=JSPSupport.checkSubCategory1(document, "Studi e indagini", "radio")%>></input>Studi e indagini</td>
- 			<td><select name="siElaborate" id="siElaborate" <%=JSPSupport.checkSubCategory1(document, "Studi e indagini", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "c")%>> c</option>
-			    <option  value="d" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "d")%>> d</option>
-			    <option  value="e" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "e")%>> e</option>
-			    <option  value="f" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "f")%>> f</option>
-			    <option  value="g" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "g")%>> g</option>
-			    <option  value="h" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "h")%>> h</option>
-			    <option  value="i" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "i")%>> i</option>
-			    <option  value="l" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "l")%>> l</option>
-			    <option  value="m" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "m")%>> m</option>
-			    <option  value="n" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "n")%>> n</option>
-			    <option  value="o" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "o")%>> o</option>
-			    <option  value="p" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "p")%>> p</option>
-			    <option  value="q" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "q")%>> q</option>
-			    <option  value="r" <%=JSPSupport.checkSubType1(document, "Studi e indagini", "r")%>> r</option>
+			<tr id="si" hidden="true"><td></td>
+			<td><input type="radio" id="siElab" name="sottocategoria" value="Studi e indagini" <c:if test="${document.sottocategoria eq 'Studi e indagini'}">checked</c:if>></input>Studi e indagini</td>
+ 			<td><select name="sottotipo" id="siElaborate" <c:if test="${!(document.sottocategoria eq 'Studi e indagini')}">disabled</c:if>>
+			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l,m,n,o,p,q,r" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Studi e indagini') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select>
 			    </td>
 			 </tr>
 			 
 			 
-			 <tr id="artwork" hidden="true">
-			<td></td>
-			<td></td>
-			    <td><input type="radio" id="artworkElab" name="type2" value="artworkElab" <%=JSPSupport.checkSubCategory1(document, "Opere d'arte", "radio")%>></input>Opere d'arte</td>
- 				<td><select name="artworkElaborate" id="artworkElaborate" <%=JSPSupport.checkSubCategory1(document, "Opere d'arte", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType1(document, "Opere d'arte", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType1(document, "Opere d'arte", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkSubType1(document, "Opere d'arte", "c")%>> c</option>
-			    <option  value="d" <%=JSPSupport.checkSubType1(document, "Opere d'arte", "d")%>> d</option>
+			 <tr id="artwork" hidden="true"><td></td>
+			    <td><input type="radio" id="artworkElab" name="sottocategoria" value="Opere d&#39;arte" <c:if test="${document.sottocategoria eq 'Opere d&#39;arte'}">checked</c:if>></input>Opere d'arte</td>
+ 				<td><select name="sottotipo" id="artworkElaborate" <c:if test="${!(document.sottocategoria eq 'Opere d&#39;arte')}">disabled</c:if>>
+			    <c:forTokens items="a,b,c,d" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Opere d&#39;arte') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select>
 			    </td>
 			</tr>
 			
-			<tr id="lei" hidden="true">
-			<td></td>
-			<td></td>
-				<td><input type="radio" id="leiElab" name="type2" value="leiElab" <%=JSPSupport.checkSubCategory1(document, "Inserimenti paesaggistici ed ambientali", "radio")%>></input>Inserimenti paesaggistici ed ambientali</td>
- 				<td><select name="leiElaborate" id="leiElaborate" <%=JSPSupport.checkSubCategory1(document, "Inserimenti paesaggistici ed ambientali", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType1(document, "Inserimenti paesaggistici ed ambientali", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType1(document, "Inserimenti paesaggistici ed ambientali", "b")%>> b</option>
-			 </select>
+			<tr id="lei" hidden="true"><td></td>
+				<td><input type="radio" id="leiElab" name="sottocategoria" value="Inserimenti paesaggistici ed ambientali" <c:if test="${document.sottocategoria eq 'Inserimenti paesaggistici ed ambientali'}">checked</c:if>></input>Inserimenti paesaggistici ed ambientali</td>
+ 				<td><select name="sottotipo" id="leiElaborate" <c:if test="${!(document.sottocategoria eq 'Inserimenti paesaggistici ed ambientali')}">disabled</c:if>>
+			    <c:forTokens items="a,b" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Inserimenti paesaggistici ed ambientali') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
+			    </select>
 			 </td>
 			 </tr>
 			 
 			 
-			 <tr id="implant" hidden="true">
-			<td></td>
-			<td></td>
-			    <td><input type="radio" id="implantElab" name="type2" value="implantElab" <%=JSPSupport.checkSubCategory1(document, "Impianti", "radio")%>></input>Impianti</td>
- 				<td><select name="implantElaborate" id="implantElaborate" <%=JSPSupport.checkSubCategory1(document, "Impianti", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType1(document, "Impianti", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType1(document, "Impianti", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkSubType1(document, "Impianti", "c")%>> c</option>
+			 <tr id="implant" hidden="true"><td></td>
+			    <td><input type="radio" id="implantElab" name="sottocategoria" value="Impianti" <c:if test="${document.sottocategoria eq 'Impianti'}">checked</c:if>></input>Impianti</td>
+ 				<td><select name="sottotipo" id="implantElaborate" <c:if test="${!(document.sottocategoria eq 'Impianti')}">disabled</c:if>>
+			    <c:forTokens items="a,b,c" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Impianti') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select>
 			    </td>
 			    </tr>
 			    
 			    
-			 <tr id="qss" hidden="true">
-			<td></td>
-			<td></td>
-			    <td><input type="radio" id="qssElab" name="type2" <%=JSPSupport.checkSubCategory1(document, "Siti di cava e deposito", "radio")%>></input>Siti di cava e deposito</td>
- 				<td><select name="qssElaborate" id="qssElaborate" <%=JSPSupport.checkSubCategory1(document, "Siti di cava e deposito", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType1(document, "Siti di cava e deposito", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType1(document, "Siti di cava e deposito", "b")%>> b</option>
+			 <tr id="qss" hidden="true"><td></td>
+			    <td><input type="radio" id="qssElab" name="sottocategoria" value="Siti di cava e deposito" <c:if test="${document.sottocategoria eq 'Siti di cava e deposito'}">checked</c:if>></input>Siti di cava e deposito</td>
+ 				<td><select name="sottotipo" id="qssElaborate" <c:if test="${!(document.sottocategoria eq 'Siti di cava e deposito')}">disabled</c:if>>
+			    <c:forTokens items="a,b" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Siti di cava e deposito') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select>
 			    </td>
 			</tr>
  			</table>
  			
+ 			
+ 			
+ 			
  						
 			<!-- progetto esecutivo -->
  			<table>
- 			<tr><td><input type="radio" value="executive" id="executive" name="type" <%=JSPSupport.checkCategory(document, "Progetto esecutivo", "radio")%>></input>Esecutivo</td>
- 			<td><select name="epElaborate" id="epElaborate" <%=JSPSupport.checkCategory(document, "Progetto esecutivo", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkType(document, "Progetto esecutivo", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkType(document, "Progetto esecutivo", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkType(document, "Progetto esecutivo", "c")%>> c</option>
-			    <option  value="d" <%=JSPSupport.checkType(document, "Progetto esecutivo", "d")%>> d</option>
-			    <option  value="e" <%=JSPSupport.checkType(document, "Progetto esecutivo", "e")%>> e</option>
-			    <option  value="f" <%=JSPSupport.checkType(document, "Progetto esecutivo", "f")%>> f</option>
-			    <option  value="g" <%=JSPSupport.checkType(document, "Progetto esecutivo", "g")%>> g</option>
-			    <option  value="h" <%=JSPSupport.checkType(document, "Progetto esecutivo", "h")%>> h</option>
-			    <option  value="i" <%=JSPSupport.checkType(document, "Progetto esecutivo", "i")%>> i</option>
-			    <option  value="l" <%=JSPSupport.checkType(document, "Progetto esecutivo", "l")%>> l</option>
-			    <option  value="m" <%=JSPSupport.checkType(document, "Progetto esecutivo", "m")%>> m</option>
+ 			<tr><td><input type="radio" value="Progetto esecutivo" id="executive" name="categoria" <c:if test="${document.categoria eq 'Progetto esecutivo'}">checked</c:if>></input>Esecutivo</td>
+ 			<td><select name="epElaborate" id="epElaborate" <c:if test="${!(document.categoria eq 'Progetto esecutivo')}">disabled</c:if>>
+			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l,m" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.categoria eq 'Progetto esecutivo') && (document.tipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select>
 			</td>
 			</tr>
 			<tr id="epg" hidden="true"><td></td>
-			<td><input type="radio" id="epgElab" name="type1" value="epgElab" <%=JSPSupport.checkSubCategory(document, "Elaborati grafici", "radio")%>></input>Elaborati grafici</td>
-			<td><select name="epgElaborate" id="epgElaborate" <%=JSPSupport.checkSubCategory(document, "Elaborati grafici", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "c")%>> c</option>
-			    <option  value="d" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "d")%>> d</option>
-			    <option  value="e" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "e")%>> e</option>
-			    <option  value="f" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "f")%>> f</option>
-			    <option  value="g" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "g")%>> g</option>
-			    <option  value="h" <%=JSPSupport.checkSubType(document, "Elaborati grafici", "h")%>> h</option>
+			<td><input type="radio" id="epgElab" name="sottocategoria" value="Elaborati grafici" <c:if test="${document.sottocategoria eq 'Elaborati grafici'}">checked</c:if>></input>Elaborati grafici</td>
+			<td><select name="sottotipo" id="epgElaborate" <c:if test="${!(document.sottocategoria eq 'Elaborati grafici')}">disabled</c:if>>
+			    <c:forTokens items="a,b,c,d,e,f,g,h" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Elaborati grafici') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select></td>
 			</tr>
 			
 			<tr id="sep" hidden="true"><td></td>
-			<td><input type="radio" id="sepElab" name="type1" value="sepElab" <%=JSPSupport.checkSubCategory(document, "Progetto esecutivo delle strutture", "radio")%>></input>Progetto esecutivo delle strutture</td>
-			<td><select name="sepElaborate"  id="sepElaborate" <%=JSPSupport.checkSubCategory(document, "Progetto esecutivo delle strutture", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType(document, "Progetto esecutivo delle strutture", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType(document, "Progetto esecutivo delle strutture", "b")%>> b</option>
+			<td><input type="radio" id="sepElab" name="sottocategoria" value="Progetto esecutivo delle strutture" <c:if test="${document.sottocategoria eq 'Progetto esecutivo delle strutture'}">checked</c:if>></input>Progetto esecutivo delle strutture</td>
+			<td><select name="sottotipo"  id="sepElaborate" <c:if test="${!(document.sottocategoria eq 'Progetto esecutivo delle strutture')}">disabled</c:if>>
+			    <c:forTokens items="a,b" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Progetto esecutivo delle strutture') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select></td>
 			</tr>
 			
 			<tr id="iep" hidden="true"><td></td>
-			<td><input type="radio" id="iepElab" name="type1" value="iepElab" <%=JSPSupport.checkSubCategory(document, "Progetto esecutivo degli impianti", "radio")%>></input>Progetto esecutivo degli impianti</td>
-			<td><select name="iepElaborate" id="iepElaborate" <%=JSPSupport.checkSubCategory(document, "Progetto esecutivo degli impianti", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType(document, "Progetto esecutivo degli impianti", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType(document, "Progetto esecutivo degli impianti", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkSubType(document, "Progetto esecutivo degli impianti", "c")%>> c</option>
+			<td><input type="radio" id="iepElab" name="sottocategoria" value="Progetto esecutivo degli impianti" <c:if test="${document.sottocategoria eq 'Progetto esecutivo degli impianti'}">checked</c:if>></input>Progetto esecutivo degli impianti</td>
+			<td><select name="sottotipo" id="iepElaborate" <c:if test="${!(document.sottocategoria eq 'Progetto esecutivo degli impianti')}">disabled</c:if>>
+			    <c:forTokens items="a,b,c" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Progetto esecutivo degli impianti') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select></td>
 			</tr>
 			
 			<tr id="mp" hidden="true"><td></td>
-			<td><input type="radio" id="mpElab" name="type1" value="mpElab" <%=JSPSupport.checkSubCategory(document, "Piano di manutenzione", "radio")%>></input>Piano di manutenzione</td>
-			<td><select name="mpElaborate" id="mpElaborate" <%=JSPSupport.checkSubCategory(document, "Piano di manutenzione", "select")%>>
-			    <option  value="a" <%=JSPSupport.checkSubType(document, "Piano di manutenzione", "a")%>> a</option>
-			    <option  value="b" <%=JSPSupport.checkSubType(document, "Piano di manutenzione", "b")%>> b</option>
-			    <option  value="c" <%=JSPSupport.checkSubType(document, "Piano di manutenzione", "c")%>> c</option>
+			<td><input type="radio" id="mpElab" name="sottocategoria" value="Piano di manutenzione" <c:if test="${document.sottocategoria eq 'Piano di manutenzione'}">checked</c:if>></input>Piano di manutenzione</td>
+			<td><select name="sottotipo" id="mpElaborate" <c:if test="${!(document.sottocategoria eq 'Piano di manutenzione')}">disabled</c:if>>
+			    <c:forTokens items="a,b,c" delims="," var="character">
+			    <option value="${character}" <c:if test="${(document.sottocategoria eq 'Piano di manutenzione') && (document.sottotipo eq character) }">selected</c:if>>${character}</option>
+			    </c:forTokens>
 			    </select></td>
 			</tr>
  			</table>
 
-
 			
-			
-			
-			<!-- In questo punto dovrei inserire la lista dei committenti cosicchè 
-			l'utente possa scegliere uno dei committenti che ha già inserito precedentemente
-			di conseguenza:
-			-se l'utente sceglie uno dei committenti di questa lista, verrà effettuato l'update 
-			-se inserisce i dati, verrà fatto il save.-->
-			
-			
-			
-			
-			
+			<!-- lista committenti registrati -->
 			<table>
 			<tr><td>Committente</td></tr>
 			
 			<tr><td style="border-top: 1px dashed black; color:red;">Committenti registrati</td></tr>
 			<tr><td><select name="selectRegisteredCustomer" id="sru">
 			<option value="selectCustomer">Scegli committente</option>
-			<%
-				if(user1.getCommittenti() != null)
-							{
-								List<Committente> customers1 = user1.getCommittenti();
-								for(int i=0;i<customers1.size();i++)
-								{
-									String nameCustomer = customers1.get(i).getNome();
-									String surnCustomer = customers1.get(i).getCognome();
-									out.println("<option value='"+ customers1.get(i).getIdCommittente() + "' "+JSPSupport.checkCustomer(document, customers1.get(i))+">" +surnCustomer+ " " + nameCustomer + "</option>");
-								}
-							}
-			%>
+			<c:forEach items="${user.committenti}" var="cust">
+			    <option value="${cust.idCommittente}" <c:if test="${(registeredCustomer.nome eq cust.nome) && (registeredCustomer.cognome eq cust.cognome)}">selected</c:if>>${cust.cognome} ${cust.nome}</option>
+			</c:forEach>
 			</select></td></tr>
-			
-			
-			
-			
+					
 			<tr><td style="border-top: 1px dashed black; color:red;">Nuovo committente</td></tr>
 			</table>
 			
-			<% Recapito contact; Recapito contact1;
-				if(customer!=null)
-				{
-					 contact = customer.getRecapiti().get(0);
-					 contact1 = customer.getRecapiti().get(1);
-				}
-				else
-				{
-					contact = null;
-					contact1 = null;
-				}%>
+			
+			<!-- campi dati committente -->
 			<table>
-			<tr><td>Nome </td><td><input value="<%if(customer!=null) out.print(customer.getNome());%>" type="text" name="nameCust" id="nC" /></td><td><div style="color:red;" id="warning2"></div></td></tr>
-			<tr><td>Cognome </td><td><input value="<%if(customer!=null) out.print(customer.getCognome());%>" type="text" name="surname" id="sC" /></td><td><div style="color:red;" id="warning3"></div></td></tr>
-			<tr><td>CF </td><td><input value="<%if(customer!=null) out.print(customer.getCf());%>" type="text" name="CF" id="cf" /></td><td></td></tr>
-			<tr><td>Telefono (1)</td><td><input value="<%if(contact != null) out.print(contact.getTelefono());%>" type="text" name="tel1" id="tel1" /></td><td><div style="color:red;" id="warning4"></div></td></tr>
-			<tr><td>Telefono (2)</td><td><input value="<%if(contact1 != null) out.print(contact1.getTelefono());%>" type="text" name="tel2" id="tel2" /></td><td></td></tr>
-			<tr><td>Email (1)</td><td><input value="<%if(contact!=null) out.print(contact.getEmail());%>" type="text" name="email1" id="email1" /></td><td><div style="color:red;" id="warning5"></div></td></tr>
-			<tr><td>Email (2)</td><td><input value="<%if(contact1!=null) out.print(contact1.getEmail());%>" type="text" name="email2" id="email2" /></td><td></td></tr>
+			<!-- <tr><td>Nome </td><td><input value="${newCustomer.nome}" type="text" name="nome" id="nC" /></td><td><div style="color:red;" id="warning2"></div></td></tr>
+			<tr><td>Cognome </td><td><input value="${newCustomer.cognome}" type="text" name="cognome" id="sC" /></td><td><div style="color:red;" id="warning3"></div></td></tr>-->
+			<tr><td>CF </td><td><input value="${newCustomer.cf}" type="text" name="cf" id="cf" /></td><td></td></tr>
+			<!-- <tr><td>Telefono (1)</td><td><input value="${newCustomer.recapiti.get(0).telefono}" type="text" name="telefono" id="tel1" /></td><td><div style="color:red;" id="warning4"></div></td></tr>
+			<tr><td>Telefono (2)</td><td><input value="${newCustomer.recapiti.get(1).telefono}" type="text" name="telefono1" id="tel2" /></td><td></td></tr>
+			<tr><td>Email (1)</td><td><input value="${newCustomer.recapiti.get(0).email}" type="text" name="email" id="email1" /></td><td><div style="color:red;" id="warning5"></div></td></tr>
+			<tr><td>Email (2)</td><td><input value="${newCustomer.recapiti.get(1).email}" type="text" name="email1" id="email2" /></td><td></td></tr>-->
 			
 			
 			
 			<tr>
 			<td><input type="reset" value="Reset" id="reset"/></td>
-			<td><input type="submit" value="Salva Modifiche" name="save" id="SM" disabled/></td>
+			<td><input type="submit" value="Salva Modifiche" name="save" id="SM" /></td><!-- disabled -->
 			</tr>
 			</table>
 		</form>
 		
-		<p style="color:red;">${msg1}</p>
-		<p style="color:red;">${msg2}</p>
+		<p style="color:red;">${msg1}</p><!-- file già presente -->
+		<p style="color:red;">${msg2}</p><!-- committente già presente -->
+		<p style="color:red;">${msg3}</p><!-- il committente associato a questo cf non si è ancora registrato -->
 </div>
 </body>
 </html>
