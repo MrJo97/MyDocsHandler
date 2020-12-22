@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="table0">
+			<div id="title" align="center" >Parametri di ricerca</div>
+			<div id="table00">
 		<form action="/MyDocsHandler/searchDocument/search" method="post">
 			<table>
 				<tr>
@@ -109,6 +112,8 @@
       </table>
 	</form>
 	</div>
+</div>
+</div>
 	
 	
 </body>

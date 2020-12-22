@@ -2,6 +2,7 @@ package webapp.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.RollbackException;
@@ -46,6 +47,19 @@ public class UtenteDaoImpl {
 		tx.commit();
 	}
 	
+	public Utente getUserByEmail(String email) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
+    	
+		Utente user =null;
+		try {
+		 user = session.createQuery("FROM Utente WHERE email='"+email+"'", Utente.class ).getSingleResult();
+		}
+		catch(NoResultException e)
+		{
+			
+			System.out.println("nessun match");
+		}
+    	return user;
+          }
 
 	public Utente getUserById(int idUser) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
     	

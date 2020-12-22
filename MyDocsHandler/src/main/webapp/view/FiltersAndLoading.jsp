@@ -8,9 +8,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+<spring:url value="/resources/css2/HomePageStyle.css" var="css" />
 <spring:url value="/resources/js/loadingFileScript.js" var="lfs" />
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.0.min.js'/>"></script>
 <script src="${lfs}" ></script>
+<link href="${css}" rel="stylesheet" />
 
 <!--  <script type="text/javascript" src="http://localhost:8080/WebAppTesi/assets/js/setConstraintsLoading.js"></script>-->
 
@@ -20,13 +22,17 @@
 
 
 <body>
+			<div id="table0">
+			<div id="title" align="center" >Parametri di ricerca</div>
+			<div id="table00">
 		<form action="/MyDocsHandler/searchDocument/search" method="post">
+			
 			<table>
-				<tr>
-					<td align="center" colspan="2" id="titolo" style="font-size:125%;color:red;">Parametri di ricerca</td>
-				</tr>
+			<!-- 	<tr>
+					<td align="center" colspan="2" id="titolo" style="font-size:125%;color:white;background-color:rgba(0,51,153);">Parametri di ricerca</td>
+				</tr>-->
 				<tr><td><br/></td></tr>
-				<tr><td colspan="2" style="color:red;">Dati documento</td></tr>
+				<tr style="height:50px;"><td align="center" colspan="2" style="font-size:125%;"><b>Dati documento</b></td></tr>
 				<tr>
 					<td id="namefileSearch">Nome documento:</td>
 					<td><input type="text" name="nome"
@@ -36,10 +42,10 @@
 					<td colspan="2" id="fields">Fase di progetto:</td>
 				</tr>
 			
-				
  			<tr>			   
 			<td><input type="radio" value="Progetto preliminare" id="preliminary" name="categoria"
 			 <c:if test="${document.categoria eq 'Progetto preliminare'}">checked</c:if>></input>Preliminare</td>
+			 
 				<td><select name="tipo" id="ppElaborate" <c:if test="${!(document.categoria eq 'Progetto preliminare')}">disabled</c:if>>		   
 			    <c:forTokens items="a,b,c,d,e,f,g,h,i" delims="," var="character">
 			    <option value="${character}" <c:if test="${(document.categoria eq 'Progetto preliminare') && (document.tipo eq character) }">selected</c:if>>${character}</option>
@@ -68,12 +74,12 @@
 			    </select>
 			    </td>
 			</tr>
- 			</table>
+ 			<!--  </table> -->
  			
  						
  						
 			<!-- progetto definitivo -->
- 			<table>
+ 			<!-- <table>-->
  			<tr><td><input type="radio" value="Progetto definitivo" id="definitive" name="categoria" <c:if test="${document.categoria eq 'Progetto definitivo'}">checked</c:if>></input>Definitivo</td>
  			<td><select name="tipo" id="dpElaborate" <c:if test="${!(document.categoria eq 'Progetto definitivo')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l,m,n,o" delims="," var="character">
@@ -163,11 +169,11 @@
 			    </select>
 			    </td>
 			</tr>
- 			</table>
+ 			<!-- </table>-->
  			
  						
 			<!-- progetto esecutivo -->
- 			<table>
+ 			<!-- <table>-->
  			<tr><td><input type="radio" value="Progetto esecutivo" id="executive" name="categoria" <c:if test="${document.categoria eq 'Progetto esecutivo'}">checked</c:if>></input>Esecutivo</td>
  			<td><select name="tipo" id="epElaborate" <c:if test="${!(document.categoria eq 'Progetto esecutivo')}">disabled</c:if>>
 			    <c:forTokens items="a,b,c,d,e,f,g,h,i,l,m" delims="," var="character">
@@ -211,54 +217,50 @@
 			    </c:forTokens>
 			    </select></td>
 			</tr>	
- 			</table>
+ 			<!-- </table>
  			
  			
  			
- 			
- 			
- 			
- 			
- 			
- 			
- 			
- 			
- 			
- 			
- 			<table>
- 			<tr><td style="color:red;">Committenti registrati</td></tr>
+ 			<table>-->
+ 			<tr><td><br /></td></tr>
+ 			<tr><td><br /></td></tr>
+ 			<tr style="height:50px;"><td align="center" colspan="2" style="font-size:125%;"><b>Committenti registrati</b></td></tr>
  			<tr><td><select name="selectRegisteredCustomer" id="sru">
 			<option value="selectCustomer">Scegli committente</option>
 			<c:forEach items="${user.committenti}" var="cust">
 			    <option value="${cust.idCommittente}" <c:if test="${!(idCust eq 'selectCustomer') && (idCust eq cust.idCommittente)}">selected</c:if>>${cust.cognome} ${surn.nome}</option>
 			</c:forEach>
-			</select></td></tr>			
-					
+			</select></td><td></td></tr>			
+				<tr><td><br /></td></tr>
+				<tr><td><br /></td></tr>
 				<tr>
-					<td><div>${document.committente.cf}</div></td>
-					<td><input type="reset" name="reset"
-						value="Reset"></input><input type="submit" name="cerca"
+					<td align="center"><input type="reset" name="reset"
+						value="Reset"></input></td>
+					<td align="center"><input type="submit" name="cerca"
 						value="Cerca"></input></td>
 				</tr>
-			</table>
+		 </table>
+
 		</form>
+
 <br/>
 <br/>
 
 		<form action="/MyDocsHandler/fileupload/checkFile" method="post" enctype="multipart/form-data">
+		<div align="center" style="height:4vh;font-size:125%;color:white;background-color:rgba(0,51,153);" id="titolo1" >Caricamento file</div>
 			<table id="tabella1">
-				<tr>
-					<td align="center" colspan="2" id="titolo1">Caricamento file</td>
-				</tr>
+				<!-- <tr>
+					<td align="center" colspan="2" style="font-size:125%;color:red;" id="titolo1">Caricamento file</td>
+				</tr>-->
 				<tr><td><br/></td></tr>
 				<tr>
 					<td id="fields">Percorso file:</td>
 					<td><input id="fields" type="file" id="insertFile"
 						name="file" placeholder="Inserisci il percorso" ></input></td>
 				</tr>
+				<tr><td><br /></td></tr>
 				<tr>
-					<td></td>
-					<td align="center"><input type="submit" name="carica"
+					<td align="center" colspan="2"><input type="submit" name="carica"
 						value="Carica" id="load"></input></td>
 				</tr>
 			</table>
@@ -277,6 +279,7 @@
 	<!-- </form> -->
 	</div>
 	
-
+</div>
+</div>
  </body>
 </html>

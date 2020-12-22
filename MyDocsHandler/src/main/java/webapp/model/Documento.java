@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.springframework.context.annotation.Scope;
@@ -34,8 +35,11 @@ public class Documento {
 	private String sottotipo;
 	
 	@ManyToOne
+	@JoinColumn(name = "IdUtente")
 	private Utente utente;
+	
 	@ManyToOne
+	@JoinColumn(name = "IdCommittente")
 	private Committente committente;
 	
 	

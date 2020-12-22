@@ -134,7 +134,7 @@ public class EditFileController {
 		//recupero dell'oggetto committente
 				else
 				{
-					customer = customerOperationsImpl.retrieveCustomerById(Integer.parseInt(request.getParameter("selectRegisteredCustomer")));
+					customer = customerOperationsImpl.getCustomerById(Integer.parseInt(request.getParameter("selectRegisteredCustomer")));
 				}
 				
 				//verifica della presenza di un file con lo stesso nome

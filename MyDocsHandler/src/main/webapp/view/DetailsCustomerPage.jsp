@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<spring:url value="/resources/css3/DetailsAndEditPagesStyle.css" var="css" />
+<spring:url value="/resources/css2/DetailsAndEditPagesStyle.css" var="css" />
 <link href="${css}" rel="stylesheet" />
 
 <title>Insert title here</title>
@@ -16,6 +16,7 @@
 
 <% Committente customer = (Committente) request.getAttribute("customer"); %>
 <div id="cssStyle">
+<div style="margin-left: 10px;margin-top: 10px;">
 <table>
 <tr><td colspan="2" style="color:red">Dati Committente</td></tr>
 <tr><td>Nome: </td><td>${customer.nome}</td></tr>
@@ -24,6 +25,7 @@
 <tr><td>Telefono: </td><td>${customer.telefono}</td></tr>
 <tr><td>Email: </td><td>${customer.email}</td></tr>
 </table>
+</div>
 </div>
 </body>
 </html>

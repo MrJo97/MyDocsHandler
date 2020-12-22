@@ -115,7 +115,7 @@ public class CreationProfileController {
 	public ModelAndView customerProfile(@PathVariable int idCustomer, HttpServletRequest request) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
 	{
 		ModelAndView model = new ModelAndView("CustomerProfilePage");
-		Committente customer = customerOperationsImpl.retrieveCustomerById(idCustomer);
+		Committente customer = customerOperationsImpl.getCustomerById(idCustomer);
 		model.addObject("customer", customer);
 		return model;
 	}

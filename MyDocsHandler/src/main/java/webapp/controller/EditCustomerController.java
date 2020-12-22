@@ -47,11 +47,12 @@ public class EditCustomerController {
 	}
 
 	@RequestMapping("/showDetailsCustomer{idCustomer}")
-	public ModelAndView showDetailsCustomer(HttpServletRequest request, @PathVariable int idCustomer) {
+	public ModelAndView showDetailsCustomer(HttpServletRequest request, @PathVariable int idCustomer) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
 		ModelAndView model = new ModelAndView("CustomerProfilePage");
-		HttpSession appSession = request.getSession();
-		Utente user = (Utente) appSession.getAttribute("user");
-		Committente customer = Support.getCustomerById(user.getCommittenti(), idCustomer);
+		//HttpSession appSession = request.getSession();
+		//Utente user = (Utente) appSession.getAttribute("user");
+		//Committente customer = Support.getCustomerById(user.getCommittenti(), idCustomer);
+		Committente customer = customerOperationsImpl.getCustomerById(idCustomer);
 		model.addObject("customer", customer);
 		return model;
 	}
@@ -63,7 +64,7 @@ public class EditCustomerController {
 		Utente user = (Utente) session.getAttribute("user");
 		//List<Committente> customers = user.getCommittenti();
 		//Committente customer = Support.getCustomerById(customers, idCustomer);
-		Committente customer = customerOperationsImpl.retrieveCustomerById(idCustomer);
+		Committente customer = customerOperationsImpl.getCustomerById(idCustomer);
 		model.addObject("customer", customer);
 		model.addObject("operation", "editing");
 		return model;
@@ -75,7 +76,7 @@ public class EditCustomerController {
 		   HeuristicRollbackException, SystemException {
 		
 		ModelAndView model = new ModelAndView("EmailDeliveryWarningPage");		
-		Committente customer = customerOperationsImpl.retrieveCustomerById(idCustomer);
+		Committente customer = customerOperationsImpl.getCustomerById(idCustomer);
 		updatingCustomer.setCommittente(customer);
 		
 		Committente customer1 = customerOperationsImpl.checkCfCustomer(request.getParameter("cf"));

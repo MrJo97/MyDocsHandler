@@ -79,6 +79,15 @@ public class UserOperationsImpl implements UserOperationsInterface {
 		documentoDao.closeTransaction();
 		return doc;
 	}
+	
+	public List<Documento> getAllDocuments(Utente user) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
+	{
+		documentoDao.getSession();
+		documentoDao.getTransaction();
+		List<Documento> docs = documentoDao.getAllDocuments(user);
+		documentoDao.closeTransaction();
+		return docs;
+	}
 
 	public void updateDocument(Documento document) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
 	{
@@ -99,10 +108,10 @@ public class UserOperationsImpl implements UserOperationsInterface {
 		Utente registeredUser = null;
 		utenteDao.getSession();
 		utenteDao.getTransaction();
-		List<Utente> users = utenteDao.getAllUsers();
+		registeredUser = utenteDao.getUserByEmail(user.getEmail());
 		utenteDao.closeTransaction();
-		if (registeredUser != null)
-			System.out.println(registeredUser.getCommittenti());
+		/*if (registeredUser != null)
+			System.out.println(registeredUser.getCommittenti());*/
 		return registeredUser;
 	}
 
@@ -266,33 +275,19 @@ public class UserOperationsImpl implements UserOperationsInterface {
 	}
 
 	public void delete(Documento doc, Utente user) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
-		//try {
 			documentoDao.getSession();
 			documentoDao.getTransaction();
 			documentoDao.deleteDocument(doc);
 			documentoDao.closeTransaction();
-
-			System.out.println("dimnesione lista documenti associati al committente:"
-					+ doc.getCommittente().getDocumenti().size());
-			/**if (doc.getCommittente().getDocumenti().size() == 1) {
-				/*recapitoDao.getSession();
-				recapitoDao.getTransaction();
-				recapitoDao.deleteContact(doc.getCommittente().getRecapiti().get(0));
-				recapitoDao.deleteContact(doc.getCommittente().getRecapiti().get(1));
-				recapitoDao.closeTransaction();
-
-				committenteDao.getSession();
-				committenteDao.getTransaction();
-				committenteDao.deleteCustomer(doc.getCommittente());
-				committenteDao.closeTransaction();
-
-				user.getCommittenti().remove(doc.getCommittente());
-			}**/
-		/*} catch (SecurityException | RollbackException | HeuristicMixedException | HeuristicRollbackException
-				| SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+	}
+	
+	public List<Documento> searchDocuments(Documento document, Committente customer) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
+	{
+		documentoDao.getSession();
+		documentoDao.getTransaction();
+		List<Documento> documents = documentoDao.searchDocuments(document, customer);
+		documentoDao.closeTransaction();
+		return documents;
 	}
 
 	public void sendEmail(String email, String subject, String text) {

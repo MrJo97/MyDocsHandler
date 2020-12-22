@@ -8,16 +8,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<spring:url value="/resources/js/setContraintFieldsAutentication.js" var="cic" />
+<!-- <link href="http://localhost:8080/MyDocsHandler/resources/css/LoginStyle.css" 
+	rel="stylesheet" type="text/css" >-->
+<spring:url value="/resources/js/formLoginUserValidation.js" var="cic" />
 <spring:url value="/resources/js/jquery-3.5.0.min.js" var="jquery" />
-<spring:url value="/resources/css3/LoginRegistrationPagesStyle.css" var="css" />
+<spring:url value="/resources/css/LoginStyle.css" var="css" />
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.0.min.js'/>"></script>
-<script src="${cic}" ></script>
+<script src="${cic}" type="module" ></script>
 <script src="${jquery}" ></script>
 <link href="${css}" rel="stylesheet" />
 
 <title>Insert title here</title>
+<!-- 
 <style>
 #container1
 		{
@@ -36,7 +38,7 @@
 		width:80%;
 		left:10%;
 		}
-</style>
+</style>-->
 
 </head>
 <body>
@@ -46,13 +48,14 @@
 <p>Se non sei ancora registrato clicca <a href="/MyDocsHandler/goToRegistrationForm.html">qui</a>.</p>
 <form action="/MyDocsHandler/loginUser" method="post">
 <table id="table">
-<tr><td>Email: </td><td><input type="text" name="email" id="loginEmail" value="${user.email}"/></td></tr>
-<tr><td>Password: </td><td><input type="password" name="password" id="loginPassword" value="${user.password}"/></td></tr>
-<tr><td colspan="2"><input type="submit" id="cmd" value="Accedi" disabled/></td></tr>
+<tr><td>Email: </td><td><input type="text" name="email" id="email" value="${user.email}"/></td></tr>
+<tr><td>Password: </td><td><input type="password" name="password" id="password" value="${user.password}"/></td></tr>
+<tr><td colspan="2"><input type="submit" id="login" value="Accedi" disabled/></td></tr>
 </table>
 <p style="color:red;">${msg}</p>
-<div id="result1"></div>
-<div id="result2"></div>
+<div id="msgEmail"></div>
+<div id="msgPassword"></div>
+<div id="msg1"></div>
 </form>
 </div>
 </div>

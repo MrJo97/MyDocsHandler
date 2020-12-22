@@ -1,35 +1,18 @@
-function disableAll(){
-	/*document.getElementById("nC").disabled = true;
-	document.getElementById("sC").disabled = true;
-	document.getElementById("tel1").disabled = true;
-	document.getElementById("email1").disabled = true;
-	document.getElementById("tel2").disabled = true;
-	document.getElementById("email2").disabled = true;*/
-	document.getElementById("cf").disabled = true;
+import { checkSimpleText, checkCf } from './functions.js';
 
+function disableAll(){
+	document.getElementById("cf").disabled = true;
 }
 function enableAll(){
-	//document.getElementById("nC").disabled = false;
-	//document.getElementById("sC").disabled = false;
-	/*document.getElementById("tel1").disabled = false;
-	document.getElementById("email1").disabled = false;
-	document.getElementById("tel2").disabled = false;
-	document.getElementById("email2").disabled = false;*/
 	document.getElementById("cf").disabled = false;
 }
-
 
 $(document).ready(function()
 {
 	var isTheDocSelected=false; //=true se il tipo di documento è stato scelto
-	var isTheNameTyped=false; //=true se il nome del documento è stato inserito
+	var isTheNameOk=false; //=true se il nome del documento è stato inserito
 	var isTheDescriptionTyped=true;
-	var isTheCustomerCfTyped = false;
-	/*var isTheCustomerNameTyped=false;
-	var isTheCustomerSurnameTyped=false;
-	var isTheCustomerTelTyped=false;
-	var isTheCustomerEmailTyped=false;*/
-
+	var isTheCfOk = false;
 	
 		//nel caso di reset è necessario disabilitare il bottone di 
 		//salva modifiche
@@ -40,7 +23,46 @@ $(document).ready(function()
 			
 	//form validation dei campi dati del documento
 		//nome file 
-		$("#nf").on('change', function()
+		$("#name").on('input change', function(){
+			isTheNameOk = checkSimpleText($(this).val());
+			console.log(isTheNameOk);
+			console.log("Lunghezza nome:" + $(this).val());
+			if(!checkSimpleText($(this).val()))
+			{
+				$("#msgName").text("Formato nome non valido!");
+				$("#msgName").css("color", "red");
+				isTheNameOk=false;
+			}
+			else if($(this).val().length<3)
+			{
+				$("#msgName").text("Il nome deve contenere almeno 3 caratteri!");
+				$("#msgName").css("color", "red");
+				isTheNameOk=false;
+			}
+			else
+			{	
+				$("#msgName").text("");
+				isTheNameOk=true;
+			}
+			console.log("isTheNameOk: " + isTheNameOk);
+
+		});
+			$("#name").on('input keypress', function( event ) {
+				console.log($(this).val().length);	
+				console.log(!checkSimpleText($(this).val()));
+				if($(this).val().length==101)
+					{
+						$(this).val($(this).val().substr(0,625));
+						$("#msgName").text("Il nome del file deve contenere un massimo di 100 caratteri!");
+						$("#msgName").css("color", "red");
+						return false;}
+				else
+				{
+					$("#msgName").text("");
+					return true;
+				}
+			});
+	/*	$("#nf").on('change', function()
 		{
 			if($("#nf").val().length < 1 || $("#nf").val().length > 100)
 			{
@@ -54,15 +76,54 @@ $(document).ready(function()
 				isTheNameTyped=true;
 			}
 		});
-		console.log("nome: " + isTheNameTyped);
+		console.log("nome: " + isTheNameTyped);*/
 		
 		//descrizione
-		$("#description").on('change', function()
+		/*	$("#description").on('input change', function(){
+				isTheNameTyped = checkSimpleText($(this).val());
+				console.log(isTheNameTyped);
+				console.log("Lunghezza nome:" + $(this).val());
+				if(!checkSimpleText($(this).val()))
+				{
+					$("#msgDescription").text("Formato nome non valido!");
+					$("#msgDescription").css("color", "red");
+					isTheNameOk=false;
+				}
+				else if($(this).val().length<3)
+				{
+					$("#msgDescription").text("Il nome del file deve contenere almeno 3 caratteri!");
+					$("#msgDescription").css("color", "red");
+					isTheNameOk=false;
+				}
+				else
+				{	
+					$("#msgDescription").text("");
+					isTheNameOk=true;
+				}
+				console.log("isTheNameOk: " + isTheNameOk);
+
+			});*/
+				$("#description").on('input keypress', function( event ) {
+					console.log($(this).val().length);	
+					console.log(!checkSimpleText($(this).val()));
+					if($(this).val().length==626)
+						{
+							$(this).val($(this).val().substr(0,625));
+							$("#msgDescription").text("La descrizione deve contenere un massimo di 625 caratteri!");
+							$("#msgDescription").css("color", "red");
+							return false;}
+					else
+					{
+						$("#msgDescription").text("");
+						return true;
+					}
+				});
+		/*$("#description").on('change', function()
 		{
 			if($("#description").val().length > 250)
 			{
 				//console.log("Lunghezza della descrizione: " + $("#description").val().length);
-				$("#warning1").text("La descrizione deve contenere meno di 250 caratteri");
+				$("#warning1").text("La descrizione deve contenere meno di 625 caratteri");
 				document.getElementById('SM').disabled=true;
 				isTheDescriptionTyped=false;
 			}
@@ -72,14 +133,58 @@ $(document).ready(function()
 				$("#warning1").text("");
 				isTheDescriptionTyped=true;
 			}
-		});
+		});*/
 		
 			
 	 //form validation dei campi dati del committente
 			
 			//nome committente
 			//console.log("lunghezza del nome del committente: " + $("#nC").val().length)
-			$("#cf").on('change', function()
+				$("#cf").on('input change', function(){
+					isTheCfOk = checkCf($(this).val());
+					console.log(isTheCfOk);
+					console.log("Lunghezza cf:" + $(this).val());
+					if(!checkCf($(this).val()))
+					{
+						$("#msgCf").text("Formato non valido!");
+						$("#msgCf").css("color", "red");
+						isTheCfOk=false;
+					}
+					else if($(this).val().length!=16)
+					{
+						$("#msgCf").text("Il codice fiscale deve contenere esattamente 16 caratteri alfanumerici!");
+						$("#msgCf").css("color", "red");
+						isTheCfOk=false;
+					}
+					else
+					{	
+						$("#msgCf").text("");
+						isTheCfOk=true;
+					}
+					console.log("isTheCfOk: " + isTheCfOk);
+
+				});
+					$("#cf").on('input keypress', function( event ) {
+						console.log($(this).val().length);	
+						console.log(checkCf($(this).val()));
+						if($(this).val().length==17)
+							{
+							$(this).val($(this).val().substr(0,16));
+							//$("#cf").text(sub);
+							/*console.log($("#cf").val().substring(0,16));
+							console.log($("#cf").val());
+							console.log(typeof $(this).val());*/
+						     $("#msgCf").text("Il codice fiscale non può contenere più di 16 caratteri alfanumerici!");
+							 $("#msgCf").css("color", "red");
+							 return false;
+							}
+						else
+							{
+								$("#msgCf").text("");
+								return true;
+							}									
+					});
+			/*$("#cf").on('change', function()
 			{
 				if($("#cf").val().length != 16)
 				{
@@ -93,7 +198,7 @@ $(document).ready(function()
 					$("#warning2").text("");
 					isTheCustomerCfTyped = true;
 				}
-			});
+			});*/
 			
 			
 			//cognome committente
@@ -150,7 +255,7 @@ $(document).ready(function()
 			
 			
 			
-		$(document.body).on('change', function()
+		$(document.body).on('input change', function()
 		{
 			//nel caso in cui si selezioni un committente già registrato
 			//è necesario disabilitare i campi dati dell'utente
@@ -224,7 +329,7 @@ $(document).ready(function()
 			/*console.log("isTheNameTyped  " + isTheNameTyped);
 			console.log("isTheDescriptionTyped  " + isTheDescriptionTyped);*/
 
-			if((case1 || case2 || case3) && isTheDescriptionTyped && isTheNameTyped)
+			if((case1 || case2 || case3) && isTheNameOk)
 				{
 					isTheDocSelected = true;
 				}
@@ -233,7 +338,7 @@ $(document).ready(function()
 					isTheDocSelected = false;
 				}
 			console.log("descrizione: " + isTheDescriptionTyped);
-			console.log("nome: " + isTheNameTyped);
+			console.log("nome: " + isTheNameOk);
 			console.log("selection: " + isTheDocSelected);
 			console.log("caso: " + (case1 || case2 || case3));
 			
@@ -242,22 +347,22 @@ $(document).ready(function()
 			
 			console.log("è selezionato un committente registrato: " + $("#sru").val()); 
 			console.log("isTheDocSelected  " + isTheDocSelected);
-			console.log("isTheCustomerCfTyped  " + isTheCustomerCfTyped);
+			console.log("isTheCustomerCfTyped  " + isTheCfOk);
 			/*console.log("isTheCustomerSurnameTyped  " + isTheCustomerSurnameTyped);
 			console.log("isTheCustomerTelTyped  " + isTheCustomerTelTyped);
 			console.log("isTheCustomerEmailTyped  " + isTheCustomerEmailTyped);*/
 			console.log("non ho selezionato nessun committente registrato  " + ($("#sru").val() != "selectCustomer"));
 			
-			console.log("abilito il salvataggio: "+ (isTheDocSelected && (isTheCustomerCfTyped || $("#sru").value != "selectCustomer")));
+			console.log("abilito il salvataggio: "+ (isTheDocSelected && (isTheCfOk || $("#sru").value != "selectCustomer")));
 			
 		//abilitazione del bottone "salva modifiche"
-			if(isTheDocSelected && (isTheCustomerCfTyped || $("#sru").val() != "selectCustomer"))
+			if(isTheDocSelected && (isTheCfOk || $("#sru").val() != "selectCustomer"))
 			{
-				document.getElementById('SM').disabled=false;
+				$("#SM").prop('disabled', false);
 			}
 			else
 			{
-				document.getElementById('SM').disabled=true;
+				$("#SM").prop('disabled', true);
 			}
 				
 			

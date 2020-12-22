@@ -1,0 +1,17 @@
+#container1
+		{
+		background-color: rgba(0,0,255,0.3);
+		position:absolute;
+		width: 25%;
+		height:30vh;
+		top:20%;
+		left:37.5%;
+		overflow: auto;
+		border-radius: 20px;
+		}
+#container2
+		{
+		position:absolute;
+		width:80%;
+		left:10%;
+		}

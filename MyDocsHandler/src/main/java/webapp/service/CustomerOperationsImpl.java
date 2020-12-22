@@ -110,7 +110,7 @@ public class CustomerOperationsImpl implements CustomerOperationsInterface {
 		return newCustomer;
 	}
 	
-	public Committente retrieveCustomerById(int idCustomer) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
+	public Committente getCustomerById(int idCustomer) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
 	{
 		committenteDao.getSession();
 		committenteDao.getTransaction();

@@ -14,6 +14,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
+import webapp.model.Committente;
 import webapp.model.Documento;
 import webapp.model.Utente;
 
@@ -84,8 +85,43 @@ public class DocumentoDaoImpl implements DocumentoDaoInterface{
     }
      
     public List<Documento> getAllDocuments(Utente user) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
-      	List<Documento> documents = session.createQuery("FROM Documento WHERE idUtente=" + user.getIdUtente(), Documento.class).getResultList();       
-        return documents;
+    	List<Documento> documents = null;
+    	try
+      	{
+    	documents = session.createQuery("FROM Documento WHERE idUtente=" + user.getIdUtente(), Documento.class).getResultList();       
+      	}
+    	catch(NoResultException e)
+		{
+			
+			System.out.println("lista vuota");
+		}
+    	return documents;
+       
+    }
+    
+    public List<Documento> searchDocuments(Documento document, Committente customer) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
+    	List<Documento> documents = null;
+    	try
+      	{
+    		if(document.getSottocategoria()==null && document.getSottotipo()==null)
+    			documents = session.createQuery("FROM Documento JOIN Committente ON Documento.IdCommittente = "+customer.getIdCommittente()
+    			+ " WHERE (Documento.nome='" + document.getNome() +"'"+" AND Documento.categoria='"+document.getCategoria()+"'"
+    			+" AND Documento.tipo='"+document.getTipo()+"')", Documento.class).getResultList();       
+    		else
+    			documents = session.createQuery("FROM Documento JOIN Committente ON Documento.IdCommittente = "+customer.getIdCommittente()
+    			+ " WHERE (Documento.nome='" + document.getNome() +"'"+" AND Documento.categoria='"+document.getCategoria()+"'"
+    			+" AND Documento.tipo='"+document.getTipo()+"'"+" AND Documento.sottocategoria='"+document.getSottocategoria()+"'"
+    			+" AND Documento.sottotipo='"+document.getSottotipo()+"')", Documento.class).getResultList();
+      	}
+    	catch(NoResultException e)
+		{
+			System.out.println("lista vuota");
+		}
+    	catch(NullPointerException e)
+		{
+			System.out.println("lista vuota");
+		}
+    	return documents;
        
     }
     

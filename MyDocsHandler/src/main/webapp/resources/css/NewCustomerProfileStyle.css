@@ -1,0 +1,53 @@
+#container1
+		{
+		/*background-color: rgba(0,0,255,0.3);
+		position:absolute;
+		float:left;
+		width: 25%;
+		height:60vh;
+		top:20%;
+		left:37.5%;
+		overflow: auto;
+		border-radius: 20px;*/
+		background-color: rgba(0,0,255,0.3);
+		float:left;
+		overflow: auto;
+		/*width: 25%;
+		height:60vh;*/
+		border-radius:20px;
+		margin-left:37.5%;
+		margin-top:10%;
+		width: 45vh;
+		height:50vh;
+		}
+#container2
+		{
+		position:relative;
+		width:80%;
+		left:10%;
+		}
+		
+#container3
+		{
+		/*background-color: rgba(0,0,255,0.3);*/
+		float:left;
+		border-radius:20px;
+		margin-top:10%;
+		margin-left:0.6%%;
+		width: 50vh;
+		height:100vh;
+		overflow: visible;
+		/*top:20%;
+		left:37.5%;
+		overflow: auto;
+		border-radius: 20px;*/
+		}
+#container4
+		{
+		position:relative;
+		width:95%;
+		}
+#table tr td {height:23px;}
+#table1 tr td {height:23px;}
+
+

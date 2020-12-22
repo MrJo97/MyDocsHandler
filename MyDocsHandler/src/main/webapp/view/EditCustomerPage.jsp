@@ -11,13 +11,13 @@
 
 <spring:url value="/resources/js/setConstraintFieldsCustomer.js" var="scf" />
 <spring:url value="/resources/js/jquery-3.5.0.min.js" var="jquery" />
-<spring:url value="/resources/css3/DetailsAndEditPagesStyle.css" var="css" />
+<spring:url value="/resources/css/CustomerProfileStyle.css" var="css" />
 
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.0.min.js'/>"></script> 
 <script src="${scf}" ></script>
 <script src="${jquery}" ></script>
 <link href="${css}" rel="stylesheet" />
-
+<!-- 
 <style>
 #container1
 		{
@@ -37,7 +37,7 @@
 		left:10%;
 		}
 </style>
-
+-->
 </head>
 <body>
 

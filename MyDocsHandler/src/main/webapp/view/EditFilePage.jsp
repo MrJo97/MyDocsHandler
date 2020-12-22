@@ -10,13 +10,15 @@
 <head>
 <meta charset="UTF-8">
 <!--<spring:url value="/resources/js/setConstraintFields1.js" var="scf" />-->
-<spring:url value="/resources/js/loadingFileScript.js" var="lfs" />
+<spring:url value="/resources/js/dynamicBlocksForDocumentCategories.js" var="lfs" />
+<spring:url value="/resources/js/formEditFileValidation.js" var="scf" />
 <spring:url value="/resources/js/jquery-3.5.0.min.js" var="jquery" />
-<spring:url value="/resources/css3/DetailsAndEditPagesStyle.css" var="css" />
+<spring:url value="/resources/css2/DetailsAndEditPagesStyle.css" var="css" />
 
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.0.min.js'/>"></script> 
 <!-- <script src="${scf}" ></script>-->
 <script src="${lfs}" ></script>
+<script src="${scf}" type="module" ></script>
 <script src="${jquery}" ></script>
 <link href="${css}" rel="stylesheet" />
 
@@ -30,7 +32,7 @@
 <%@ include file="HomePage.jsp"%>
 
 <div id="cssStyle">
-		
+<div style="margin-left: 10px;margin-top: 10px;">		
 
 		<form <c:choose>
 			<c:when test="${operation eq 'editing'}">action="/MyDocsHandler/editFile/edit${idDoc}"</c:when>
@@ -38,9 +40,9 @@
 		</c:choose>  method="post" enctype="multipart/form-data">
 			
 			<table id="tabella3">
-			<tr><td style="color:red;">Dati documento</td></tr>
-			<tr><td>Nome file: </td><td><input type="text" name="nome" id="nf" value="${document.nome}"/></td><td><div style="color:red;" id="warning"></div></td></tr>
-			<tr><td>Descrizione:</td><td><textarea name="descrizione" id="description" rows="5" cols="50">${document.descrizione}</textarea></td><td><div style="color:red;" id="warning1"></div></td></tr>
+			<tr style="height:50px;"><td style="font-size:125%;" colspan="2"><b>Dati documento</b></td></tr>
+			<tr><td>Nome file: </td><td><input type="text" name="nome" id="name" value="${document.nome}"/></td><td><div id="msgName"></div></td></tr>
+			<tr><td>Descrizione:</td><td ><textarea name="descrizione" id="description" rows="6" cols="50">${document.descrizione}</textarea></td><td><div id="msgDescription"></div></td></tr>
 			<tr><td colspan="2" style="color:#800000;">			
 			</td></tr>
 			<tr><td></td></tr>
@@ -221,28 +223,25 @@
 			</tr>
  			</table>
 
-			
+			<br />
 			<!-- lista committenti registrati -->
-			<table>
-			<tr><td>Committente</td></tr>
-			
-			<tr><td style="border-top: 1px dashed black; color:red;">Committenti registrati</td></tr>
+			<table>			
+			<tr style="height:50px;"><td style="font-size:125%;"><b>Committenti registrati</b></td></tr>
 			<tr><td><select name="selectRegisteredCustomer" id="sru">
 			<option value="selectCustomer">Scegli committente</option>
 			<c:forEach items="${user.committenti}" var="cust">
 			    <option value="${cust.idCommittente}" <c:if test="${(registeredCustomer.nome eq cust.nome) && (registeredCustomer.cognome eq cust.cognome)}">selected</c:if>>${cust.cognome} ${cust.nome}</option>
 			</c:forEach>
 			</select></td></tr>
-					
-			<tr><td style="border-top: 1px dashed black; color:red;">Nuovo committente</td></tr>
 			</table>
 			
-			
+			<br />
 			<!-- campi dati committente -->
 			<table>
+			<tr style="height:50px;"><td style="font-size:125%;" colspan="2"><b>Nuovo committente</b></td></tr>
 			<!-- <tr><td>Nome </td><td><input value="${newCustomer.nome}" type="text" name="nome" id="nC" /></td><td><div style="color:red;" id="warning2"></div></td></tr>
 			<tr><td>Cognome </td><td><input value="${newCustomer.cognome}" type="text" name="cognome" id="sC" /></td><td><div style="color:red;" id="warning3"></div></td></tr>-->
-			<tr><td>CF </td><td><input value="${newCustomer.cf}" type="text" name="cf" id="cf" /></td><td></td></tr>
+			<tr><td>CF </td><td><input value="${newCustomer.cf}" type="text" name="cf" id="cf" /></td><td><div id="msgCf"></div></td></tr>
 			<!-- <tr><td>Telefono (1)</td><td><input value="${newCustomer.recapiti.get(0).telefono}" type="text" name="telefono" id="tel1" /></td><td><div style="color:red;" id="warning4"></div></td></tr>
 			<tr><td>Telefono (2)</td><td><input value="${newCustomer.recapiti.get(1).telefono}" type="text" name="telefono1" id="tel2" /></td><td></td></tr>
 			<tr><td>Email (1)</td><td><input value="${newCustomer.recapiti.get(0).email}" type="text" name="email" id="email1" /></td><td><div style="color:red;" id="warning5"></div></td></tr>
@@ -260,6 +259,7 @@
 		<p style="color:red;">${msg1}</p><!-- file già presente -->
 		<p style="color:red;">${msg2}</p><!-- committente già presente -->
 		<p style="color:red;">${msg3}</p><!-- il committente associato a questo cf non si è ancora registrato -->
+</div>
 </div>
 </body>
 </html>

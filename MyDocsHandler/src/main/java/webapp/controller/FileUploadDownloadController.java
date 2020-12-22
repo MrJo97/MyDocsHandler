@@ -120,7 +120,7 @@ public class FileUploadDownloadController {
 		//recupero dell'oggetto committente
 		else
 		{
-			customer = customerOperationsImpl.retrieveCustomerById(Integer.parseInt(request.getParameter("selectRegisteredCustomer")));
+			customer = customerOperationsImpl.getCustomerById(Integer.parseInt(request.getParameter("selectRegisteredCustomer")));
 		}
 		
 		//verifica della presenza di un file con lo stesso nome
@@ -159,7 +159,7 @@ public class FileUploadDownloadController {
 		
 		List<Utente> customerUsers = customer.getUtenti(); //null se è il primo
 		if(customerUsers != null)
-		{
+		{   if(!Support.find(user.getIdUtente(), customerUsers))
 			customerUsers.add(user);
 		}
 		else
@@ -201,9 +201,9 @@ public class FileUploadDownloadController {
 		// altrimenti vengono memorizzatii dati nel database
 		model = userOperationsImpl.registerDocumentAndCustomer("register", document, customer, user, model,
 				request);
-		if (Support.isTheDocumentAlreadyHere(document.getNome(), documents)
-				/*|| Support.isTheCustomerAlreadyHere(customers, request.getParameter("cf"))*/)
-			return model;
+		/**if (Support.isTheDocumentAlreadyHere(document.getNome(), documents))
+				//|| Support.isTheCustomerAlreadyHere(customers, request.getParameter("cf"))
+			return model;**/
 
 		// permette di effettuare l'upload del file scelto dall'utente
 		userOperationsImpl.uploadFile((byte[]) appSession.getAttribute("bytes"), request, document.getPercorso());

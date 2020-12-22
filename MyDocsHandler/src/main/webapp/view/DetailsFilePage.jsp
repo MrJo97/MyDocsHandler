@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 
-<spring:url value="/resources/css3/DetailsAndEditPagesStyle.css" var="css" />
+<spring:url value="/resources/css2/DetailsAndEditPagesStyle.css" var="css" />
 <link href="${css}" rel="stylesheet" />
 
 <title>Insert title here</title>

@@ -159,6 +159,10 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 	<property name="customerOperationsImpl" ref="customerOperationsImpl" />
 </bean>
 
+<bean id="searchFileController" class="webapp.controller.SearchFileController">
+	<property name="userOperationsImpl" ref="userOperationsImpl" />
+</bean>
+
 
 <!-- models -->
 <!-- <bean id="utente" class="webapp.model.utente.Utente" scope="session">
