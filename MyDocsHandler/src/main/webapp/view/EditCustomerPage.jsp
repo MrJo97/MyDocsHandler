@@ -9,55 +9,49 @@
 <meta charset="UTF-8">
 <title>Modifica dati profilo</title>
 
-<spring:url value="/resources/js/setConstraintFieldsCustomer.js" var="scf" />
+<spring:url value="/resources/js/formEditCustomerValidation.js" var="scf" />
 <spring:url value="/resources/js/jquery-3.5.0.min.js" var="jquery" />
-<spring:url value="/resources/css/CustomerProfileStyle.css" var="css" />
+<spring:url value="/resources/css/EditCustomerProfileStyle.css" var="css" />
 
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.0.min.js'/>"></script> 
-<script src="${scf}" ></script>
+<script src="${scf}" type="module" ></script>
 <script src="${jquery}" ></script>
 <link href="${css}" rel="stylesheet" />
-<!-- 
-<style>
-#container1
-		{
-		background-color: rgba(0,0,255,0.3);
-		position:absolute;
-		width: 25%;
-		height:30vh;
-		top:20%;
-		left:37.5%;
-		overflow: auto;
-		border-radius: 20px;
-		}
-#container2
-		{
-		position:absolute;
-		width:80%;
-		left:10%;
-		}
-</style>
--->
 </head>
 <body>
 
 <div id="container1">
 <div id="container2">
 <form action="/MyDocsHandler/editCustomer/edit${customer.idCommittente}" method="POST">
-<table>
-			<tr><td>Nome </td><td><input value="${customer.nome}" type="text" name="nome" id="nC" /></td><td><div style="color:red;" id="warning2"></div></td></tr>
-			<tr><td>Cognome </td><td><input value="${customer.cognome}" type="text" name="cognome" id="sC" /></td><td><div style="color:red;" id="warning3"></div></td></tr>
+<table id="table">
+			<tr><td></td><td></td></tr>
+			<tr><td>Nome </td><td><input value="${customer.nome}" type="text" name="nome" id="name" /></td><td><div style="color:red;" id="warning2"></div></td></tr>
+			<tr><td>Cognome </td><td><input value="${customer.cognome}" type="text" name="cognome" id="surname" /></td><td><div style="color:red;" id="warning3"></div></td></tr>
 			<tr><td>CF </td><td><input value="${customer.cf}" type="text" name="cf" id="cf" /></td><td></td></tr>
-			<tr><td>Telefono </td><td><input value="${customer.telefono}" type="text" name="telefono" id="telefono" /></td><td><div style="color:red;" id="warning4"></div></td></tr>
+			<tr><td>Telefono </td><td><input value="${customer.telefono}" type="text" name="telefono" id="tel" /></td><td><div style="color:red;" id="warning4"></div></td></tr>
 			<tr><td>Email </td><td><input value="${customer.email}" type="text" name="email" id="email" /></td><td><div style="color:red;" id="warning5"></div></td></tr>
 						
 			<tr>
 			<td><input type="reset" value="Reset" id="reset"/></td>
-			<td><input type="submit" value="Salva Modifiche" name="save" id="SM"/></td>
+			<td><input type="submit" value="Salva Modifiche" name="save" id="SM" disabled/></td>
 			</tr>
 			</table>
 		</form>
-		<div>${warning}</div>
+		<div style="color:red;">${warning}</div>
+<div id="msg1"></div>
+</div>
+</div>
+<div id="container3">
+<div id="container4">
+<table id="table1">
+<tr><td></td></tr>
+<tr><td id="msgName"></td></tr>
+<tr><td id="msgSurname"></td></tr>
+<tr><td id="msgCf"></td></tr>
+<tr><td id="msgTel"></td></tr>
+<tr><td id="msgEmail"></td></tr>
+</table>
+<p><br/></p>
 </div>
 </div>
 </body>

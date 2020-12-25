@@ -4,27 +4,16 @@
 */
 
 import { checkSecurityLevelPassword, checkAllowedCharacters, checkFormatEmail, checkFormatSurname, checkFormatName, checkFormatTel, checkFormatCf, checkFormatUsername } from './functions.js';
-/*import { eventHandlerPassword } from './eventHandlers.js';*/
 $(document).ready(function()
 		{
-			var isThePasswordOk;
+			//var isThePasswordOk;
 			var isTheEmailOk;
 			var isTheNameOk;
 			var isTheSurnameOk;
 			var isTheTelOk;
 			var isTheCfOk;
-			var isTheNickOk;
-			
-			//controllo password
-		
-			$("#password").on('keypress', function( event ) {
-				return checkAllowedCharacters(event);
-			});
-			$("#password").on('input',function(){
-				checkSecurityLevelPassword($("#password").val());
-			});
-			
-			
+			//var isTheNickOk;
+	
 			//controllo email (con 'change' l'evento viene triggerato quando l'utente clicca al di fuori del campo di testo)
 			$("#email").on('change', checkFormatEmail);
 				
@@ -47,25 +36,11 @@ $(document).ready(function()
 						
 			//controllo cf
 			$("#cf").on('change', checkFormatCf);
-						
-			//controllo username
-			$("#username").on('keypress', function( event ) {
-				return checkAllowedCharacters(event);
-			});
-			$("#username").on('change', checkFormatUsername);
 								
 			//abilitazione bottone di salvataggio
-			$("#table").bind('input change', function(){
+			$("#table").bind('input change cut paste keyup', function(){
 				
-				if($("#msgUsername").text() == "" && $("#username").val() != "")
-					{isTheNickOk=true;}
-				else
-					{isTheNickOk=false;}
-				console.log($("#msgPassword").text());
-				if($("#msgPassword").text() == "livello di sicurezza: ottimo" || $("#msgPassword").text() == "livello di sicurezza: buono"  || ($("#msgPassword").text() == "" && $("#password").val() != ""))
-					{isThePasswordOk=true;}
-				else
-					{isThePasswordOk=false;}
+				
 				
 				if($("#msgEmail").text() == "" && $("#email").val() != "")
 					{isTheEmailOk=true;}
@@ -93,12 +68,12 @@ $(document).ready(function()
 					{isTheCfOk=false;}
 				
 			//console.log($("#msgPassword").text());
-				console.log("isThe...Ok: " + isTheEmailOk + isThePasswordOk+ isTheNameOk + isTheSurnameOk + isTheTelOk + isTheCfOk + isTheNickOk );
-			if(isThePasswordOk && isTheEmailOk && isTheNameOk && isTheSurnameOk && isTheTelOk && isTheCfOk && isTheNickOk)
+				console.log("isThe...Ok: " + isTheEmailOk + isTheNameOk + isTheSurnameOk + isTheTelOk + isTheCfOk );
+			if( isTheEmailOk && isTheNameOk && isTheSurnameOk && isTheTelOk && isTheCfOk )
 				{console.log("abilitazione!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-				$("#registration").prop('disabled', false);
+				$("#SM").prop('disabled', false);
 			}
 			else
-				$("#registration").prop('disabled', true);
+				$("#SM").prop('disabled', true);
 			});
 });

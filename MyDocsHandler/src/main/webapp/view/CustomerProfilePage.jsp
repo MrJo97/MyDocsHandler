@@ -9,7 +9,7 @@
 <title>Profilo committente</title>
 <spring:url value="/resources/css/CustomerProfileStyle.css" var="css" />
 <spring:url value="/resources/js/jquery-3.5.0.min.js" var="jquery" />
-<spring:url value="/resources/js/jsHomePage.js" var="cic" />
+<spring:url value="/resources/js/homePageFunctions.js" var="cic" />
 <script src="${jquery}"></script>
 <script src="${cic}"></script>
 <link href="${css}" rel="stylesheet" />

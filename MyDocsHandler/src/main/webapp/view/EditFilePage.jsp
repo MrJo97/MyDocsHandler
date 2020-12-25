@@ -251,7 +251,7 @@
 			
 			<tr>
 			<td><input type="reset" value="Reset" id="reset"/></td>
-			<td><input type="submit" value="Salva Modifiche" name="save" id="SM" /></td><!-- disabled -->
+			<td><input type="submit" value="Salva Modifiche" name="save" id="SM" disabled/></td><!-- disabled -->
 			</tr>
 			</table>
 		</form>

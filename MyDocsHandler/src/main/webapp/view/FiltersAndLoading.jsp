@@ -9,10 +9,13 @@
 
 <head>
 <spring:url value="/resources/css2/HomePageStyle.css" var="css" />
-<spring:url value="/resources/js/loadingFileScript.js" var="lfs" />
+<spring:url value="/resources/js/setConstraintsLoading.js" var="lfs" />
+<spring:url value="/resources/js/jquery-3.5.0.min.js" var="jquery" />
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.0.min.js'/>"></script>
+<script src="${jquery}"></script>
 <script src="${lfs}" ></script>
 <link href="${css}" rel="stylesheet" />
+
 
 <!--  <script type="text/javascript" src="http://localhost:8080/WebAppTesi/assets/js/setConstraintsLoading.js"></script>-->
 
@@ -255,7 +258,7 @@
 				<tr><td><br/></td></tr>
 				<tr>
 					<td id="fields">Percorso file:</td>
-					<td><input id="fields" type="file" id="insertFile"
+					<td id="reference"><input type="file" id="insertFile"
 						name="file" placeholder="Inserisci il percorso" ></input></td>
 				</tr>
 				<tr><td><br /></td></tr>

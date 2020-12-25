@@ -67,8 +67,6 @@
 <p style="color:red;">${msg}</p>
 </form>
 
-<!-- <div id="result2"></div>-->
-<!-- <div id="msg"></div>-->
 <div id="msg1"></div>
 </div>
 </div>

@@ -1,8 +1,8 @@
 //script jQuery:   https://stackoverflow.com/questions/2000656/using-href-links-inside-option-tag
 function redirect(operation, flag)
-	{console.log(operation.value.substring(27,33) + " tipo di flag "  + typeof flag);
+	{console.log(operation.value.substring(24,30) + " tipo di flag "  + typeof flag);
 	//window.location = operation.value;
-		if(operation.value !=  "" && operation.value.substring(27,33) != "delete")
+		if(operation.value !=  "" && operation.value.substring(24,30) != "delete")
 			{
 				window.location = operation.value;
 			}
