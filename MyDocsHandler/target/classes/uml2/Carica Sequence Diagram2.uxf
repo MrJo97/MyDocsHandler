@@ -1,35 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>6</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>120</x>
+      <x>63</x>
       <y>0</y>
-      <w>36</w>
-      <h>66</h>
+      <w>42</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>Utente</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>174</x>
-      <y>30</y>
-      <w>72</w>
-      <h>18</h>
-    </coordinates>
-    <panel_attributes>_:Registration.jsp_</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>132</x>
-      <y>120</y>
-      <w>18</w>
-      <h>216</h>
+      <x>77</x>
+      <y>140</y>
+      <w>21</w>
+      <h>252</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;340.0</additional_attributes>
@@ -37,21 +26,21 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>252</x>
-      <y>30</y>
-      <w>144</w>
-      <h>18</h>
+      <x>203</x>
+      <y>35</y>
+      <w>182</w>
+      <h>21</h>
     </coordinates>
-    <panel_attributes>_:FileUploadDownloadController_</panel_attributes>
+    <panel_attributes>_:FileUploadDownloadController.java_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>120</y>
-      <w>18</w>
-      <h>312</h>
+      <x>294</x>
+      <y>140</y>
+      <w>21</w>
+      <h>364</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;500.0</additional_attributes>
@@ -59,10 +48,10 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>402</x>
-      <y>30</y>
-      <w>72</w>
-      <h>18</h>
+      <x>392</x>
+      <y>35</y>
+      <w>84</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>_:HomePage.jsp_</panel_attributes>
     <additional_attributes/>
@@ -70,10 +59,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>432</x>
-      <y>120</y>
-      <w>18</w>
-      <h>312</h>
+      <x>427</x>
+      <y>140</y>
+      <w>21</w>
+      <h>364</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;500.0</additional_attributes>
@@ -81,10 +70,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>132</x>
-      <y>150</y>
-      <w>318</w>
-      <h>24</h>
+      <x>77</x>
+      <y>175</y>
+      <w>371</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>inserimento percorso file
 lt=&lt;-</panel_attributes>
@@ -93,10 +82,10 @@ lt=&lt;-</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>270</x>
-      <y>132</y>
-      <w>114</w>
-      <h>18</h>
+      <x>238</x>
+      <y>154</y>
+      <w>133</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>[ dimensione eccessiva ]</panel_attributes>
     <additional_attributes/>
@@ -104,10 +93,10 @@ lt=&lt;-</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>102</x>
-      <y>90</y>
-      <w>384</w>
-      <h>36</h>
+      <x>42</x>
+      <y>105</y>
+      <w>448</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>*ref*
 layer=-2</panel_attributes>
@@ -116,10 +105,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>234</x>
-      <y>96</y>
-      <w>126</w>
-      <h>24</h>
+      <x>196</x>
+      <y>112</y>
+      <w>147</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>Effettua Login</panel_attributes>
     <additional_attributes/>
@@ -127,10 +116,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>432</x>
-      <y>42</y>
-      <w>18</w>
-      <h>60</h>
+      <x>427</x>
+      <y>49</y>
+      <w>21</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
@@ -138,10 +127,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>42</y>
-      <w>18</w>
-      <h>60</h>
+      <x>294</x>
+      <y>49</y>
+      <w>21</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
@@ -149,21 +138,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>198</x>
-      <y>42</y>
-      <w>18</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>132</x>
-      <y>54</y>
-      <w>18</w>
-      <h>48</h>
+      <x>77</x>
+      <y>63</y>
+      <w>21</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -171,10 +149,10 @@ layer=-2</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>102</x>
-      <y>288</y>
-      <w>528</w>
-      <h>162</h>
+      <x>42</x>
+      <y>336</y>
+      <w>616</w>
+      <h>189</h>
     </coordinates>
     <panel_attributes>*loop*
 layer=-2</panel_attributes>
@@ -183,10 +161,10 @@ layer=-2</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>480</x>
-      <y>30</y>
-      <w>72</w>
-      <h>18</h>
+      <x>483</x>
+      <y>35</y>
+      <w>84</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>_:EditFilePage.jsp_</panel_attributes>
     <additional_attributes/>
@@ -194,10 +172,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
-      <y>42</y>
-      <w>18</w>
-      <h>354</h>
+      <x>518</x>
+      <y>49</y>
+      <w>21</w>
+      <h>413</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;570.0</additional_attributes>
@@ -205,10 +183,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>132</x>
-      <y>312</y>
-      <w>396</w>
-      <h>24</h>
+      <x>77</x>
+      <y>364</y>
+      <w>462</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>inserimento dei dati del documento e del committente associato
 lt=&lt;-</panel_attributes>
@@ -217,10 +195,10 @@ lt=&lt;-</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>102</x>
-      <y>132</y>
-      <w>528</w>
-      <h>144</h>
+      <x>42</x>
+      <y>154</y>
+      <w>616</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>*loop*
 layer=-2</panel_attributes>
@@ -229,10 +207,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>330</y>
-      <w>210</w>
-      <h>24</h>
+      <x>294</x>
+      <y>385</y>
+      <w>245</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>upload()
 lt=&lt;-</panel_attributes>
@@ -241,10 +219,10 @@ lt=&lt;-</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>264</x>
-      <y>288</y>
-      <w>108</w>
-      <h>18</h>
+      <x>231</x>
+      <y>336</y>
+      <w>126</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>[ Dati inseriti non validi ]</panel_attributes>
     <additional_attributes/>
@@ -252,10 +230,10 @@ lt=&lt;-</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>156</x>
-      <y>186</y>
-      <w>450</w>
-      <h>78</h>
+      <x>105</x>
+      <y>217</y>
+      <w>525</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>*alt*
 layer=-2
@@ -268,10 +246,10 @@ layer=-2
   <element>
     <id>Text</id>
     <coordinates>
-      <x>264</x>
-      <y>186</y>
-      <w>114</w>
-      <h>18</h>
+      <x>231</x>
+      <y>217</y>
+      <w>133</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>[ dimensione eccessiva ]</panel_attributes>
     <additional_attributes/>
@@ -279,10 +257,10 @@ layer=-2
   <element>
     <id>Text</id>
     <coordinates>
-      <x>306</x>
-      <y>222</y>
-      <w>48</w>
-      <h>18</h>
+      <x>280</x>
+      <y>259</y>
+      <w>56</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>[ else ]</panel_attributes>
     <additional_attributes/>
@@ -290,10 +268,10 @@ layer=-2
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>204</y>
-      <w>132</w>
-      <h>24</h>
+      <x>294</x>
+      <y>238</y>
+      <w>154</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>&lt;&lt;return&gt;&gt;
 lt=&lt;.</panel_attributes>
@@ -302,10 +280,10 @@ lt=&lt;.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>240</y>
-      <w>210</w>
-      <h>24</h>
+      <x>294</x>
+      <y>280</y>
+      <w>245</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>&lt;&lt;return&gt;&gt;
 lt=&lt;.</panel_attributes>
@@ -314,10 +292,10 @@ lt=&lt;.</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>156</x>
-      <y>354</y>
-      <w>450</w>
-      <h>78</h>
+      <x>105</x>
+      <y>413</y>
+      <w>525</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>*alt*
 layer=-2
@@ -330,10 +308,10 @@ layer=-2
   <element>
     <id>Text</id>
     <coordinates>
-      <x>264</x>
-      <y>354</y>
-      <w>114</w>
-      <h>18</h>
+      <x>231</x>
+      <y>413</y>
+      <w>133</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>[ Dati inseriti non validi ]</panel_attributes>
     <additional_attributes/>
@@ -341,10 +319,10 @@ layer=-2
   <element>
     <id>Text</id>
     <coordinates>
-      <x>306</x>
-      <y>390</y>
-      <w>48</w>
-      <h>18</h>
+      <x>280</x>
+      <y>455</y>
+      <w>56</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>[ else ]</panel_attributes>
     <additional_attributes/>
@@ -352,10 +330,10 @@ layer=-2
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>372</y>
-      <w>210</w>
-      <h>24</h>
+      <x>294</x>
+      <y>434</y>
+      <w>245</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>&lt;&lt;return&gt;&gt;
 lt=&lt;.</panel_attributes>
@@ -364,10 +342,10 @@ lt=&lt;.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>408</y>
-      <w>132</w>
-      <h>24</h>
+      <x>294</x>
+      <y>476</y>
+      <w>154</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>&lt;&lt;return&gt;&gt;
 lt=&lt;.</panel_attributes>
@@ -376,12 +354,12 @@ lt=&lt;.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>162</y>
-      <w>132</w>
-      <h>24</h>
+      <x>294</x>
+      <y>189</y>
+      <w>154</w>
+      <h>28</h>
     </coordinates>
-    <panel_attributes>checkFile()
+    <panel_attributes>checkUploadFile()
 lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
   </element>

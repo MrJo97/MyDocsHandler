@@ -99,6 +99,19 @@ public class DocumentoDaoImpl implements DocumentoDaoInterface{
        
     }
     
+    public List<Documento> getAllDocumentsByCustomer(Committente customer) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
+    	List<Documento> documents = null;
+    	try
+      	{
+    	documents = session.createQuery("FROM Documento WHERE idCommittente=" + customer.getIdCommittente(), Documento.class).getResultList();       
+      	}
+    	catch(NoResultException e)
+		{
+			System.out.println("lista vuota");
+		}
+    	return documents;
+    }
+    
     public List<Documento> searchDocuments(Documento document, Committente customer) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
     	List<Documento> documents = null;
     	try

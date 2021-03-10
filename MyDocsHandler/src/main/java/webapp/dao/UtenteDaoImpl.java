@@ -47,6 +47,21 @@ public class UtenteDaoImpl {
 		tx.commit();
 	}
 	
+	 public int findMaxId()
+	    {
+	    	int maxId = 0;
+	    		
+	    	try
+	    	{
+	    		maxId =	(Integer) session.createQuery("SELECT MAX(idUtente) FROM Utente").getSingleResult();//.g;et(0);
+	    	}
+	    	catch(NullPointerException e)
+			{
+				System.out.println("nessun match");
+			}
+	    	return maxId;
+	    }
+	
 	public Utente getUserByEmail(String email) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
     	
 		Utente user =null;

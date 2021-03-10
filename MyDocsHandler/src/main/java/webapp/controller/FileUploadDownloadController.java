@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import webapp.dao.CommittenteDaoInterface;
+//import webapp.dao.CommittenteDaoInterface;
 
 import webapp.model.*;
 import webapp.service.CustomerOperationsImpl;
@@ -32,12 +32,12 @@ public class FileUploadDownloadController {
 	private UserOperationsImpl userOperationsImpl;
 	private CustomerOperationsImpl customerOperationsImpl;
 
-	private ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", "daos.xml");
-	private CommittenteDaoInterface committenteDao;
+	private ApplicationContext context = new ClassPathXmlApplicationContext("services.xml");
+	//private CommittenteDaoInterface committenteDao;
 	
-	public void setCommittenteDao(CommittenteDaoInterface committenteDao) {
+	/*public void setCommittenteDao(CommittenteDaoInterface committenteDao) {
 		this.committenteDao = committenteDao;
-	}
+	}*/
 
 	public void setUserOperationsImpl(UserOperationsImpl userOperationsImpl) {
 		this.userOperationsImpl = userOperationsImpl;
@@ -95,7 +95,7 @@ public class FileUploadDownloadController {
 		//verifica della presenza del committente 
 		if((request.getParameter("selectRegisteredCustomer").equals("selectCustomer")))
 		{
-			customer = customerOperationsImpl.checkCfCustomer(request.getParameter("cf"));
+			customer = customerOperationsImpl.getCustomerByCf(request.getParameter("cf"));
 			if(customer == null)
 			{	//codice fiscale non corrispondente ad alcun committente 
 				customer = (Committente) context.getBean("committente");
@@ -140,8 +140,8 @@ public class FileUploadDownloadController {
 		
 		
 					
-		List<Documento> documents = user.getDocumenti();//null se è il primo
-		System.out.println("documenti associati all'utente:" + documents);
+		/*List<Documento> documents = user.getDocumenti();//null se è il primo
+		System.out.println("documenti associati all'utente:" + documents);*/
 		System.out.println("committente:" + customer);
 		// documento
 		MultipartFile file = (MultipartFile) appSession.getAttribute("file");
@@ -206,7 +206,7 @@ public class FileUploadDownloadController {
 			return model;**/
 
 		// permette di effettuare l'upload del file scelto dall'utente
-		userOperationsImpl.uploadFile((byte[]) appSession.getAttribute("bytes"), request, document.getPercorso());
+		Support.uploadFile((byte[]) appSession.getAttribute("bytes"), request, document.getPercorso());
 		
 
 		user = userOperationsImpl.retrieveUpdatedUser(user.getIdUtente());
@@ -223,8 +223,8 @@ public class FileUploadDownloadController {
 			throws Exception {
 		ModelAndView model = new ModelAndView("Homepage");
 
-		HttpSession appSession = request.getSession();
-		Utente user = (Utente) appSession.getAttribute("user");
+		//HttpSession appSession = request.getSession();
+		//Utente user = (Utente) appSession.getAttribute("user");
 		//Support.printAll(user);
 		
 		Documento doc = userOperationsImpl.getDocumentById(idDocumento);

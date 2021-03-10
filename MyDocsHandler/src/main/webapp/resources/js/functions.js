@@ -2,7 +2,7 @@
 	i simboli accettati per la password saranno
 	 @ ! # $ % ' - / = ^ \ _ ` { } ~ + e tutte le lettere accentate
 */
-function check_specialChars(password)
+/*function check_specialChars(password)
 {var regExp = /[\@\!\#\$\%\'\-\/\=\^\\\_\`\{\}\~\+\xE0\xE8\xE9\xF9\xF2\xEC\x27]{1,}/;//mi verifica se c'è almeno un carattere speciale
 	return regExp.test(password);
 }
@@ -14,16 +14,20 @@ function check_upperCaseChars(password)
 function check_number(password)
 {var regExp = /[0-9]{1,}/;//mi verifica se c'è un numero da 0 a 9
 	return regExp.test(password);
-}
+}*/
 
 //funzione per la verifica della password
 export function checkSecurityLevelPassword(password)
 {
 	console.log("invocato!");
-	var isThePasswordOk;
-	var isThereANumber = check_number(password);
-	var isThereASpecialChar = check_specialChars(password);
-	var isThereAnUpperCaseChar = check_upperCaseChars(password);
+	//var isThePasswordOk;
+	var regExp = /[\@\!\#\$\%\'\-\/\=\^\\\_\`\{\}\~\+\xE0\xE8\xE9\xF9\xF2\xEC\x27]{1,}/;//mi verifica se c'è almeno un carattere speciale
+	var regExp1 = /[A-Z]{1,}/;//mi verifica se c'è almeno una lettera maiuscola
+	var regExp2 = /[0-9]{1,}/;//mi verifica se c'è un numero da 0 a 9
+	
+	var isThereANumber = regExp2.test(password);
+	var isThereASpecialChar = regExp.test(password);
+	var isThereAnUpperCaseChar = regExp1.test(password);
     
 	//controllo della password
     if((password.length > 12 && password.length <= 60) && 
@@ -31,7 +35,7 @@ export function checkSecurityLevelPassword(password)
 		{       
     	$("#msgPassword").text("livello di sicurezza: ottimo");
     	$("#msgPassword").css("color", "#1C39BB");
-    	isThePasswordOk=true;
+    	//isThePasswordOk=true;
 		}
     else if(password.length <= 8 || (password.length > 8 && password.length <= 12 &&
     		((isThereANumber==false && isThereASpecialChar==false && isThereAnUpperCaseChar==false)||
@@ -42,52 +46,52 @@ export function checkSecurityLevelPassword(password)
     	{$("#msgPassword").text("livello di sicurezza: scarso");
     	$("#msgPassword").css("color", "#B20000"); 
     	$("#registration").prop('disabled', true);
-    	isThePasswordOk=false;
+    	//isThePasswordOk=false;
     	}
     else if(password.length>60)
     	{        	
     	$("#msgPassword").text("La password non può superare i 60 caratteri!");
     	$("#msgPassword").css("color", "red"); 
-    	isThePasswordOk=true;
+    	//isThePasswordOk=true;
     	}
     else 
     	{        	
     	$("#msgPassword").text("livello di sicurezza: buono");
     	$("#msgPassword").css("color", "#008000"); 
-    	isThePasswordOk=true;
+    	//isThePasswordOk=true;
     	}
-    return isThePasswordOk;
+   // return isThePasswordOk;
 }
 //funzione per la verifica della mail 
-export function checkEmail(email)
+/*export function checkEmail(email)
 {	
 	var regExp = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 	return regExp.test(email);
-}
-export function checkSimpleText(text)
+}*/
+/*-export function checkSimpleText(text)
 {//var regExp = /[a-zA-Z]{3,50}/;//mi verifica se c'è almeno una lettera maiuscola o minuscola
  var regExp = /[^a-zA-Z]/;//regExp1.test(text) restituisce true se è stato inserito almeno un carattere
  							//che non sia una lettera
 return !regExp.test(text);
-}
+}*/
 
-export function checkTel(tel)
+/*export function checkTel(tel)
 {//var regExp = /[a-zA-Z]{3,50}/;//mi verifica se c'è almeno una lettera maiuscola o minuscola
  var regExp = /[^0-9]/;//regExp1.test(text) restituisce true se è stato inserito almeno un carattere
  							//che non sia una lettera
  return !regExp.test(tel);
-}
-export function checkCf(cf)
+}*/
+/*export function checkCf(cf)
 {	
 	var regExp = /^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/;
 	return regExp.test(cf);
-}
-export function checkUsername(username)
+}*/
+/*export function checkUsername(username)
 {	
 	var regExp = /[^[a-zA-Z0-9@!#$%'\-/=^_`{}~+\xE0\xE8\xE9\xF9\xF2\xEC\x27]]/;
 	//regExp.test(username) è true quando username contiene anche uno solo dei caratteri non consentiti
 	return regExp.test(username);
-}
+}*/
 
 
 export function checkAllowedCharacters(event)
@@ -107,7 +111,9 @@ export function checkAllowedCharacters(event)
 
 export function checkFormatEmail()
 {	
-	if(!checkEmail($(this).val()))
+	var regExp = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	//return regExp.test($(this).val());
+	if(!regExp.test($(this).val()))
 	{
 		$("#msgEmail").text("Formato dell'email non valido!");
 		$("#msgEmail").css("color", "red");
@@ -154,7 +160,9 @@ export function checkFormatUsername()
 export function checkFormatCf()
 {
 	console.log("Lunghezza cf:" + $(this).val());
-	if(!checkCf($(this).val()))
+	var regExp = /^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/;
+	//return regExp.test($(this).val());
+	if(!regExp.test($(this).val()))
 	{
 		$("#msgCf").text("Formato non valido!");
 		$("#msgCf").css("color", "red");
@@ -174,7 +182,10 @@ export function checkFormatCf()
 export function checkFormatTel()
 {
 	console.log("Lunghezza telefono:" + $(this).val());
-	if(!checkTel($(this).val()))
+	 var regExp = /[^0-9]/;//regExp1.test(text) restituisce true se è stato inserito almeno un carattere
+		//che non sia una lettera
+//return !regExp.test($(this).val());
+	if(regExp.test($(this).val()))
 	{
 		$("#msgTel").text("Formato non valido!");
 		$("#msgTel").css("color", "red");
@@ -194,7 +205,9 @@ export function checkFormatTel()
 export function checkFormatSurname()
 {
 console.log("Lunghezza cognome:" + $(this).val());
-if(!checkSimpleText($(this).val()))
+var regExp = /[^a-zA-Z]/;
+//regExp.test($(this).val())
+if(regExp.test($(this).val()))
 {
 	$("#msgSurname").text("Formato cognome non valido!");
 	$("#msgSurname").css("color", "red");
@@ -213,12 +226,35 @@ else
 export function checkFormatName(number)
 {
 	console.log("Lunghezza nome:" + $("#name").val());
-	if(!checkSimpleText($("#name").val()))
+	 var regExp = /[^a-zA-Z]/;
+//return !regExp.test($("#name").val());
+	if(regExp.test($("#name").val()))
 	{
 		$("#msgName").text("Formato nome non valido!");
 		$("#msgName").css("color", "red");
 	}
 	else if($("#name").val().length<3 || $("#name").val().length>number)
+	{
+		$("#msgName").text("Il nome deve contenere un minimo di 3 caratteri ed un massimo di "+number+"!");
+		$("#msgName").css("color", "red");
+	}
+	else
+	{	
+		$("#msgName").text("");
+	}
+}
+
+export function checkFormatNameForFile()
+{
+	console.log("Lunghezza nome:" + $(this).val());
+	 var regExp = /[^a-zA-Z0-9\@\(\)\s\.\!\#\$\%\'\-\/\=\^\\\_\`\{\}\~\+\xE0\xE8\xE9\xF9\xF2\xEC\x27]/;
+//return !regExp.test($("#name").val());
+	if(regExp.test($(this).val()))
+	{
+		$("#msgName").text("Formato nome non valido!");
+		$("#msgName").css("color", "red");
+	}
+	else if($("#name").val().length<3 || $("#name").val().length>100)
 	{
 		$("#msgName").text("Il nome deve contenere un minimo di 3 caratteri ed un massimo di "+number+"!");
 		$("#msgName").css("color", "red");

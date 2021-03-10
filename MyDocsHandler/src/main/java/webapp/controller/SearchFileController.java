@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import webapp.dao.DocumentoDaoInterface;
-import webapp.model.Committente;
+
 import webapp.model.Documento;
 import webapp.model.Utente;
-import webapp.service.CustomerOperationsImpl;
+//import webapp.service.CustomerOperationsImpl;
 import webapp.service.UserOperationsImpl;
 
 @Controller
@@ -28,15 +27,15 @@ import webapp.service.UserOperationsImpl;
 public class SearchFileController
 {		
 		private UserOperationsImpl userOperationsImpl;
-		private CustomerOperationsImpl customerOperationsImpl;
+		//private CustomerOperationsImpl customerOperationsImpl;
 		
 		public void setUserOperationsImpl(UserOperationsImpl userOperationsImpl) {
 			this.userOperationsImpl = userOperationsImpl;
 		}
 		
-		public void setCustomerOperationsImpl(CustomerOperationsImpl customerOperationsImpl) {
+	/*	public void setCustomerOperationsImpl(CustomerOperationsImpl customerOperationsImpl) {
 			this.customerOperationsImpl = customerOperationsImpl;
-		}
+		}*/
 		
 		
 		@RequestMapping("/search")

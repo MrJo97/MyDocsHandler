@@ -1,4 +1,4 @@
-import { checkUsername, checkFormatUsername, checkFormatPasswordForLogin, checkAllowedCharacters } from './functions.js';
+import { /*checkUsername,*/ checkFormatUsername, checkFormatPasswordForLogin, checkAllowedCharacters } from './functions.js';
 $(document).ready(function()
 		{
 			var isThePasswordOk;

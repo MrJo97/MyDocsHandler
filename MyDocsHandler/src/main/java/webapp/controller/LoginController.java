@@ -31,17 +31,32 @@ public class LoginController {
 		ModelAndView model = new ModelAndView("Login");
 		return model;
 	}
-
 	
-	@RequestMapping("/loginUser")
+	@RequestMapping("/")
 	public ModelAndView loginUser(@ModelAttribute("utente") Utente user, HttpServletRequest request)
 			throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException,
 			SystemException {
-		System.out.println(user);
-		System.out.println(userOperationsImpl.checkUser(user));
-		ModelAndView model = new ModelAndView("HomePage");
 		
-		if (userOperationsImpl.checkUser(user) == null) {
+		/*System.out.println(user);
+		System.out.println("l'utente è già entrato:" + user==null);
+		System.out.println(userOperationsImpl.checkUser(user));*/
+		
+		ModelAndView model = new ModelAndView("HomePage");
+		HttpSession appSession = request.getSession();
+		
+		System.out.println("--------------------------");
+		System.out.println(appSession.getAttribute("user"));
+		System.out.println("l'utente è già entrato:" + (appSession.getAttribute("user")!=null));
+		
+		if(appSession.getAttribute("user")!=null){
+			System.out.println("Utente già loggato");
+			model.setViewName("HomePage");
+			model.addObject("destination", "homepage");
+			model.addObject("user", user);
+			return model;
+		}
+				
+		if (userOperationsImpl.checkUser(user) == null){
 			model.setViewName("Login");
 			model.addObject("msg", "Credenziali non valide");
 			model.addObject("user", user);
@@ -51,7 +66,7 @@ public class LoginController {
 			if (userOperationsImpl.checkUser(user).getPassword().equals(user.getPassword())) 
 			{
 				user = userOperationsImpl.checkUser(user);
-				HttpSession appSession = request.getSession();
+				
 				//List<Documento> documents = new ArrayList<Documento>();
 				//documents.addAll(user.getDocumenti()); //lazy initialization
 				//appSession.setAttribute("documents", documents);

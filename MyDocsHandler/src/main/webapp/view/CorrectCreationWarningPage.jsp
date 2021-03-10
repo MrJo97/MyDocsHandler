@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Avviso creazione profilo</title>
 </head>
 <body>
 <h2>Creazione del profilo avvenuta correttamente.</h2>

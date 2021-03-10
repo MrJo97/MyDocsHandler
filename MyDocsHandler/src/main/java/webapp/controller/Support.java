@@ -1,16 +1,24 @@
 package webapp.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.mail.SendFailedException;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.mail.MailSendException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +27,35 @@ import webapp.model.Documento;
 import webapp.model.Utente;
 
 public class Support {
+	
+	public static void uploadFile(byte[] bytes, HttpServletRequest request, String path) {
+		// caricamento del file nella cartella di archiviazione
+		// noi al momento la facciamo in un modo, ma in seguito
+		// procederemo in un'altra maniera (vedere se si può fare qualcosa con i bean)
+		try {
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			List<FileItem> fileItems = upload.parseRequest(request);
+			Iterator<FileItem> i = fileItems.iterator();
+			File file1;
+			while (i.hasNext()) {
+				FileItem fi = (FileItem) i.next();
+				if (!fi.isFormField()) {
+					// elemento i-esimo (NB: ogni elemento corrisponde ad un file)
+					file1 = new File(path);
+					fi.write(file1);
+				}
+			}
+			File uploadFile = new File(path);
+			BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(uploadFile));
+			outputStream.write(bytes);
+			outputStream.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 	
 	public static boolean find(int id, List<Utente> users)
 	{	boolean result = false;
@@ -71,14 +108,18 @@ public class Support {
 		return customer;
 	}
 	
-	public static Date getCurrentDate() {
+	public static Date getCurrentDate(){
+		
+		//SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy"); 
 		Calendar calendar = Calendar.getInstance();
-		      //Returns current time in millis
 		long dateInMill = calendar.getTimeInMillis();
-		
 		Date date = new Date(dateInMill);
+		/*Date parsed = (Date) sdf.parse(date.toString());
+		System.out.println(parsed);*/
+		    //Returns current time in millis
 		
-		System.out.println(date);
+		//Date date1 = new Date(cal.getTimeInMillis());
+	
 		
 		/**Calendar calendario = Calendar.getInstance();
 		int day = calendario.get(Calendar.DAY_OF_MONTH);

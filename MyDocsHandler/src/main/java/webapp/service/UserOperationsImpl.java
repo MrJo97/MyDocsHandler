@@ -31,7 +31,7 @@ import webapp.model.Committente;
 import webapp.model.Documento;
 import webapp.model.Utente;
 
-public class UserOperationsImpl implements UserOperationsInterface {
+public class UserOperationsImpl {
 
 	private JavaMailSender mailSender;
 	private UtenteDaoImpl utenteDao;
@@ -59,6 +59,14 @@ public class UserOperationsImpl implements UserOperationsInterface {
 	    documentoDao.getTransaction();
 		int id = documentoDao.findMaxId();
 		documentoDao.closeTransaction();
+		return id;
+	}
+	
+	public int getMaxIdUtente() throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
+	{	utenteDao.getSession();
+	    utenteDao.getTransaction();
+		int id = utenteDao.findMaxId();
+		utenteDao.closeTransaction();
 		return id;
 	}
 	
@@ -119,7 +127,8 @@ public class UserOperationsImpl implements UserOperationsInterface {
 		utenteDao.getSession();
 		utenteDao.getTransaction();
 		List<Utente> users = utenteDao.getAllUsers();
-		int idUser = Support.nextIdUser(users);// id dell'utente da registrare
+		int idUser = utenteDao.findMaxId();
+				//Support.nextIdUser(users);// id dell'utente da registrare
 		String email = user.getEmail();
 		String subject = "Registrazione Account - invio email automatica";
 		String text = "Per registrare il tuo account clicca sul seguente link: "
@@ -240,9 +249,9 @@ public class UserOperationsImpl implements UserOperationsInterface {
 		return model;
 	}*/
 
-	public void download(String absolutePath, HttpServletResponse response, Documento doc) {
+	public void download(String absolutePath, HttpServletResponse response, Documento doc) throws IOException {
 
-		try {
+		//try {
 			FileInputStream inStream = new FileInputStream(absolutePath);
 
 			// response.setContentType("application/zip");//modifico il MIME Type
@@ -268,13 +277,53 @@ public class UserOperationsImpl implements UserOperationsInterface {
 			out.flush();
 			out.close();
 			inStream.close();
-		} catch (IOException e) {
+		/*} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	public void delete(Documento doc, Utente user) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
+			documentoDao.getSession();
+			documentoDao.getTransaction();
+			List<Documento> docs = documentoDao.getAllDocumentsByCustomer(doc.getCommittente());
+			System.out.println(docs.size());
+			documentoDao.closeTransaction();
+			if(docs.size()==1)
+			{	
+				utenteDao.getSession();
+				utenteDao.getTransaction();
+				List<Committente> userCustomers = user.getCommittenti();
+				System.out.println(userCustomers);
+				System.out.println(doc.getCommittente());
+				for(int i =0; i<userCustomers.size();i++)
+				{
+					if(userCustomers.get(i).getIdCommittente()==doc.getCommittente().getIdCommittente())
+					userCustomers.remove(userCustomers.get(i));
+				}
+				user.setCommittenti(userCustomers);
+				utenteDao.updateUser(user);
+				utenteDao.closeTransaction();
+				
+				
+				Committente customer = doc.getCommittente();
+				committenteDao.getSession();
+				committenteDao.getTransaction();
+				List<Utente> customerUsers = customer.getUtenti();
+				System.out.println(customerUsers);
+				System.out.println(user);
+				for(int i =0; i<customerUsers.size();i++)
+				{
+					if(customerUsers.get(i).getIdUtente()==user.getIdUtente())
+						customerUsers.remove(customerUsers.get(i));
+				}
+				//customerUsers.remove(user);
+				customer.setUtenti(customerUsers);
+				committenteDao.updateCustomer(customer);
+				committenteDao.closeTransaction();
+				
+			}	
+		
 			documentoDao.getSession();
 			documentoDao.getTransaction();
 			documentoDao.deleteDocument(doc);
@@ -323,7 +372,6 @@ public class UserOperationsImpl implements UserOperationsInterface {
 			}
 			File uploadFile = new File(path);
 			BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(uploadFile));
-			;
 			outputStream.write(bytes);
 			outputStream.close();
 		} catch (Exception e) {

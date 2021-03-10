@@ -56,7 +56,7 @@
 <table id="table" >
 <tr><td>Email: </td><td><input type="text" name="email" id="email" value="${user.email}"/></td></tr>
 <tr><td>Password: </td><td><input type="password" id="password" name="password" value="${user.password}" /></td></tr>
-<tr><td colspan="2"><input type="submit" id="registration" value="Registrati" disabled/></td></tr>
+<tr><td colspan="2" align="center"><input type="submit" id="registration" value="Registrati" disabled/></td></tr>
 <!--onkeypress="return checkChars(event);"-->
 </table>
 <p style="color:red;">${msg}</p>

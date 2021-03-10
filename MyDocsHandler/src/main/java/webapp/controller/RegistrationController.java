@@ -27,10 +27,10 @@ import webapp.service.UserOperationsImpl;
 @Controller
 public class RegistrationController {
 	
-
+	//campo di esemplare
 	private UserOperationsImpl userOperationsImpl;	
 	
-	//setter methods for setter injection
+	//metodo setter per la setter injection
 	public void setUserOperationsImpl(UserOperationsImpl userOperationsImpl) {
 		this.userOperationsImpl = userOperationsImpl;
 	}
@@ -92,10 +92,10 @@ public class RegistrationController {
 			model.setViewName("AlreadyRegisteredUserWarningPage");
 			return model;
 		}	    
-		List<Documento> documents = new ArrayList<Documento>();
+		/*List<Documento> documents = new ArrayList<Documento>();
 		System.out.println(user.getCommittenti());
 		documents.addAll(user.getDocumenti());
-		appSession.setAttribute("documents", documents);
+		appSession.setAttribute("documents", documents);*/
 		appSession.setAttribute("user", user);
 		model.addObject("destination", "homepage");
 		model.addObject("user", user);

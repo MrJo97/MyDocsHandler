@@ -13,17 +13,6 @@
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>128</x>
-      <y>40</y>
-      <w>96</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>_:Registration.jsp_</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>72</x>
@@ -140,17 +129,6 @@ layer=-2</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>320</x>
-      <y>56</y>
-      <w>24</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>160</x>
       <y>56</y>
       <w>24</w>
       <h>80</h>

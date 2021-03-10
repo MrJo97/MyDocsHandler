@@ -1,7 +1,7 @@
 package webapp.controller;
 
 
-import java.util.List;
+//import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +22,7 @@ import webapp.model.Committente;
 import webapp.model.AggiornamentoCommittente;
 import webapp.model.Utente;
 import webapp.service.CustomerOperationsImpl;
-import webapp.service.UserOperationsImpl;
+//import webapp.service.UserOperationsImpl;
 
 @Controller
 @RequestMapping("/editCustomer")
@@ -60,8 +60,8 @@ public class EditCustomerController {
 	@RequestMapping("/catchIdCustomer{idCustomer}")
 	public ModelAndView catchIdCustomer(@PathVariable int idCustomer, HttpServletRequest request) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
 		ModelAndView model = new ModelAndView("EditCustomerPage");
-		HttpSession session = request.getSession();
-		Utente user = (Utente) session.getAttribute("user");
+		//HttpSession session = request.getSession();
+		//Utente user = (Utente) session.getAttribute("user");
 		//List<Committente> customers = user.getCommittenti();
 		//Committente customer = Support.getCustomerById(customers, idCustomer);
 		Committente customer = customerOperationsImpl.getCustomerById(idCustomer);
@@ -79,7 +79,7 @@ public class EditCustomerController {
 		Committente customer = customerOperationsImpl.getCustomerById(idCustomer);
 		updatingCustomer.setCommittente(customer);
 		
-		Committente customer1 = customerOperationsImpl.checkCfCustomer(request.getParameter("cf"));
+		Committente customer1 = customerOperationsImpl.getCustomerByCf(request.getParameter("cf"));
 		AggiornamentoCommittente updatingCustomer1 = customerOperationsImpl.getUpdatingCustomerByCf(updatingCustomer);
 		if(customer1 != null)
 		{

@@ -11,21 +11,19 @@ import javax.transaction.SystemException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import webapp.controller.Support;
+//import webapp.controller.Support;
 import webapp.dao.AggiornamentoCommittenteDaoImpl;
 import webapp.dao.CommittenteDaoImpl;
-import webapp.dao.DocumentoDaoImpl;
-import webapp.dao.UtenteDaoImpl;
+//import webapp.dao.DocumentoDaoImpl;
+//import webapp.dao.UtenteDaoImpl;
 import webapp.model.Committente;
 import webapp.model.AggiornamentoCommittente;
 import webapp.model.Documento;
 import webapp.model.Utente;
 
-public class CustomerOperationsImpl implements CustomerOperationsInterface {
+public class CustomerOperationsImpl {
 	
 	private JavaMailSender mailSender;
-	private UtenteDaoImpl utenteDao;
-	private DocumentoDaoImpl documentoDao;
 	private CommittenteDaoImpl committenteDao;
 	private AggiornamentoCommittenteDaoImpl aggiornamentoCommittenteDao;
 	
@@ -33,13 +31,13 @@ public class CustomerOperationsImpl implements CustomerOperationsInterface {
 		this.mailSender = mailSender;
 	}
 
-	public void setUtenteDao(UtenteDaoImpl utenteDao) {
+	/*public void setUtenteDao(UtenteDaoImpl utenteDao) {
 		this.utenteDao = utenteDao;
-	}
+	}*/
 
-	public void setDocumentoDao(DocumentoDaoImpl documentoDao) {
+	/*public void setDocumentoDao(DocumentoDaoImpl documentoDao) {
 		this.documentoDao = documentoDao;
-	}
+	}*/
 
 	public void setCommittenteDao(CommittenteDaoImpl committenteDao) {
 		this.committenteDao = committenteDao;
@@ -49,7 +47,7 @@ public class CustomerOperationsImpl implements CustomerOperationsInterface {
 		this.aggiornamentoCommittenteDao = aggiornamentoCommittenteDao;
 	}
 
-	public Committente checkCfCustomer(String cf) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
+	public Committente getCustomerByCf(String cf) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
 		
 		committenteDao.getSession();
 		committenteDao.getTransaction();

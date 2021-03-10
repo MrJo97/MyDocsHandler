@@ -1,4 +1,4 @@
-import { checkFormatCf, checkFormatName } from './functions.js';
+import { checkFormatCf, checkFormatNameForFile } from './functions.js';
 $(document).ready(function()
 {
 	var isTheDocSelected=false; //=true se il tipo di documento è stato scelto
@@ -15,7 +15,7 @@ $(document).ready(function()
 			
 	//form validation dei campi dati del documento
 		//nome file 
-		$("#name").on('change', function(){checkFormatName(100);});
+		$("#name").on('change', checkFormatNameForFile);
 
 				$("#description").on('input', function( event ) {
 					console.log($(this).val().length);	

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import webapp.model.Committente;
-import webapp.model.Utente;
+//import webapp.model.Utente;
 import webapp.service.CustomerOperationsImpl;
-import webapp.service.UserOperationsImpl;
+//import webapp.service.UserOperationsImpl;
 
 @Controller
 public class LoginProfileController {
@@ -39,7 +39,7 @@ public class LoginProfileController {
 			throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException,
 			SystemException {
 		System.out.println(customer);
-		System.out.println(customerOperationsImpl.checkCfCustomer(customer.getCf()));
+		System.out.println(customerOperationsImpl.getCustomerByCf(customer.getCf()));
 		ModelAndView model = new ModelAndView("CustomerProfilePage");
 		
 		if (customerOperationsImpl.checkUsernameCustomer(customer) == null) {

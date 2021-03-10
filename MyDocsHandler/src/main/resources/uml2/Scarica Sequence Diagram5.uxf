@@ -13,17 +13,6 @@
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>104</x>
-      <y>40</y>
-      <w>96</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>_:Registration.jsp_</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>48</x>
@@ -37,12 +26,12 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>216</x>
+      <x>176</x>
       <y>40</y>
-      <w>176</w>
+      <w>216</w>
       <h>24</h>
     </coordinates>
-    <panel_attributes>_:FileUploadDownloadController_</panel_attributes>
+    <panel_attributes>_:FileUploadDownloadController.java_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -140,17 +129,6 @@ layer=-2</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>296</x>
-      <y>56</y>
-      <w>24</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>136</x>
       <y>56</y>
       <w>24</w>
       <h>80</h>

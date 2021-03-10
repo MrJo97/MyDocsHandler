@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Pagina principale</title>
 <!-- <link
 	href="http://localhost:8080/MyDocsHandler/resources/css2/HomePageStyle.css"
 	rel="stylesheet" type="text/css" >-->
@@ -20,7 +20,7 @@
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.5.0.min.js'/>"></script>
 
-<spring:url value="/resources/css2/HomePageStyle.css" var="css" />
+<spring:url value="/resources/css/HomePageStyle.css" var="css" />
 <spring:url value="/resources/js/homePageFunctions.js" var="cic" />
 
 <script src="${jquery}"></script>

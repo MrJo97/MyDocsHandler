@@ -46,11 +46,11 @@
 <div id="container1">
 <div id="container2">
 <p>Se non sei ancora registrato clicca <a href="/MyDocsHandler/goToRegistrationForm.html">qui</a>.</p>
-<form action="/MyDocsHandler/loginUser" method="post">
+<form action="/MyDocsHandler/" method="post">
 <table id="table">
 <tr><td>Email: </td><td><input type="text" name="email" id="email" value="${user.email}"/></td></tr>
 <tr><td>Password: </td><td><input type="password" name="password" id="password" value="${user.password}"/></td></tr>
-<tr><td colspan="2"><input type="submit" id="login" value="Accedi" disabled/></td></tr>
+<tr><td colspan="2" align="center"><input type="submit" id="login" value="Accedi" disabled/></td></tr>
 </table>
 <p style="color:red;">${msg}</p>
 <div id="msgEmail"></div>

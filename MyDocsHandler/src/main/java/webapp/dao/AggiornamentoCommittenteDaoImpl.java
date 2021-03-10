@@ -14,7 +14,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import webapp.model.AggiornamentoCommittente;
-import webapp.model.Committente;
+//import webapp.model.Committente;
 
 
 @Component

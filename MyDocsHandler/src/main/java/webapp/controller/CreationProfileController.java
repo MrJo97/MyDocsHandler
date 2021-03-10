@@ -1,8 +1,8 @@
 package webapp.controller;
 
 
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import webapp.model.Committente;
-import webapp.model.Documento;
-import webapp.model.Utente;
+//import webapp.model.Documento;
+//import webapp.model.Utente;
 import webapp.service.CustomerOperationsImpl;
-import webapp.service.UserOperationsImpl;
+//import webapp.service.UserOperationsImpl;
 
 @Controller
 public class CreationProfileController {
@@ -50,12 +50,12 @@ public class CreationProfileController {
 	{	
 		System.out.println(customer);
 		ModelAndView model = new ModelAndView("HomePage"); 
-		System.out.println(customerOperationsImpl.checkCfCustomer(customer.getCf()));
-		if (customerOperationsImpl.checkCfCustomer(customer.getCf()) != null) 
+		System.out.println(customerOperationsImpl.getCustomerByCf(customer.getCf()));
+		if (customerOperationsImpl.getCustomerByCf(customer.getCf()) != null) 
 		{// utente già registrato
 			model.setViewName("NewCustomerProfilePage");
 			model.addObject("customer", customer);
-			if (customerOperationsImpl.checkCfCustomer(customer.getCf()).getStato().equals("in attesa"))
+			if (customerOperationsImpl.getCustomerByCf(customer.getCf()).getStato().equals("in attesa"))
 				model.addObject("msg", "Committente in attesa di registrazione");
 			else
 			{
@@ -90,7 +90,7 @@ public class CreationProfileController {
 	}
 
 	@RequestMapping("/RegisterCustomer{idCustomer}")
-	public ModelAndView registerUser(@PathVariable int idCustomer, HttpServletRequest request) throws SecurityException,
+	public ModelAndView registerCustomer(@PathVariable int idCustomer, HttpServletRequest request) throws SecurityException,
 			RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
 		
 		ModelAndView model = new ModelAndView("CorrectCreationWarningPage");

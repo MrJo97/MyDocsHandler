@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>6</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>36</x>
+      <x>40</x>
       <y>0</y>
-      <w>36</w>
-      <h>66</h>
+      <w>48</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>Utente</panel_attributes>
     <additional_attributes/>
@@ -15,10 +15,10 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>90</x>
-      <y>30</y>
-      <w>72</w>
-      <h>18</h>
+      <x>112</x>
+      <y>40</y>
+      <w>96</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>_:Registration.jsp_</panel_attributes>
     <additional_attributes/>
@@ -26,10 +26,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>114</x>
-      <y>42</y>
-      <w>18</w>
-      <h>126</h>
+      <x>144</x>
+      <y>56</y>
+      <w>24</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
@@ -37,10 +37,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>48</x>
-      <y>54</y>
-      <w>18</w>
-      <h>186</h>
+      <x>56</x>
+      <y>72</y>
+      <w>24</w>
+      <h>248</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;290.0</additional_attributes>
@@ -48,21 +48,21 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>180</x>
-      <y>30</y>
-      <w>120</w>
-      <h>18</h>
+      <x>232</x>
+      <y>40</y>
+      <w>160</w>
+      <h>24</h>
     </coordinates>
-    <panel_attributes>_:RegistrationController_</panel_attributes>
+    <panel_attributes>_:RegistrationController.java_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>234</x>
-      <y>42</y>
-      <w>18</w>
-      <h>270</h>
+      <x>304</x>
+      <y>56</y>
+      <w>24</w>
+      <h>360</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;430.0</additional_attributes>
@@ -70,10 +70,10 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>450</x>
-      <y>30</y>
-      <w>156</w>
-      <h>18</h>
+      <x>592</x>
+      <y>40</y>
+      <w>208</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>_:CorrectRegistrationWarningPage.jsp_</panel_attributes>
     <additional_attributes/>
@@ -81,10 +81,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>486</x>
-      <y>42</y>
-      <w>18</w>
-      <h>270</h>
+      <x>640</x>
+      <y>56</y>
+      <w>24</w>
+      <h>360</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;430.0</additional_attributes>
@@ -92,10 +92,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>48</x>
-      <y>78</y>
-      <w>84</w>
-      <h>24</h>
+      <x>56</x>
+      <y>104</y>
+      <w>112</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>inserimento dati
 lt=&lt;-</panel_attributes>
@@ -104,10 +104,10 @@ lt=&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>114</x>
-      <y>90</y>
-      <w>138</w>
-      <h>24</h>
+      <x>144</x>
+      <y>120</y>
+      <w>184</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>checkCredentials()
 lt=&lt;-</panel_attributes>
@@ -116,10 +116,10 @@ lt=&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>48</x>
-      <y>108</y>
-      <w>204</w>
-      <h>24</h>
+      <x>56</x>
+      <y>144</y>
+      <w>272</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>invio email di verifica 
 lt=&lt;-</panel_attributes>
@@ -128,10 +128,10 @@ lt=&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>48</x>
-      <y>216</y>
-      <w>204</w>
-      <h>24</h>
+      <x>56</x>
+      <y>288</y>
+      <w>272</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>registerUser()  
 lt=&lt;-</panel_attributes>
@@ -140,10 +140,10 @@ lt=&lt;-</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>6</x>
-      <y>60</y>
-      <w>444</w>
-      <h>144</h>
+      <x>0</x>
+      <y>80</y>
+      <w>592</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>*loop*
 layer=-2</panel_attributes>
@@ -152,10 +152,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>198</x>
-      <y>72</y>
-      <w>108</w>
-      <h>18</h>
+      <x>256</x>
+      <y>96</y>
+      <w>144</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>[email non valida]</panel_attributes>
     <additional_attributes/>
@@ -163,10 +163,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>114</x>
-      <y>144</y>
-      <w>138</w>
-      <h>24</h>
+      <x>144</x>
+      <y>192</y>
+      <w>184</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;return&gt;&gt;
 lt=&lt;.</panel_attributes>
@@ -175,10 +175,10 @@ lt=&lt;.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>234</x>
-      <y>174</y>
-      <w>156</w>
-      <h>24</h>
+      <x>304</x>
+      <y>232</y>
+      <w>208</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;return&gt;&gt;
 lt=&lt;.</panel_attributes>
@@ -187,10 +187,10 @@ lt=&lt;.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>372</x>
-      <y>42</y>
-      <w>18</w>
-      <h>156</h>
+      <x>488</x>
+      <y>56</y>
+      <w>24</w>
+      <h>208</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;240.0</additional_attributes>
@@ -198,10 +198,10 @@ lt=&lt;.</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>306</x>
-      <y>30</y>
-      <w>138</w>
-      <h>18</h>
+      <x>400</x>
+      <y>40</y>
+      <w>184</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>_:EmailDeliveryWarningPage.jsp_</panel_attributes>
     <additional_attributes/>
@@ -210,9 +210,9 @@ lt=&lt;.</panel_attributes>
     <id>UMLFrame</id>
     <coordinates>
       <x>24</x>
-      <y>126</y>
-      <w>408</w>
-      <h>72</h>
+      <y>168</y>
+      <w>544</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>*alt*
 layer=-2
@@ -227,10 +227,10 @@ layer=-2
   <element>
     <id>Text</id>
     <coordinates>
-      <x>198</x>
-      <y>126</y>
-      <w>108</w>
-      <h>18</h>
+      <x>256</x>
+      <y>168</y>
+      <w>144</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>[email non valida]</panel_attributes>
     <additional_attributes/>
@@ -238,10 +238,10 @@ layer=-2
   <element>
     <id>Text</id>
     <coordinates>
-      <x>210</x>
-      <y>168</y>
-      <w>42</w>
-      <h>18</h>
+      <x>272</x>
+      <y>224</y>
+      <w>56</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>[else]</panel_attributes>
     <additional_attributes/>
@@ -249,10 +249,10 @@ layer=-2
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>612</x>
-      <y>30</y>
-      <w>180</w>
-      <h>18</h>
+      <x>808</x>
+      <y>40</y>
+      <w>240</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>_:AlreadyRegisteredUserWarningPage.jsp_</panel_attributes>
     <additional_attributes/>
@@ -260,10 +260,10 @@ layer=-2
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>666</x>
-      <y>42</y>
-      <w>18</w>
-      <h>234</h>
+      <x>880</x>
+      <y>56</y>
+      <w>24</w>
+      <h>312</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;370.0</additional_attributes>
@@ -271,10 +271,10 @@ layer=-2
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>180</x>
-      <y>240</y>
-      <w>546</w>
-      <h>72</h>
+      <x>232</x>
+      <y>320</y>
+      <w>728</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>*alt*
 layer=-2
@@ -289,10 +289,10 @@ layer=-2
   <element>
     <id>Text</id>
     <coordinates>
-      <x>222</x>
-      <y>276</y>
-      <w>42</w>
-      <h>18</h>
+      <x>288</x>
+      <y>368</y>
+      <w>56</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>[else]</panel_attributes>
     <additional_attributes/>
@@ -300,10 +300,10 @@ layer=-2
   <element>
     <id>Text</id>
     <coordinates>
-      <x>204</x>
-      <y>240</y>
-      <w>108</w>
-      <h>18</h>
+      <x>264</x>
+      <y>320</y>
+      <w>144</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>[utente già registrato]</panel_attributes>
     <additional_attributes/>
@@ -311,10 +311,10 @@ layer=-2
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>234</x>
-      <y>252</y>
-      <w>450</w>
-      <h>24</h>
+      <x>304</x>
+      <y>336</y>
+      <w>600</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;return&gt;&gt;
 lt=&lt;.</panel_attributes>
@@ -323,10 +323,10 @@ lt=&lt;.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>234</x>
-      <y>288</y>
-      <w>270</w>
-      <h>24</h>
+      <x>304</x>
+      <y>384</y>
+      <w>360</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>&lt;&lt;return&gt;&gt;
 lt=&lt;.</panel_attributes>

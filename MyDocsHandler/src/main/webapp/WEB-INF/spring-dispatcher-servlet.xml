@@ -46,7 +46,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 <property name="host" value="smtp.gmail.com"/>
 <property name="port" value="587"/>
 <property name="username" value="tottibo818@gmail.com"/>
-<property name="password" value="impazzito"/>
+<property name="password" value="azzardo97"/>
 <property name="javaMailProperties">
  	<props>
  	 <prop key="mail.transport.protocol">smtp</prop>
@@ -122,9 +122,9 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 
 <bean id="customerOperationsImpl" class="webapp.service.CustomerOperationsImpl">
 	<property name="mailSender" ref="mailSender" />
-	<property name="utenteDao" ref="utenteDao" /><!-- setter injection nel campo di esemplare di Utentedao -->
+	<!-- <property name="utenteDao" ref="utenteDao" /> --><!-- setter injection nel campo di esemplare di Utentedao -->
 	<property name="committenteDao" ref="committenteDao" />
-	<property name="documentoDao" ref="documentoDao" />
+	<!-- <property name="documentoDao" ref="documentoDao" /> -->
 	<property name="aggiornamentoCommittenteDao" ref="aggiornamentoCommittenteDao" />
 </bean>
 <!-- Controllers -->

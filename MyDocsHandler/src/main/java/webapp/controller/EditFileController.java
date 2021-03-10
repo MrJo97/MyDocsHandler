@@ -1,6 +1,8 @@
 package webapp.controller;
 
 
+import java.io.File;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 
-import webapp.dao.DocumentoDaoImpl;
+//import webapp.dao.DocumentoDaoImpl;
 import webapp.model.Committente;
 import webapp.model.Documento;
 import webapp.model.Utente;
@@ -34,7 +36,7 @@ public class EditFileController {
 
 	private UserOperationsImpl userOperationsImpl;
 	private CustomerOperationsImpl customerOperationsImpl;
-	private DocumentoDaoImpl documentoDao;
+	//private DocumentoDaoImpl documentoDao;
 	//private CommittenteDaoImpl committenteDao;
 
 	
@@ -64,7 +66,9 @@ public class EditFileController {
 		model.addObject("user", user);
 		
 		// eliminazione del file nella cartella di storage
-		userOperationsImpl.deleteFile(absolutePath);
+		//userOperationsImpl.deleteFile(absolutePath);
+		File file = new File(absolutePath);
+		file.delete();
 
 		appSession.setAttribute("user", user);
 		/*List<Documento> documents = (List<Documento>) appSession.getAttribute("documents");
@@ -94,7 +98,7 @@ public class EditFileController {
 
 	@RequestMapping("/edit{idDocumento}")
 	public ModelAndView editFile(@PathVariable int idDocumento, @ModelAttribute("documento") Documento newdocument,
-			HttpServletRequest request) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
+			HttpServletRequest request) throws SecurityException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException, ParseException {
 		ModelAndView model = new ModelAndView("HomePage");
 		HttpSession appSession = request.getSession();
 		Utente user = (Utente) appSession.getAttribute("user");
@@ -106,7 +110,7 @@ public class EditFileController {
 		//verifica della presenza del committente 
 		if((request.getParameter("selectRegisteredCustomer").equals("selectCustomer")))
 		{
-			customer = customerOperationsImpl.checkCfCustomer(request.getParameter("cf"));
+			customer = customerOperationsImpl.getCustomerByCf(request.getParameter("cf"));
 			if(customer == null)
 			{	//codice fiscale non corrispondente ad alcun committente 
 				customer = (Committente) context.getBean("committente");
@@ -163,8 +167,8 @@ public class EditFileController {
 		Committente customer = committenteDao.getCustomerByCf(request.getParameter("cf"));
 		/**/
 		//List<Committente> customers = user.getCommittenti();
-		List<Documento> documents = user.getDocumenti();
-		System.out.println(documents);
+		/*List<Documento> documents = user.getDocumenti();
+		System.out.println(documents);*/
 		Documento olddocument = userOperationsImpl.getDocumentById(idDocumento);
 		
 		
@@ -183,8 +187,10 @@ public class EditFileController {
 		newdocument.setUtente(user);
 		
 		// rinomino il file  posso creare un metodo del tipo userOperationsImpl.uploadDocument()
-		    
-		userOperationsImpl.renameFile(curDir, newdocument.getPercorso(), olddocument.getPercorso());
+		//userOperationsImpl.renameFile(curDir, newdocument.getPercorso(), olddocument.getPercorso());
+		File f1 = new File(curDir + "/" + olddocument.getPercorso());
+		File f2 = new File(curDir + "/" + newdocument.getPercorso());
+		f1.renameTo(f2);
 		userOperationsImpl.updateDocument(newdocument);
 		//----------------//						
 		user = userOperationsImpl.retrieveUpdatedUser(user.getIdUtente());
